@@ -1,0 +1,207 @@
+<div class="container">
+  <div class="row selectHospital">
+    <div class="col-6 col-sm-8">
+       <h2>Hospital All</h2>
+    </div>
+    <div class="col-6 col-sm-4">
+      <a class="btn btn-primary float-right" data-toggle="modal"
+        data-target="#selectHospitalModal" data-placement="bottom" href="#">
+        Select hospital
+      </a>
+    </div>
+  </div><!-- Select hospital -->
+
+  <div id="selectHospitalModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg" role="content">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Select a Hospital</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form>
+          <div class="form-group row">
+    
+            <div class="col-12 col-sm-4 col-lg-3">
+              <select class="form-control" id="country2" name="country2" onchange="javascript:go_list2();">
+                <option value="Korea South">Korea South</option>
+              </select>  
+            </div>
+            <div class="col-12 col-sm-4 offset-lg-3 col-lg-3">
+              <select class="form-control" id="types4" name="types4" onchange="javascript:go_list2();">
+                <option value="typeAll">type-all</option>
+                <option>University</option>
+                <option>General</option>
+                <option>Normal hospital</option>
+                <option>Clinic</option>
+                <option>Korean Medicine</option>      
+              </select>
+            </div>
+            <div class="col-12 col-sm-4 col-lg-3">
+              <select class="form-control" id="subject2" name="subject2" onchange="javascript:go_list2();">
+                <option value="subjectAll">subject-all</option>
+                <option>가정의학과</option>
+                <option>내과</option>
+                <option>마취통증의학과</option>
+                <option>방사선종양학과</option>
+                <option>병리과</option>
+                <option>비뇨기과</option>
+                <option>산부인과</option>
+                <option>성형외과</option>
+                 <option>소아청소년과</option>
+                <option>신경과</option>
+                <option>신경외과</option>
+                <option>안과</option>
+                <option>영상의학과</option>
+                <option>>예방의학과</option>
+                <option>외과</option>
+                <option>응급의학과</option>
+                <option>이비인후과</option>
+                <option>임상약리학과</option>
+                <option>재활의학과</option>
+                <option>정신건강의학과</option>
+                <option>정형외과</option>
+                <option>진단검사의학과</option>
+                <option>피부가</option>
+                <option>흉부외과</option>            
+              </select>
+            </div>
+          </div>
+          </form>
+          <div class="row listbox-area">
+            <div class="col-12">
+              <div class="table-responsive">
+                <table class="table table-stripped">
+                  <thead class="thead-inverse">
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="row after-table-margin">
+            <div class="col-6">
+              <a role="button" class="btn btn-primary" href="#">Select all</a>
+            </div>
+            <div class="col-6 text-right">
+              <p id="parts2">0 / 0 Hospital</p>
+            </div> 
+          </div>
+        </div>
+          
+        <div class="modal-footer text-center">
+          <div class="col-md justify-content-center">
+            <button type="button" class="btn btn-primary">Done</button>
+            <button type="submit" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- selectHospitalModal -->
+
+  <div class="row form-group orderOption">
+    <div class="col-12 col-sm-12 col-md-3">
+      <select class="form-control">
+        <option value="">Registration</option>
+        <option value="1">Age↑</option>
+        <option value="2">Age↓</option>
+        <option value="3">Weight↑</option>
+        <option value="4">Weight↓</option>
+        <option value="5">Apex angle↑</option>
+        <option value="6">Apex angle↓</option>
+      </select>
+    </div>  
+    <div class="col-12 col-sm-6 offset-md-1 col-md-2">
+      <select class="form-control">
+        <option value="">Sex-all</option>
+        <option value="">all</option>
+        <option value="M">M only</option>
+        <option value="F">F only</option>
+      </select>
+    </div>
+    <div class="col-12 col-sm-6 col-md-2">
+      <select class="form-control">
+        <option value="">Type-all</option>
+        <option value="">all</option>
+        <option value="MT">MT</option>
+        <option value="TL">TL</option>
+        <option value="DT">DT</option>  
+      </select>
+    </div>
+    <div class="col-12 col-sm-6 col-md-2">
+      <select class="form-control">
+        <option value="">Risser-all</option>
+        <option value="">all</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </div>
+    <div class="col-12 col-sm-6 col-md-2">
+      <select class="form-control">
+        <option value="">Stage-all</option>
+        <option value="">all</option>
+        <option value="1">mild</option>
+        <option value="2">moderate</option>
+        <option value="3">severe</option>
+      </select>
+    </div>
+  </div><!-- row Order Option -->
+
+  <div class="row listbox-area">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-stripped table-font">
+          <thead class="thead-inverse">
+            <tr>
+              <th><input type="checkbox" name="chk_list_all" id="chk_list_all" onclick="javascript:check_all();"></th>
+              <th>ID</th>
+              <th>Birthday</th>
+              <th>Height</th>
+              <th>Weight</th>
+              <th>Sex</th>
+              <th>Type</th>
+              <th>Risser</th>
+              <th>Apex1</th>
+              <th>Apex2</th>
+              <th>First visit</th>
+              <th>Recent visit</th>  
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let patient of patients">
+              <td><input type="checkbox"></td>
+              <td>{{patient.patientId}}</td>
+              <td>{{patient.birthday}}</td>
+              <td>{{patient.height}}</td>
+              <td>{{patient.weight}}</td>
+              <td>{{patient.sex}}</td>
+              <td>{{patient.type}}</td>
+              <td>{{patient.risser}}</td>
+              <td>{{patient.apex1}}</td>
+              <td>{{patient.apex2}}</td>
+              <td>{{patient.fitstVisit}}</td>
+              <td>{{patient.recentVisit}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="row after-table-margin">
+    <div class="col-12 col-sm-6 col-md-2">
+      <a role="button" class="btn btn-primary btn-block" href="javascript:v_edit();">EDIT</a>
+    </div>
+    <div class="col-12 col-sm-6 col-md-2">
+      <a role="button" class="btn btn-primary btn-block" href="javascript:v_on();">REMOVE</a>
+    </div>
+    <div class="col-md">
+    </div>
+    <div class="col-12 col-sm-12 col-md-2 float-right">
+      {{numPatientsInTable}} / {{numAllPatients}} Patients
+    </div> 
+  </div><!-- row table-edit -->
+</div><!-- container -->

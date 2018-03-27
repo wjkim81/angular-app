@@ -1,1 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'variables';
+@import '../node_modules/bootstrap/scss/bootstrap';
+
+// Set footer at the bottom all the time
+// https://codepen.io/cbracco/pen/zekgx
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  padding-bottom: 6rem;
+  min-height: 100%;
+  padding: 100px 0px 0px 0px;
+  z-index: 0;
+}
+
+.wax {width:100%;height:100%;
+	background: url("/static/img/mains.jpg");
+	height: 100%;
+}
+
+.login-area { padding-top:200px; width:100%; height:100%; }
+.login-box { margin:0 auto; padding:50px 0; text-align:center; }
+.login-box h1 { color:#000; font-style:italic; font-weight:bold; font-size:46px; }
+.login-box h4 { font-size:24px; }
+.login-box .input-group-addon { background-color:transparent; }
+.login-box .input-group-addon i { font-size:22px; padding:0 10px; }
+
+
+.boarder-solid {
+  border: 1px solid #ccc;
+}
