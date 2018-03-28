@@ -14,7 +14,9 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
+import { ListHoispitalsComponent } from './admin/list-hoispitals/list-hoispitals.component';
 import { RegisterHospitalComponent } from './admin/register-hospital/register-hospital.component';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { RegisterHospitalComponent } from './admin/register-hospital/register-ho
     NavbarComponent,
     FooterComponent,
     AdminHomeComponent,
-    RegisterHospitalComponent
+    RegisterHospitalComponent,
+    ListHoispitalsComponent
   ],
   imports: [
     BrowserModule,

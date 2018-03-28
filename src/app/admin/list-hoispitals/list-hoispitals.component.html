@@ -1,0 +1,76 @@
+<div class="container">
+  <div class="row form-group orderOption">
+    <div class="col-12 col-sm-12 col-md-3">
+      <select class="form-control">
+        <option value="">South Korea</option>
+      </select>
+    </div>  
+    <div class="col-12 col-sm-6 offset-md-5 col-md-2">
+      <select class="form-control">
+        <option value="">Type-all</option>
+        <option value="">all</option>
+        <option value="MT">MT</option>
+        <option value="TL">TL</option>
+        <option value="DT">DT</option>  
+      </select>
+    </div>
+    <div class="col-12 col-sm-6 col-md-2">
+      <select class="form-control">
+        <option value="">Subject-all</option>
+        <option value="">all</option>
+        <option value="1">mild</option>
+        <option value="2">moderate</option>
+        <option value="3">severe</option>
+      </select>
+    </div>
+  </div><!-- row Order Option -->
+
+  <div class="row listbox-area">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-stripped">
+          <thead class="thead-inverse">
+            <tr>
+              <th><input type="checkbox" name="chk_list_all" id="chk_list_all" onclick="javascript:check_all();"></th>
+              <th>Name</th>
+              <th>Subject</th>
+              <th>Type</th>
+              <th>Country</th>
+              <th>City</th>
+              <th>Location</th>
+              <th># of patients</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Kim</th>
+              <td>15</td>
+              <td>30</td>
+              <td>40</td>
+              <td>3</td>
+              <td>15000</td>
+              <td>45000</td>
+              <td>100,000</td>
+              <td>6</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row after-table-margin">
+    <div class="col-12 col-sm-6 col-md-2">
+      <a role="button" class="btn btn-primary btn-block" href="javascript:v_edit();">EDIT</a>
+    </div>
+    <div class="col-12 col-sm-6 col-md-2">
+      <a role="button" class="btn btn-primary btn-block" href="javascript:v_on();">REMOVE</a>
+    </div>
+    <div class="col-md">
+    </div>
+    <div class="col-12 col-sm-12 col-md-2 float-right">
+      <$ numAllPatients $> / <$ numAllHospitals $>
+    </div> 
+  </div><!-- row table-edit -->
+</div><!-- container -->

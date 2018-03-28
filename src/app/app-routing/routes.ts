@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { AdminHomeComponent } from '../admin/admin-home/admin-home.component';
+import { ListHoispitalsComponent } from '../admin/list-hoispitals/list-hoispitals.component';
 import { RegisterHospitalComponent } from '../admin/register-hospital/register-hospital.component';
 
 /*
@@ -9,6 +10,7 @@ import { RegisterHospitalComponent } from '../admin/register-hospital/register-h
  */
 export const routes: Routes = [
   {path: 'admin', component: AdminHomeComponent},
+  {path: 'list-hospitals', component: ListHoispitalsComponent},
   {path: 'register-hospital', component: RegisterHospitalComponent},
   {path: '', redirectTo: '/admin', pathMatch: 'full'}
 ]
