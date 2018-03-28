@@ -7,30 +7,30 @@ import 'hammerjs';
  * https://ng-bootstrap.github.io/#/home
  * https://auth0.com/blog/real-world-angular-series-part-1/
  */
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+//import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { AppRoutingModule } from './app-routing/app-routing.module';
 
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { FooterComponent } from './footer/footer.component';
-import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
-import { ListHoispitalsComponent } from './admin/list-hoispitals/list-hoispitals.component';
-import { RegisterHospitalComponent } from './admin/register-hospital/register-hospital.component';
+//import { NavbarComponent } from './navbar/navbar.component';
+//import { FooterComponent } from './footer/footer.component';
+
+import { AdminModule } from './admin/admin.module';
+//import { UserHomeComponent } from './user/user-home/user-home.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
-    FooterComponent,
-    AdminHomeComponent,
-    RegisterHospitalComponent,
-    ListHoispitalsComponent
+    //UserHomeComponent//,
+    //NavbarComponent,
+    //FooterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule.forRoot()
+    AdminModule//,
+    //NgbModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

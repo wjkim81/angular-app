@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListHoispitalsComponent implements OnInit {
 
+  numAllPatients: number;
+  numAllHospitals: number;
+
   constructor() { }
 
   ngOnInit() {
+    this.numAllPatients = 100;
+    this.numAllHospitals = 5;
   }
 
 }

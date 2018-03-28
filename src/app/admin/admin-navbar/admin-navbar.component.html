@@ -1,0 +1,25 @@
+<nav class="navbar navbar-expand-sm navbar-light admin-navbar-bg fixed-top">
+  <div class="container">    
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggler" aria-expanded="false" (click)="navbarCollapsed = !navbarCollapsed">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" routerLink="/admin" (click)="navbarCollapsed = true"><img src="/assets/images/mail_logo1.jpg" style="width:60%"></a>
+    </div>
+    
+    <div class="collapse navbar-collapse" [ngbCollapse]="navbarCollapsed" id="navbarContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" routerLinkActive="active"><a class="nav-link" routerLink="/admin/home"> List Patients</a></li>
+        <li class="nav-item" routerLinkActive="active"><a class="nav-link" routerLink="/admin/list-hospitals"> List Hospitals</a></li>
+        <!--<li class="nav-item" routerLinkActive="active"><a class="nav-link" routerLink="#"> Register a Patient</a></li>-->
+        <li class="nav-item" routerLinkActive="active"><a class="nav-link" routerLink="/admin/register-hospital"> Register a Hospital</a></li>
+        <!--<li class="nav-item" routerLinkActive="active"><a class="nav-link" routerLink="#"> My info</a></li>-->
+        <li class="nav-item" routerLinkActive="active"><a class="nav-link" routerLink="/admin/#"><span class="fa fa-sign-out"></span> Logout</a></li>
+      </ul>
+      <span class="navbar-text">
+        {{admin}} 님 환영합니다.
+      </span>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- container -->
+</nav><!-- nav -->
