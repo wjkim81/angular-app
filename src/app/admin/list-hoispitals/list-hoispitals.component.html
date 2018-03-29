@@ -2,25 +2,19 @@
   <div class="row form-group orderOption">
     <div class="col-12 col-sm-12 col-md-3">
       <select class="form-control">
-        <option value="">South Korea</option>
+        <option *ngFor="let country of countries">{{country}}</option>
       </select>
     </div>  
     <div class="col-12 col-sm-6 offset-md-5 col-md-2">
       <select class="form-control">
-        <option value="">Type-all</option>
-        <option value="">all</option>
-        <option value="MT">MT</option>
-        <option value="TL">TL</option>
-        <option value="DT">DT</option>  
+        <option value="">Type all</option>
+        <option *ngFor="let type of types">{{type}}</option>
       </select>
     </div>
     <div class="col-12 col-sm-6 col-md-2">
       <select class="form-control">
-        <option value="">Subject-all</option>
-        <option value="">all</option>
-        <option value="1">mild</option>
-        <option value="2">moderate</option>
-        <option value="3">severe</option>
+        <option value="">Subject all</option>
+        <option *ngFor="let subject of subjects">{{subject}}</option>
       </select>
     </div>
   </div><!-- row Order Option -->

@@ -1,6 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+//import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+
 import 'hammerjs';
 
 /*
@@ -12,24 +15,23 @@ import 'hammerjs';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 
 import { AppComponent } from './app.component';
-//import { NavbarComponent } from './navbar/navbar.component';
-//import { FooterComponent } from './footer/footer.component';
 
 import { AdminModule } from './admin/admin.module';
-//import { UserHomeComponent } from './user/user-home/user-home.component';
+import { UserModule } from './user/user.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     //UserHomeComponent//,
-    //NavbarComponent,
-    //FooterComponent
   ],
   imports: [
     BrowserModule,
+    //FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
-    AdminModule//,
+    AdminModule,
+    UserModule
     //NgbModule.forRoot()
   ],
   providers: [],
