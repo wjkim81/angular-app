@@ -1,73 +1,85 @@
 <div class="container">
-  <p>{{memberForm.value | json}}</p>
+  <p>memberForm.value: {{memberForm.value | json}}</p>
+  <p>formErrors: {{formErrors | json}}</p>
+  <p>memberForm.valid: {{memberForm.valid}}</p>
   <div class="row">
     <form class="col-12 text-right" novalidate [formGroup]="memberForm"  (ngSubmit)="submitMember()">
 
-      <div class="row align-items-center mb-3">
+      <div class="form-group row align-items-center mb-3">
         <label for="id" class="col-12 offset-sm-2 col-sm-2 col-form-label">ID*</label>
         <div class="col-12 col-sm-6">
-            <input type="text" class="form-control" id="id" placeholder="Enter ID" formControlName="id">
+            <input type="text" class="form-control {{(formErrors.id) ? 'is-invalid' : ''}}" id="id" placeholder="Enter ID" formControlName="id">
+            <div class="invalid-feedback">{{formErrors.id}}</div>
         </div>
       </div>
 
-      <div class="row align-items-center mb-3">
+      <div class="form-group row align-items-center mb-3">
         <label for="password" class="col-12 offset-sm-2 col-sm-2 col-form-label">Enter password*</label>
          <div class="col-12 col-sm-2">
-            <input type="password" class="form-control" id="password" formControlName="password">
+            <input type="password" class="form-control {{(formErrors.password) ? 'is-invalid' : ''}}" id="password" formControlName="password">
+            <div class="invalid-feedback">{{formErrors.password}}</div>
         </div>
         <label for="confirmPassword" class="col-12 col-sm-2 col-form-label">Confirm password*</label>
          <div class="col-12 col-sm-2">
-            <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword">
+            <input type="password" class="form-control {{(formErrors.confirmPassword) ? 'is-invalid' : ''}}" id="confirmPassword" formControlName="confirmPassword">
+            <div class="invalid-feedback">{{formErrors.confirmPassword}}</div>
         </div>
       </div>
 
-      <div class="row align-items-center mb-3">
+      <div class="form-group row align-items-center mb-3">
         <label for="firstname" class="col-12 offset-sm-2 col-sm-2 col-form-label">First Name*</label>
         <div class="col-12 col-sm-2">
-          <input type="text" class="form-control" id="firstname" formControlName="firstname">
+          <input type="text" class="form-control {{(formErrors.firstname) ? 'is-invalid' : ''}}" id="firstname" formControlName="firstname">
+            <div class="invalid-feedback">{{formErrors.firstname}}</div>
         </div>
         <label for="lastname" class="col-12 col-sm-2 col-form-label">Last Name*</label>
         <div class="col-12 col-sm-2">
-          <input type="text" class="form-control" id="lastname" formControlName="lastname">
+          <input type="text" class="form-control {{(formErrors.lastname) ? 'is-invalid' : ''}}" id="lastname" formControlName="lastname">
+            <div class="invalid-feedback">{{formErrors.lastname}}</div>
         </div>
       </div>
 
-      <div class="row align-items-center mb-3">
+      <div class="form-group row align-items-center mb-3">
         <label for="type" class="col-12 offset-sm-2 col-sm-2 col-form-label">Type*</label>
         <div class="col-12 col-sm-2">
-          <select type="text" id="type" class="form-control" formControlName="type">
+          <select id="type" class="form-control {{(formErrors.type) ? 'is-invalid' : ''}}" formControlName="type">
             <option *ngFor="let type of types" [value]="type">{{type}}</option>
+            <div class="invalid-feedback">{{formErrors.type}}</div>
           </select>
         </div>
         <label for="subject" class="col-12 col-sm-2 col-form-label">Subject*</label>
         <div class="col-12 col-sm-2">
-          <select type="text" id="subject" class="form-control" formControlName="subject">
+          <select id="subject" class="form-control {{(formErrors.subject) ? 'is-invalid' : ''}}" formControlName="subject">
             <option *ngFor="let subject of subjects" [value]="subject">{{subject}}</option>
+            <div class="invalid-feedback">{{formErrors.subject}}</div>
           </select>
         </div>
       </div>
 
-      <div class="row align-items-center mb-3">
+      <div class="form-group row align-items-center mb-3">
         <label for="country" class="col-12 offset-sm-2 col-sm-2 col-form-label">Country*</label>
         <div class="col-12 col-sm-2">
-          <select type="text" id="country" class="form-control" formControlName="country">
+          <select id="country" class="form-control {{(formErrors.country) ? 'is-invalid' : ''}}" formControlName="country">
             <option *ngFor="let country of countries" [value]="country">{{country}}</option>
+            <div class="invalid-feedback">{{formErrors.country}}</div>
           </select>
         </div>
         <label for="city" class="col-12 col-sm-2 col-form-label">City*</label>
         <div class="col-12 col-sm-2">
-          <input type="text" class="form-control" d="city" formControlName="city">
+          <input type="text" class="form-control {{(formErrors.city) ? 'is-invalid' : ''}}" id="city" formControlName="city">
+          <div class="invalid-feedback">{{formErrors.city}}</div>
         </div>
       </div>
 
-      <div class="row align-items-center mb-3">
+      <div class="form-group row align-items-center mb-3">
         <label for="location1" class="col-12 offset-sm-2 col-sm-2 col-form-label">Location1*</label>
         <div class="col-12 col-sm-6">
-          <input type="text" class="form-control" id="location1" formControlName="location1">
+          <input type="text" class="form-control {{(formErrors.location1) ? 'is-invalid' : ''}}" id="location1" formControlName="location1">
+          <div class="invalid-feedback">{{formErrors.location1}}</div>
         </div>
       </div>
 
-      <div class="row align-items-center mb-3">
+      <div class="form-group row align-items-center mb-3">
         <label for="location2" class="col-12 offset-sm-2 col-sm-2 col-form-label">Location2</label>
         <div class="col-12 col-sm-2">
           <input type="text" class="form-control" id="location2" formControlName="location2">
@@ -78,21 +90,23 @@
         </div>
       </div>
 
-      <div class="row align-items-center mb-3">
+      <div class="form-group row align-items-center mb-3">
         <label for="managerName" class="col-12 offset-sm-2 col-sm-2 col-form-label">Manager Name</label>
         <div class="col-12 col-sm-6">
           <input type="text" class="form-control" id="managerName" formControlName="managerName">
         </div>
       </div>
 
-      <div class="row align-items-center mb-3">
+      <div class="form-group row align-items-center mb-3">
         <label for="phoneNum" class="col-12 offset-sm-2 col-sm-2 col-form-label">Phone number*</label>
         <div class="col-12 col-sm-2">
-          <input type="text" class="form-control" id="phoneNum" formControlName="phoneNum">
+          <input type="text" class="form-control {{(formErrors.phoneNum) ? 'is-invalid' : ''}}" id="phoneNum" formControlName="phoneNum">
+          <div class="invalid-feedback">{{formErrors.phoneNum}}</div>
         </div>
         <label for="mobileNum" class="col-12 col-sm-2 col-form-label">Mobile number*</label>
         <div class="col-12 col-sm-2">
-          <input type="text" class="form-control" id="mobileNum" formControlName="mobileNum">
+          <input type="text" class="form-control {{(formErrors.mobileNum) ? 'is-invalid' : ''}}" id="mobileNum" formControlName="mobileNum">
+          <div class="invalid-feedback">{{formErrors.mobileNum}}</div>
         </div>
       </div>
 
