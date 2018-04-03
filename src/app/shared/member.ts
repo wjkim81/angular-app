@@ -1,15 +1,15 @@
 export class Member {
-  id: number;
+  id: string;
   password: string;
   firstname: string;
-  lasttname: string;
+  lastname: string;
   role: string;
   subject: string;
   type: string;
   country: string;
   city: string;
-  location1: string;
-  location2: string;
+  address: string;
+  institution: string;
   postCode: string;
   managerName: string;
   phoneNum: string;

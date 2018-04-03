@@ -3,7 +3,7 @@
   <p>formErrors: {{formErrors | json}}</p>
   <p>memberForm.valid: {{memberForm.valid}}</p>
   <div class="row">
-    <form class="col-12 text-right" novalidate [formGroup]="memberForm"  (ngSubmit)="submitMember()">
+    <form class="col-12 text-right" novalidate [formGroup]="memberForm" (ngSubmit)="submitMember()" *ngIf=!(showInfo)>
 
       <div class="form-group row align-items-center mb-3">
         <label for="id" class="col-12 offset-sm-2 col-sm-2 col-form-label">ID*</label>
@@ -72,21 +72,21 @@
       </div>
 
       <div class="form-group row align-items-center mb-3">
-        <label for="location1" class="col-12 offset-sm-2 col-sm-2 col-form-label">Location1*</label>
+        <label for="address" class="col-12 offset-sm-2 col-sm-2 col-form-label">address*</label>
         <div class="col-12 col-sm-6">
-          <input type="text" class="form-control {{(formErrors.location1) ? 'is-invalid' : ''}}" id="location1" formControlName="location1">
-          <div class="invalid-feedback">{{formErrors.location1}}</div>
+          <input type="text" class="form-control {{(formErrors.address) ? 'is-invalid' : ''}}" id="address" formControlName="address">
+          <div class="invalid-feedback">{{formErrors.address}}</div>
         </div>
       </div>
 
       <div class="form-group row align-items-center mb-3">
-        <label for="location2" class="col-12 offset-sm-2 col-sm-2 col-form-label">Location2</label>
+        <label for="institution" class="col-12 offset-sm-2 col-sm-2 col-form-label">institution</label>
         <div class="col-12 col-sm-2">
-          <input type="text" class="form-control" id="location2" formControlName="location2">
+          <input type="text" class="form-control" id="institution" formControlName="institution">
         </div>
-        <label for="postalCode" class="col-12 col-sm-2 col-form-label">Postal code</label>
+        <label for="postCode" class="col-12 col-sm-2 col-form-label">Post code</label>
         <div class="col-12 col-sm-2">
-          <input type="text" class="form-control" id="postalCode" formControlName="postalCode">
+          <input type="text" class="form-control" id="postCode" formControlName="postCode">
         </div>
       </div>
 
@@ -118,5 +118,25 @@
         </div>
       </div>
     </form>
+
+    <div *ngIf="showInfo">
+      <h3>New member information</h3>
+      <p>ID: {{newMember.id}}</p>
+      <p>Password: {{newMember.password}}</p>
+      <p>First Name: {{newMember.firstname}}</p>
+      <p>Last Name: {{newMember.lastname}}</p>
+      <p>Type: {{newMember.type}}</p>
+      <p>Subject: {{newMember.subject}}</p>
+      <p>Country: {{newMember.country}}</p>
+      <p>City: {{newMember.city}}</p>
+      <p>Location 1: {{newMember.address}}</p>
+      <p>Location 2: {{newMember.institution}}</p>
+      <p>Postal Code: {{newMember.postalCode}}</p>
+      <p>Manager Name: {{newMember.manaerName}}</p>
+      <p>Phone Num.: {{newMember.phoneNum}}</p>
+      <p>Mobile Num.: {{newMember.mobileNum}}</p>
+    </div>
+
   </div>
+
 </div><!-- container -->

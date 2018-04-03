@@ -25,6 +25,8 @@ export class RegisterMemberComponent implements OnInit {
   memberForm: FormGroup;
   errMess: string;
 
+  showInfo: boolean;
+
   formErrors = {
     'id': '',
     'password': '',
@@ -35,7 +37,7 @@ export class RegisterMemberComponent implements OnInit {
     'subject': '',
     'country': '',
     'city': '',
-    'location1': '',
+    'address': '',
     'phoneNum': '',
     'mobileNum': ''
   };
@@ -71,7 +73,7 @@ export class RegisterMemberComponent implements OnInit {
     'city': {
       'required': 'City is required.',
     },
-    'location1': {
+    'address': {
       'required': 'Address is required.',
     },
     'phoneNum': {
@@ -96,6 +98,7 @@ export class RegisterMemberComponent implements OnInit {
 
     //console.log(this.BaseURL);
     this.createForm();
+    this.showInfo = false;
   }
 
   createForm() {
@@ -109,9 +112,9 @@ export class RegisterMemberComponent implements OnInit {
       subject: [this.subjects[0], Validators.required],
       country: [this.countries[0], Validators.required],
       city: ['', Validators.required],
-      location1: ['', Validators.required],
-      location2: '',
-      postalCode: '',
+      address: ['', Validators.required],
+      institution: '',
+      postCode: '',
       managerName: '',
       phoneNum: ['', Validators.required],
       mobileNum: ['', Validators.required]
@@ -149,6 +152,33 @@ export class RegisterMemberComponent implements OnInit {
     this.newMember = this.memberForm.value;
     console.log(this.newMember);
 
+    this.showInfo = true;
+
+    setTimeout(() => {
+      
+      this.memberForm.reset({
+        id: '',
+        password: '',
+        confirmPassword: '',
+        firstname: '',
+        lastname: '',
+        type: this.types[0],
+        subject: this.subjects[0],
+        country: this.countries[0],
+        city: '',
+        address: '',
+        institution: '',
+        postCode: '',
+        managerName: '',
+        phoneNum: '',
+        mobileNum: ''
+      });
+
+      this.showInfo = false;
+    
+    }, 5000);
+
+    /*
     this.memberForm.reset({
       id: '',
       password: '',
@@ -159,12 +189,13 @@ export class RegisterMemberComponent implements OnInit {
       subject: this.subjects[0],
       country: this.countries[0],
       city: '',
-      location1: '',
-      location2: '',
+      address: '',
+      institution: '',
       postalCode: '',
       managerName: '',
       phoneNum: '',
       mobileNum: ''
     });
+    */
   }
 }

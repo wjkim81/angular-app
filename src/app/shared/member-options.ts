@@ -21,7 +21,7 @@ export const SUBJECTS: string[] = [
   '정신건강의학과',
   '정형외과',
   '진단검사의학과',
-  '피부가',
+  '피부과',
   '흉부외과'
 ];
 
@@ -30,10 +30,10 @@ export const TYPES: string[] = [
   'General',
   'Normal hospital',
   'Clinic',
-  'Korean Medicine',
+  'Korean medicine',
 ];
 
 export const COUNTRIES: string[] = [
   'South Korea',
   'Japan'
-]
+];

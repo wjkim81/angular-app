@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
   <div class="row form-group orderOption">
     <div class="col-12 col-sm-12 col-md-3">
       <select class="form-control">
@@ -22,31 +22,37 @@
   <div class="row listbox-area">
     <div class="col-12">
       <div class="table-responsive">
-        <table class="table table-stripped">
+        <table class="table table-stripped table-font">
           <thead class="thead-inverse">
             <tr>
-              <th><input type="checkbox" name="chk_list_all" id="chk_list_all" onclick="javascript:check_all();"></th>
-              <th>Name</th>
+              <th><input type="checkbox" name="memberAll" id="memberAll"></th>
+              <th>ID</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Institution</th>
               <th>Subject</th>
               <th>Type</th>
               <th>Country</th>
               <th>City</th>
-              <th>Location</th>
+              <th>Address</th>
               <th># of patients</th>
               <th>Status</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th>Kim</th>
-              <td>15</td>
-              <td>30</td>
-              <td>40</td>
-              <td>3</td>
-              <td>15000</td>
-              <td>45000</td>
-              <td>100,000</td>
-              <td>6</td>
+            <tr *ngFor="let member of members">
+              <th><input type="checkbox" [value]="member"></th>
+              <td>{{member.id}}</td>
+              <td>{{member.firstname}}</td>
+              <td>{{member.lastname}}</td>
+              <td>{{member.institution}}</td>
+              <td>{{member.subject}}</td>
+              <td>{{member.type}}</td>
+              <td>{{member.country}}</td>
+              <td>{{member.city}}</td>
+              <td>{{member.address}}</td>
+              <td>{{numAllPatients}}</td>
+              <td></td>
             </tr>
           </tbody>
         </table>

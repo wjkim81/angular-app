@@ -1,69 +1,45 @@
-<div class="container">
-  <div class="row selectHospital">
+<div class="container-fluid">
+  <div class="row solid-bottom-border">
     <div class="col-6 col-sm-8">
        <h2>Patients List</h2>
     </div>
     <div class="col-6 col-sm-4">
-      <a class="btn btn-primary float-right" data-toggle="modal"
-        data-target="#selectHospitalModal" data-placement="bottom" href="#">
+      <button class="btn btn-primary float-right" (click)="open(selectHospitalModal)">
         Select hospital
-      </a>
+      </button>
     </div>
   </div><!-- Select hospital -->
 
-  <div id="selectHospitalModal" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-lg" role="content">
-      <div class="modal-content">
+  <!--<div id="selectHospitalModal" #content class="modal fade" role="dialog">-->
+  <ng-template #selectHospitalModal let-c="close" let-d="dismiss">
+    <!--<div class="modal-dialog modal-lg" role="content">
+      <div class="modal-content">-->
         <div class="modal-header">
           <h4 class="modal-title">Select a Hospital</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
         <div class="modal-body">
           <form>
           <div class="form-group row">
     
             <div class="col-12 col-sm-4 col-lg-3">
-              <select class="form-control" id="country2" name="country2" onchange="javascript:go_list2();">
-                <option value="South Korea">South Korea</option>
+              <select class="form-control" id="country" name="country">
+                <option>All countries</option>
+                <option *ngFor="let country of countries" [value]="country">{{country}}</option>
               </select>  
             </div>
             <div class="col-12 col-sm-4 offset-lg-3 col-lg-3">
-              <select class="form-control" id="types4" name="types4" onchange="javascript:go_list2();">
-                <option value="typeAll">type-all</option>
-                <option>University</option>
-                <option>General</option>
-                <option>Normal hospital</option>
-                <option>Clinic</option>
-                <option>Korean Medicine</option>      
+              <select class="form-control" id="type" name="type">
+                <option>All types</option>
+                <option *ngFor="let type of types" [value]="type">{{type}}</option>
               </select>
             </div>
             <div class="col-12 col-sm-4 col-lg-3">
-              <select class="form-control" id="subject2" name="subject2" onchange="javascript:go_list2();">
-                <option value="subjectAll">subject-all</option>
-                <option>가정의학과</option>
-                <option>내과</option>
-                <option>마취통증의학과</option>
-                <option>방사선종양학과</option>
-                <option>병리과</option>
-                <option>비뇨기과</option>
-                <option>산부인과</option>
-                <option>성형외과</option>
-                 <option>소아청소년과</option>
-                <option>신경과</option>
-                <option>신경외과</option>
-                <option>안과</option>
-                <option>영상의학과</option>
-                <option>>예방의학과</option>
-                <option>외과</option>
-                <option>응급의학과</option>
-                <option>이비인후과</option>
-                <option>임상약리학과</option>
-                <option>재활의학과</option>
-                <option>정신건강의학과</option>
-                <option>정형외과</option>
-                <option>진단검사의학과</option>
-                <option>피부가</option>
-                <option>흉부외과</option>            
+              <select class="form-control" id="subject" name="subject">
+                <option>All subjects</option>
+                <option *ngFor="let subject of subjects" [value]="subject">{{subject}}</option>
               </select>
             </div>
           </div>
@@ -71,10 +47,24 @@
           <div class="row listbox-area">
             <div class="col-12">
               <div class="table-responsive">
-                <table class="table table-stripped">
+                <table class="table table-stripped table-font">
                   <thead class="thead-inverse">
+                    <tr>
+                      <th><input type="checkbox" name="checkList" id="checkList"></th>
+                      <th>Hospital</th>
+                      <th>Country</th>
+                      <th>Type</th>
+                      <th>Subject</th>
+                    </tr>
                   </thead>
                   <tbody>
+                    <tr *ngFor="let member of members">
+                      <td><input type="checkbox" [value]="member"></td>
+                      <td>{{member.institution}}</td>
+                      <td>{{member.country}}</td>
+                      <td>{{member.type}}</td>
+                      <td>{{member.subject}}</td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -82,7 +72,7 @@
           </div>
           <div class="row after-table-margin">
             <div class="col-6">
-              <a role="button" class="btn btn-primary" href="#">Select all</a>
+              <button role="button" class="btn btn-primary">Select all</button>
             </div>
             <div class="col-6 text-right">
               <p id="parts2">0 / 0 Hospital</p>
@@ -93,61 +83,52 @@
         <div class="modal-footer text-center">
           <div class="col-md justify-content-center">
             <button type="button" class="btn btn-primary">Done</button>
-            <button type="submit" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary" (click)="c('Close click')">Close</button>
           </div>
         </div>
-      </div>
-    </div>
-  </div><!-- selectHospitalModal -->
+      <!--</div>
+    </div>-->
+  
+  <!--</div>-->
+  </ng-template><!-- selectHospitalModal -->
 
   <div class="row form-group orderOption">
     <div class="col-12 col-sm-12 col-md-3">
       <select class="form-control">
-        <option value="">Registration</option>
-        <option value="1">Age↑</option>
-        <option value="2">Age↓</option>
-        <option value="3">Weight↑</option>
-        <option value="4">Weight↓</option>
-        <option value="5">Apex angle↑</option>
-        <option value="6">Apex angle↓</option>
-      </select>
-    </div>  
-    <div class="col-12 col-sm-6 offset-md-1 col-md-2">
-      <select class="form-control">
-        <option value="">Sex-all</option>
-        <option value="">all</option>
-        <option value="M">M only</option>
-        <option value="F">F only</option>
+        <option value="descentOrderbyRegisteration">Registration↓</option>
+        <option value="ascentOrderByAge">Age↑</option>
+        <option value="descentOrderByAge">Age↓</option>
+        <option value="ascentOrderByWeight">Weight↑</option>
+        <option value="descentOrderByWeight">Weight↓</option>
+        <option value="ascentOrderByApex1">Apex1 angle↑</option>
+        <option value="descentOrderByApex1">Apex1 angle↓</option>
       </select>
     </div>
-    <div class="col-12 col-sm-6 col-md-2">
+    <div class="input-group col-12 col-sm-12 offset-md-1 col-md-8">
+    <!--<div class="col-12 col-sm-6 offset-md-1 col-md-2">-->
       <select class="form-control">
-        <option value="">Type-all</option>
-        <option value="">all</option>
-        <option value="MT">MT</option>
-        <option value="TL">TL</option>
-        <option value="DT">DT</option>  
+        <option [value]="patientSex">All sex</option>
+        <option *ngFor="let sex of sexes" [value]="patientSex">{{sex}}</option>
       </select>
-    </div>
-    <div class="col-12 col-sm-6 col-md-2">
+    <!--</div>-->
+    <!--<div class="col-12 col-sm-6 col-md-2">-->
       <select class="form-control">
-        <option value="">Risser-all</option>
-        <option value="">all</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
+        <option [value]="patient_type"> All patient types</option>
+        <option *ngFor="let patient_type of patient_types" [value]="patient_type">{{patient_type}}</option>
       </select>
-    </div>
-    <div class="col-12 col-sm-6 col-md-2">
+    <!--</div>-->
+    <!--<div class="col-12 col-sm-6 col-md-2">-->
       <select class="form-control">
-        <option value="">Stage-all</option>
-        <option value="">all</option>
-        <option value="1">mild</option>
-        <option value="2">moderate</option>
-        <option value="3">severe</option>
+        <option [value]="risser"> All rissers</option>
+        <option *ngFor="let risser of rissers" [value]="risser">{{risser}}</option>
       </select>
+    <!--</div>-->
+    <!--<div class="col-12 col-sm-6 col-md-2">-->
+      <select class="form-control">
+        <option [value]="stage"> All stages</option>
+        <option *ngFor="let stage of stages" [value]="stage">{{stage}}</option>
+      </select>
+    <!--</div>-->
     </div>
   </div><!-- row Order Option -->
 
@@ -157,7 +138,8 @@
         <table class="table table-stripped table-font">
           <thead class="thead-inverse">
             <tr>
-              <th><input type="checkbox" name="chk_list_all" id="chk_list_all" onclick="javascript:check_all();"></th>
+              <th><input type="checkbox" name="checkPatient" id="checkPatient"></th>
+              <th>Hospital</th>
               <th>ID</th>
               <th>Birthday</th>
               <th>Height</th>
@@ -173,8 +155,9 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let patient of patients">
-              <td><input type="checkbox"></td>
+            <tr *ngFor="let patient of patients; let even = even; let odd = odd" [ngClass]="{ odd: odd, even: even }">
+              <td><input type="checkbox"  [value]="patient"></td>
+              <td>{{patient.hospital}}</td>
               <td>{{patient.patientId}}</td>
               <td>{{patient.birthday}}</td>
               <td>{{patient.height}}</td>

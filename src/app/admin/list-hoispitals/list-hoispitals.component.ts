@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Patient } from '../../shared/patient';
+import { Member } from '../../shared/member';
+import { PATIENTS } from '../../shared/patients';
+import { MEMBERS } from '../../shared/members';
+
 import { SUBJECTS, TYPES, COUNTRIES } from '../../shared/member-options';
 
 @Component({
@@ -13,8 +18,9 @@ export class ListHoispitalsComponent implements OnInit {
   types: string[];
   countries: string[];
   
+  members: Member[];
+
   numAllPatients: number;
-  numAllHospitals: number;
 
   constructor() { }
 
@@ -23,8 +29,9 @@ export class ListHoispitalsComponent implements OnInit {
     this.types = TYPES;
     this.countries = COUNTRIES;
 
-    this.numAllPatients = 100;
-    this.numAllHospitals = 5;
+    this.members = MEMBERS;
+
+    this.numAllPatients = PATIENTS.length;
   }
 
 }
