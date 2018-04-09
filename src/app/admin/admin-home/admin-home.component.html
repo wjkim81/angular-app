@@ -107,25 +107,25 @@
     <div class="input-group col-12 col-sm-12 offset-md-1 col-md-8">
     <!--<div class="col-12 col-sm-6 offset-md-1 col-md-2">-->
       <select class="form-control">
-        <option [value]="patientSex">All sex</option>
+        <option>All sex</option>
         <option *ngFor="let sex of sexes" [value]="patientSex">{{sex}}</option>
       </select>
     <!--</div>-->
     <!--<div class="col-12 col-sm-6 col-md-2">-->
       <select class="form-control">
-        <option [value]="patient_type"> All patient types</option>
-        <option *ngFor="let patient_type of patient_types" [value]="patient_type">{{patient_type}}</option>
+        <option> All patient types</option>
+        <option *ngFor="let patientType of patient_types" [value]="patientType">{{patientType}}</option>
       </select>
     <!--</div>-->
     <!--<div class="col-12 col-sm-6 col-md-2">-->
       <select class="form-control">
-        <option [value]="risser"> All rissers</option>
+        <option> All rissers</option>
         <option *ngFor="let risser of rissers" [value]="risser">{{risser}}</option>
       </select>
     <!--</div>-->
     <!--<div class="col-12 col-sm-6 col-md-2">-->
       <select class="form-control">
-        <option [value]="stage"> All stages</option>
+        <option> All stages</option>
         <option *ngFor="let stage of stages" [value]="stage">{{stage}}</option>
       </select>
     <!--</div>-->

@@ -36,5 +36,5 @@ export class Patient {
   bodyH: string;//number;
   bodyL: string;//number;
   bodyLh: string;//number;
-  patientVisit: string;//string[];
+  visitedDays: string[];//string[];
 }

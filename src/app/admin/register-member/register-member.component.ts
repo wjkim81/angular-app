@@ -25,10 +25,10 @@ export class RegisterMemberComponent implements OnInit {
   memberForm: FormGroup;
   errMess: string;
 
-  showInfo: boolean;
+  showMemberInfo: boolean;
 
   formErrors = {
-    'id': '',
+    'username': '',
     'password': '',
     'confirmPassword': '',
     'firstname': '',
@@ -42,8 +42,13 @@ export class RegisterMemberComponent implements OnInit {
     'mobileNum': ''
   };
 
+  /**
+   * id = username
+   * username is used for passport in express.js
+   * 
+   */
    validationMessages = {
-    'id': {
+    'username': {
       'required': 'ID is required.',
       'minlength': 'ID must be at least 4 characters long.',
     },
@@ -98,12 +103,12 @@ export class RegisterMemberComponent implements OnInit {
 
     //console.log(this.BaseURL);
     this.createForm();
-    this.showInfo = false;
+    this.showMemberInfo = false;
   }
 
   createForm() {
     this.memberForm = this.fb.group({
-      id: ['', [Validators.required, Validators.minLength(4) ]],
+      username: ['', [Validators.required, Validators.minLength(4) ]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(25) ]],
       confirmPassword: ['', [Validators.required]],
       firstname: ['', Validators.required],
@@ -152,12 +157,12 @@ export class RegisterMemberComponent implements OnInit {
     this.newMember = this.memberForm.value;
     console.log(this.newMember);
 
-    this.showInfo = true;
+    this.showMemberInfo = true;
 
     setTimeout(() => {
       
       this.memberForm.reset({
-        id: '',
+        username: '',
         password: '',
         confirmPassword: '',
         firstname: '',
@@ -174,28 +179,7 @@ export class RegisterMemberComponent implements OnInit {
         mobileNum: ''
       });
 
-      this.showInfo = false;
-    
+      this.showMemberInfo = false;
     }, 5000);
-
-    /*
-    this.memberForm.reset({
-      id: '',
-      password: '',
-      confirmPassword: '',
-      firstname: '',
-      lastname: '',
-      type: this.types[0],
-      subject: this.subjects[0],
-      country: this.countries[0],
-      city: '',
-      address: '',
-      institution: '',
-      postalCode: '',
-      managerName: '',
-      phoneNum: '',
-      mobileNum: ''
-    });
-    */
   }
 }

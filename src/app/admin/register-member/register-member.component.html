@@ -3,13 +3,13 @@
   <p>formErrors: {{formErrors | json}}</p>
   <p>memberForm.valid: {{memberForm.valid}}</p>
   <div class="row">
-    <form class="col-12 text-right" novalidate [formGroup]="memberForm" (ngSubmit)="submitMember()" *ngIf=!(showInfo)>
+    <form class="col-12 text-right" novalidate [formGroup]="memberForm" (ngSubmit)="submitMember()" *ngIf=!(showMemberInfo)>
 
       <div class="form-group row align-items-center mb-3">
-        <label for="id" class="col-12 offset-sm-2 col-sm-2 col-form-label">ID*</label>
+        <label for="username" class="col-12 offset-sm-2 col-sm-2 col-form-label">User Name*</label>
         <div class="col-12 col-sm-6">
-            <input type="text" class="form-control {{(formErrors.id) ? 'is-invalid' : ''}}" id="id" placeholder="Enter ID" formControlName="id">
-            <div class="invalid-feedback">{{formErrors.id}}</div>
+            <input type="text" class="form-control {{(formErrors.username) ? 'is-invalid' : ''}}" id="username" placeholder="Enter user name" formControlName="username">
+            <div class="invalid-feedback">{{formErrors.username}}</div>
         </div>
       </div>
 
@@ -119,7 +119,7 @@
       </div>
     </form>
 
-    <div *ngIf="showInfo">
+    <div *ngIf="showMemberInfo">
       <h3>New member information</h3>
       <p>ID: {{newMember.id}}</p>
       <p>Password: {{newMember.password}}</p>
@@ -131,7 +131,7 @@
       <p>City: {{newMember.city}}</p>
       <p>Location 1: {{newMember.address}}</p>
       <p>Location 2: {{newMember.institution}}</p>
-      <p>Postal Code: {{newMember.postalCode}}</p>
+      <p>Post Code: {{newMember.postCode}}</p>
       <p>Manager Name: {{newMember.manaerName}}</p>
       <p>Phone Num.: {{newMember.phoneNum}}</p>
       <p>Mobile Num.: {{newMember.mobileNum}}</p>

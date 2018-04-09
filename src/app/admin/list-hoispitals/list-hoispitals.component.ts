@@ -21,6 +21,7 @@ export class ListHoispitalsComponent implements OnInit {
   members: Member[];
 
   numAllPatients: number;
+  numAllHospitals: number;
 
   constructor() { }
 
@@ -32,6 +33,7 @@ export class ListHoispitalsComponent implements OnInit {
     this.members = MEMBERS;
 
     this.numAllPatients = PATIENTS.length;
+    this.numAllHospitals = MEMBERS.length;
   }
 
 }

@@ -1,301 +1,234 @@
 <div class="container">
+  <p>patientForm.value: {{patientForm.value | json}}</p>
+  <p>formErrors: {{formErrors | json}}</p>
+  <p>patientForm.valid: {{patientForm.valid}}</p>
   <div class="row">
-    <form class="col-12">
+    <form class="col-12" novalidate [formGroup]="patientForm" (ngSubmit)="submitPatient()" *ngIf=!(showPatientInfo)>
       <div class="row">
         <div class="col-12 col-md-8 boarder-solid">
           
           <div class="form-group row">
-            <div class="col-12 col-sm-6"><h4>Patient information</h4></div>
-            
+            <div class="col-12 col-sm-6">
+              <h4>Patient information</h4>
+            </div>
+            <!--
             <label for="patientIdIn" class="col-12 col-sm-2 col-form-label">Patient ID</label>
             <div class="col-12 col-sm-4">
               <input type="text" class="form-control" id="patientIdIn" name="patientIdIn" placeholder="Patient ID">
             </div>
+            -->
           </div>
+
           <div class="form-group row">
-            <label for="registerBirthdayIn" class="col-12 col-sm-2 col-form-label">Birthday</label>
+            <label for="birthdayIn" class="col-12 col-sm-2 col-form-label">Birthday</label>
             <!--<div class="input-group col-9">-->
             <div class="col-12 col-sm-4">
-              <input type="date" class="form-control" id="registerBirthdayIn" name="registerBirthdayIn" placeholder="YYMMDD">
+              <input type="date" class="form-control" id="birthdayIn" name="birthdayIn" placeholder="YYMMDD" formControlName="birthday">
             </div>
             <label for="sexIn" class="col-12 col-sm-2 col-form-label">Sex</label>
             <div class="col-12 col-sm-4">
-              <select class="form-control algin-item-center" id="sexIn" name="sexIn">
-                <option value="sex">Sex</option>
-                <option value="M">M</option>
-                <option value="F">F</option>
+              <select class="form-control algin-item-center" id="sexIn" name="sexIn" formControlName="sex">
+                <option *ngFor="let sex of sexes" [ngValue]="sex">{{sex}}</option>
               </select>
             </div>
           </div>
+
           <div class="form-group row">
-            <label for="registerHeightIn" class="col-12 col-sm-2 col-form-label">Height</label>
+            <label for="heightIn" class="col-12 col-sm-2 col-form-label">Height (cm)</label>
             <div class="col-12 col-sm-4">
-              <input type="text" class="form-control" id="registerHeightIn" name="registerHeightIn" placeholder="cm">
+              <input type="text" class="form-control" id="heightIn" name="heightIn"
+                placeholder="cm" formControlName="height" pattern="[0-9]*">
             </div>
-            <label for="registerWeightIn" class="col-12 col-sm-2 col-form-label">Weight</label>
+            <label for="weightIn" class="col-12 col-sm-2 col-form-label">Weight (kg)</label>
             <div class="col-12 col-sm-4">
-              <input type="text" class="form-control" id="registerWeightIn" name="registerWeightIn" placeholder="kg">
+              <input type="text" class="form-control" id="weightIn" name="weightIn"
+                placeholder="kg" formControlName="weight" pattern="[0-9]*">
             </div>
           </div>
           <div class="form-group row">
-            <label for="registerTypeIn" class="col-12 col-sm-2 col-form-label">Type</label>
+            <label for="patientTypeIn" class="col-12 col-sm-2 col-form-label">Type</label>
             <div class="col-12 col-sm-4">
-              <select class="form-control" id="registerTypeIn" name="registerTypeIn">
-                <option value="type">Type</option>
-                <option value="MT">MT</option>
-                <option value="TL">TL</option>
-                <option value="DT">DT</option>
+              <select class="form-control" id="patientTypeIn" name="patientTypeIn" formControlName="patientType">
+                <option *ngFor="let patientType of patientTypes" [ngValue]="patientType">{{patientType}}</option>            
               </select>
               <!--<input type="text" class="form-control" id="registerTypeIn" name="registerTypeIn" placeholder="Type">-->
             </div>
-            <label for="registerRisserIn" class="col-12 col-sm-2 col-form-label">Risser sign</label>
+            <label for="risserIn" class="col-12 col-sm-2 col-form-label">Risser sign</label>
             <div class="col-12 col-sm-4">
-              <select class="form-control" id="registerRisserIn" name="registerRisserIn">
-                <option value="risser">Risser</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
+              <select class="form-control" id="risserIn" name="risserIn" formControlName="risser">
+                <option *ngFor="let risser of rissers" [ngValue]="risser">{{risser}}</option>            
               </select>
               <!--<input type="text" class="form-control" id="registerLisserIn" name="registerLisserIn" placeholder="Lisser">-->
             </div>
           </div>
+          
           <div class="form-group row">
-            <label for="apex1" class="col-12 col-sm-12 col-md-2 col-form-label">Apex1</label>
+            <label class="col-12 col-sm-12 col-md-2 col-form-label">Apex1</label>
             <div class="col-4 col-sm-2 col-md-2">
-              <select class="form-control" id="registerSnLIn1" name="registerSnLIn1"><option value="">SN</option>
-                <option value="T1">T1</option>
-                <option value="T2">T2</option>
-                <option value="T3">T3</option>
-                <option value="T4">T4</option>
-                <option value="T5">T5</option>
-                <option value="T6">T6</option>
-                <option value="T7">T7</option>
-                <option value="T8">T8</option>
-                <option value="T9">T9</option>
-                <option value="T10">T10</option>
-                <option value="T11">T11</option>
-                <option value="T12">T12</option>
-                <option value="L1">L1</option>
-                <option value="L2">L2</option>
-                <option value="L3">L3</option>
-                <option value="L4">L4</option>
-                <option value="L5">L5</option>              
+              <select class="form-control" id="apexStart1In" name="apexStart1In" formControlName="apexStart1">
+                <!--<option value="" disabled>SN</option>-->
+                <option *ngFor="let apexStart1 of vertebralColumns" [ngValue]="apexStart1">{{apexStart1}}</option>
               </select>
               <!--<input type="text" class="form-control" id="registerSnLIn1" name="registerSnLIn1" placeholder="SN">-->
             </div>
             <div class="col-8 col-sm-4 col-md-3">
-              <input type="text" class="form-control" id="registerCobbAngleIn1" name="registerCobbAngleIn1" placeholder="Cobb angle">
+              <input type="text" class="form-control" id="cobbAngleIn1" name="cobbAngleIn1"
+                placeholder="Cobb angle" formControlName="cobbAng1" pattern="[0-9]*">
             </div>
             <div class="col-4 col-sm-2 col-md-2">
-              <select class="form-control" id="registerSnRIn1" name="registerSnRIn1"><option value="">SN</option>
-                <option value="T1">T1</option>
-                <option value="T2">T2</option>
-                <option value="T3">T3</option>
-                <option value="T4">T4</option>
-                <option value="T5">T5</option>
-                <option value="T6">T6</option>
-                <option value="T7">T7</option>
-                <option value="T8">T8</option>
-                <option value="T9">T9</option>
-                <option value="T10">T10</option>
-                <option value="T11">T11</option>
-                <option value="T12">T12</option>
-                <option value="L1">L1</option>
-                <option value="L2">L2</option>
-                <option value="L3">L3</option>
-                <option value="L4">L4</option>
-                <option value="L5">L5</option>              
+              <select class="form-control" id="apexEnd1In" name="apexEnd1In" formControlName="apexEnd1">
+                <!--<option value="" disabled>SN</option>-->
+                <option *ngFor="let apexEnd1 of vertebralColumns" [ngValue]="apexEnd1">{{apexEnd1}}</option>
               </select>
               <!--<input type="text" class="form-control" id="registerSnRIn1" name="registerSnRIn1" placeholder="SN">-->
             </div>
             <div class="col-8 col-sm-4 col-md-3">
-              <select class="form-control" id="registerDirectionIn1" name="registerDirectionIn1">
-                <option value="">direction</option>
-                <option value="RIGHT">RIGHT</option>
-                <option value="LEFT">LEFT</option>
+              <select class="form-control" id="direction1In" name="direction1In" formControlName="direction1">
+                <!--<option [value]="" disabled>Direction</option>-->
+                <option *ngFor="let direction1 of directions" [ngValue]="direction1">{{direction1}}</option>
               </select>
               <!--<input type="text" class="form-control" id="registerDirectionIn1" name="registerDirectionIn1" placeholder="Direction">-->
             </div>
           </div>
+
           <div class="form-group row">
-            <label for="apex2" class="col-12 col-sm-12 col-md-2 col-form-label">Apex2</label>
+            <label class="col-12 col-sm-12 col-md-2 col-form-label">Apex2</label>
             <div class="col-4 col-sm-2 col-md-2">
-              <select class="form-control" id="registerSnLIn2" name="registerSnLIn2"><option value="">SN</option>
-                <option value="T1">T1</option>
-                <option value="T2">T2</option>
-                <option value="T3">T3</option>
-                <option value="T4">T4</option>
-                <option value="T5">T5</option>
-                <option value="T6">T6</option>
-                <option value="T7">T7</option>
-                <option value="T8">T8</option>
-                <option value="T9">T9</option>
-                <option value="T10">T10</option>
-                <option value="T11">T11</option>
-                <option value="T12">T12</option>
-                <option value="L1">L1</option>
-                <option value="L2">L2</option>
-                <option value="L3">L3</option>
-                <option value="L4">L4</option>
-                <option value="L5">L5</option>              
+              <select class="form-control" id="apexStart2In" name="apexStart2In">
+                <!--<option value="" disabled>SN</option>-->
+                <option *ngFor="let apexStart2 of vertebralColumns" [ngValue]="apexStart2">{{apexStart2}}</option>            
               </select>
               <!--<input type="text" class="form-control" id="registerSnLIn1" name="registerSnLIn1" placeholder="SN">-->
             </div>
             <div class="col-8 col-sm-4 col-md-3">
-              <input type="text" class="form-control" id="registerCobbAngleIn2" name="registerCobbAngleIn2" placeholder="Cobb angle">
+              <input type="text" class="form-control" id="cobbAng2In"  name="cobbAng2In"
+                placeholder="Cobb angle" formControlName="cobbAng2" pattern="[0-9]*">
             </div>
             <div class="col-4 col-sm-2 col-md-2">
-              <select class="form-control" id="registerSnRIn2" name="registerSnRIn2"><option value="">SN</option>
-                <option value="T1">T1</option>
-                <option value="T2">T2</option>
-                <option value="T3">T3</option>
-                <option value="T4">T4</option>
-                <option value="T5">T5</option>
-                <option value="T6">T6</option>
-                <option value="T7">T7</option>
-                <option value="T8">T8</option>
-                <option value="T9">T9</option>
-                <option value="T10">T10</option>
-                <option value="T11">T11</option>
-                <option value="T12">T12</option>
-                <option value="L1">L1</option>
-                <option value="L2">L2</option>
-                <option value="L3">L3</option>
-                <option value="L4">L4</option>
-                <option value="L5">L5</option>              
+              <select class="form-control" id="apexEnd2In" name="apexEnd2In">
+                <!--<option value="" disabled>SN</option>-->
+                <option *ngFor="let apexEnd2 of vertebralColumns" [ngValue]="apexEnd2">{{apexEnd2}}</option>
               </select>
               <!--<input type="text" class="form-control" id="registerSnRIn1" name="registerSnRIn1" placeholder="SN">-->
             </div>
             <div class="col-8 col-sm-4 col-md-3">
-              <select class="form-control" id="registerDirectionIn2" name="registerDirectionIn2">
-                <option value="">direction</option>
-                <option value="RIGHT">RIGHT</option>
-                <option value="LEFT">LEFT</option>
+              <select class="form-control" id="direction2In" name="direction2In" formControlName="direction2">
+                <!--<option value="" disabled>Direction</option>-->
+                <option *ngFor="let direction2 of directions" [ngValue]="direction2">{{direction2}}</option>
               </select>
               <!--<input type="text" class="form-control" id="registerDirectionIn1" name="registerDirectionIn1" placeholder="Direction">-->
             </div>
           </div>
+
           <div class="form-group row">
-            <label for="apex1" class="col-12 col-sm-12 col-md-2 col-form-label">Apex3</label>
+            <label class="col-12 col-sm-12 col-md-2 col-form-label">Apex3</label>
             <div class="col-4 col-sm-2 col-md-2">
-              <select class="form-control" id="registerSnLIn3" name="registerSnLIn3"><option value="">SN</option>
-                <option value="T1">T1</option>
-                <option value="T2">T2</option>
-                <option value="T3">T3</option>
-                <option value="T4">T4</option>
-                <option value="T5">T5</option>
-                <option value="T6">T6</option>
-                <option value="T7">T7</option>
-                <option value="T8">T8</option>
-                <option value="T9">T9</option>
-                <option value="T10">T10</option>
-                <option value="T11">T11</option>
-                <option value="T12">T12</option>
-                <option value="L1">L1</option>
-                <option value="L2">L2</option>
-                <option value="L3">L3</option>
-                <option value="L4">L4</option>
-                <option value="L5">L5</option>              
+              <select class="form-control" id="apexStart3In" name="apexStart3In">
+                <!--<option value="" disabled>SN</option>-->
+                <option *ngFor="let apexStart3 of vertebralColumns" [ngValue]="apexStart3">{{apexStart3}}</option>            
               </select>
               <!--<input type="text" class="form-control" id="registerSnLIn1" name="registerSnLIn1" placeholder="SN">-->
             </div>
             <div class="col-8 col-sm-4 col-md-3">
-              <input type="text" class="form-control" id="registerCobbAngleIn3" name="registerCobbAngleIn3" placeholder="Cobb angle">
+              <input type="text" class="form-control" id="cobbAng3In" name="cobbAng3In"
+                placeholder="Cobb angle" formControlName="cobbAng3" pattern="[0-9]*">
             </div>
             <div class="col-4 col-sm-2 col-md-2">
-              <select class="form-control" id="registerSnRIn3" name="registerSnRIn3"><option value="">SN</option>
-                <option value="T1">T1</option>
-                <option value="T2">T2</option>
-                <option value="T3">T3</option>
-                <option value="T4">T4</option>
-                <option value="T5">T5</option>
-                <option value="T6">T6</option>
-                <option value="T7">T7</option>
-                <option value="T8">T8</option>
-                <option value="T9">T9</option>
-                <option value="T10">T10</option>
-                <option value="T11">T11</option>
-                <option value="T12">T12</option>
-                <option value="L1">L1</option>
-                <option value="L2">L2</option>
-                <option value="L3">L3</option>
-                <option value="L4">L4</option>
-                <option value="L5">L5</option>              
+              <select class="form-control" id="apexEnd3In" name="apexEnd3In">
+                <!--<option value="" disabled>SN</option>-->
+                <option *ngFor="let apexEnd3 of vertebralColumns" [ngValue]="apexEnd3">{{apexEnd3}}</option>
               </select>
+              <!--<input type="text" class="form-control" id="registerSnRIn1" name="registerSnRIn1" placeholder="SN">-->
             </div>
             <div class="col-8 col-sm-4 col-md-3">
-              <select class="form-control" id="registerDirectionIn3" name="registerDirectionIn3">
-                <option value="">Direction</option>
-                <option value="RIGHT">RIGHT</option>
-                <option value="LEFT">LEFT</option>
+              <select class="form-control" id="direction3In" name="direction3In" formControlName="direction3">
+               <!--<option [value]="" disabled>Direction</option>-->
+                <option *ngFor="let direction3 of directions" [ngValue]="direction3">{{direction3}}</option>
               </select>
+              <!--<input type="text" class="form-control" id="registerDirectionIn1" name="registerDirectionIn1" placeholder="Direction">-->
             </div>
           </div>
+          
           <div class="form-group row">
             <label for="firstVisit" class="col-12 col-sm-2 col-form-label">First day of visit</label>
             <div class="col-12 col-sm-4">
-              <input type="date" class="form-control" id="firstVisitIn" name="firstVisitIn" placeholder="YYMMDD">
+              <input type="date" class="form-control" id="firstVisitIn" name="firstVisitIn" formControlName="firstVisit">
             </div>
           </div>
+
           <div class="form-group row">
             <label for="xRayFile" class="col-12 col-sm-2 col-form-label">X-ray file</label>
             <div class="col-12 col-sm-6">
-              <input type="file" class="form-control-file" id="xRayFileIn" name="xRayFileIn" placeholder="Upload">
+              <input type="file" class="form-control-file" id="xRayFileIn" name="xRayFileIn" formControlName="xRayFile">
             </div>
           </div>
+
           <div class="form-group row">
             <label for="3dScanFile" class="col-12 col-sm-2 col-form-label">3D scan file</label>
             <div class="col-12 col-sm-6">
-              <input type="file" class="form-control-file" id="3dScanFileIn" name="3dScanFileIn" placeholder="Upload">
+              <input type="file" class="form-control-file" id="3dScanFileIn" name="3dScanFileIn" formControlName="threeDScanFile">
             </div>
           </div>
         </div>
+
         <div class="col-12 col-md-4 boarder-solid">
           <h4 class="mb-4">Patient body information</h4>
+
           <div class="form-group row">
-            <label for="spIn" class="col-12 col-sm-3 col-form-label">SP</label>
+            <label for="shoulderIn" class="col-12 col-sm-3 col-form-label">Shoulder (cm)</label>
             <div class="col-12 col-sm-9">
-              <input type="text" class="form-control" id="spIn" name="spIn" placeholder="cm">
+              <input type="text" class="form-control" id="shoulderIn" name="shoulderIn"
+                placeholder="cm" formControlName="shoulder" pattern="[0-9]*">
             </div>
           </div>
+
           <div class="form-group row">
-            <label for="bIn" class="col-12 col-sm-3 col-form-label">B</label>
+            <label for="bustIn" class="col-12 col-sm-3 col-form-label">Bust (cm)</label>
             <div class="col-12 col-sm-9">
-              <input type="text" class="form-control" id="bIn" name="bIn" placeholder="cm">
+              <input type="text" class="form-control" id="bustIn" name="bustIn"
+                placeholder="cm" formControlName="bust" pattern="[0-9]*">
             </div>
           </div>
+
           <div class="form-group row">
-            <label for="wIn" class="col-12 col-sm-3 col-form-label">W</label>
+            <label for="waistIn" class="col-12 col-sm-3 col-form-label">Waist (cm)</label>
             <div class="col-12 col-sm-9">
-              <input type="text" class="form-control" id="wIn" name="wIn" placeholder="cm">
+              <input type="text" class="form-control" id="waistIn" name="waistIn"
+                placeholder="cm" formControlName="waist" pattern="[0-9]*">
             </div>
           </div>
+
           <div class="form-group row">
-            <label for="hIn" class="col-12 col-sm-3 col-form-label">H</label>
+            <label for="hipIn" class="col-12 col-sm-3 col-form-label">Hip (cm)</label>
             <div class="col-12 col-sm-9">
-              <input type="text" class="form-control" id="hIn" name="hIn" placeholder="cm">
+              <input type="text" class="form-control" id="hipIn" name="hipIn" 
+                placeholder="cm" formControlName="hip" pattern="[0-9]*">
             </div>
           </div>
+
           <div class="form-group row">
-            <label for="lIn" class="col-12 col-sm-3 col-form-label">L</label>
+            <label for="lumberIn" class="col-12 col-sm-3 col-form-label">Lumber (cm)</label>
             <div class="col-12 col-sm-9">
-              <input type="text" class="form-control" id="lIn" name="lIn" placeholder="cm">
+              <input type="text" class="form-control" id="lumberIn" name="lumberIn"
+                placeholder="cm" formControlName="lumber" pattern="[0-9]*">
             </div>
           </div>
+
           <div class="form-group row">
-            <label for="lhIn" class="col-12 col-sm-3 col-form-label">LH</label>
+            <label for="lumberHeightIn" class="col-12 col-sm-3 col-form-label">Lumber height (cm)</label>
             <div class="col-12 col-sm-9">
-              <input type="text" class="form-control" id="lhIn" name="lhIn" placeholder="cm">
+              <input type="text" class="form-control" id="lumberHeightIn" name="lumberHeightIn"
+                placeholder="cm" formControlName="lumberHeight" pattern="[0-9]*">
             </div>
           </div>
         </div>
+
         <div class="col-12">
           <div class="form-group row mt-3">
             <div class="col-12 text-center">
-              <button type="submit" class="btn btn-primary">
-                SAVE
+              <button type="submit" class="btn {{patientForm.valid ? 'btn-primary' : 'btn-secondary'}}"
+                id="submitPatient" [disabled]="patientForm.invalid">
+                  SAVE
               </button>
             </div>
           </div>
