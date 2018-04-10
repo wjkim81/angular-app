@@ -23,26 +23,30 @@
             <label for="birthdayIn" class="col-12 col-sm-2 col-form-label">Birthday</label>
             <!--<div class="input-group col-9">-->
             <div class="col-12 col-sm-4">
-              <input type="date" class="form-control" id="birthdayIn" name="birthdayIn" placeholder="YYMMDD" formControlName="birthday">
+              <input type="date" class="form-control" id="birthdayIn" name="birthdayIn" formControlName="birthday">
+              <div class="invalid-feedback">{{formErrors.birthday}}</div>
             </div>
             <label for="sexIn" class="col-12 col-sm-2 col-form-label">Sex</label>
             <div class="col-12 col-sm-4">
               <select class="form-control algin-item-center" id="sexIn" name="sexIn" formControlName="sex">
                 <option *ngFor="let sex of sexes" [ngValue]="sex">{{sex}}</option>
               </select>
+              <div class="invalid-feedback">{{formErrors.sex}}</div>
             </div>
           </div>
 
           <div class="form-group row">
             <label for="heightIn" class="col-12 col-sm-2 col-form-label">Height (cm)</label>
             <div class="col-12 col-sm-4">
-              <input type="text" class="form-control" id="heightIn" name="heightIn"
+              <input type="text" class="form-control {{(formErrors.height) ? 'is-invalid' : ''}}" id="heightIn" name="heightIn"
                 placeholder="cm" formControlName="height" pattern="[0-9]*">
+              <div class="invalid-feedback">{{formErrors.height}}</div>
             </div>
             <label for="weightIn" class="col-12 col-sm-2 col-form-label">Weight (kg)</label>
             <div class="col-12 col-sm-4">
-              <input type="text" class="form-control" id="weightIn" name="weightIn"
+              <input type="text" class="form-control {{(formErrors.weight) ? 'is-invalid' : ''}}" id="weightIn" name="weightIn"
                 placeholder="kg" formControlName="weight" pattern="[0-9]*">
+                <div class="invalid-feedback">{{formErrors.weight}}</div>
             </div>
           </div>
           <div class="form-group row">
@@ -66,18 +70,19 @@
             <label class="col-12 col-sm-12 col-md-2 col-form-label">Apex1</label>
             <div class="col-4 col-sm-2 col-md-2">
               <select class="form-control" id="apexStart1In" name="apexStart1In" formControlName="apexStart1">
-                <!--<option value="" disabled>SN</option>-->
+                <option value="" disabled>SN</option>
                 <option *ngFor="let apexStart1 of vertebralColumns" [ngValue]="apexStart1">{{apexStart1}}</option>
               </select>
               <!--<input type="text" class="form-control" id="registerSnLIn1" name="registerSnLIn1" placeholder="SN">-->
             </div>
             <div class="col-8 col-sm-4 col-md-3">
-              <input type="text" class="form-control" id="cobbAngleIn1" name="cobbAngleIn1"
+              <input type="text" class="form-control {{(formErrors.cobbAng1) ? 'is-invalid' : ''}}" id="cobbAngleIn1" name="cobbAngleIn1"
                 placeholder="Cobb angle" formControlName="cobbAng1" pattern="[0-9]*">
+              <div class="invalid-feedback">{{formErrors.cobbAng1}}</div>
             </div>
             <div class="col-4 col-sm-2 col-md-2">
               <select class="form-control" id="apexEnd1In" name="apexEnd1In" formControlName="apexEnd1">
-                <!--<option value="" disabled>SN</option>-->
+                <option value="" disabled>SN</option>
                 <option *ngFor="let apexEnd1 of vertebralColumns" [ngValue]="apexEnd1">{{apexEnd1}}</option>
               </select>
               <!--<input type="text" class="form-control" id="registerSnRIn1" name="registerSnRIn1" placeholder="SN">-->
@@ -175,50 +180,56 @@
           <h4 class="mb-4">Patient body information</h4>
 
           <div class="form-group row">
-            <label for="shoulderIn" class="col-12 col-sm-3 col-form-label">Shoulder (cm)</label>
+            <label for="shoulderIn" class="col-12 col-sm-3 col-form-label">Shoulder</label>
             <div class="col-12 col-sm-9">
-              <input type="text" class="form-control" id="shoulderIn" name="shoulderIn"
+              <input type="text" class="form-control {{(formErrors.shoulder) ? 'is-invalid' : ''}}" id="shoulderIn" name="shoulderIn"
                 placeholder="cm" formControlName="shoulder" pattern="[0-9]*">
+              <div class="invalid-feedback">{{formErrors.shoulder}}</div>
             </div>
           </div>
 
           <div class="form-group row">
-            <label for="bustIn" class="col-12 col-sm-3 col-form-label">Bust (cm)</label>
+            <label for="bustIn" class="col-12 col-sm-3 col-form-label">Bust</label>
             <div class="col-12 col-sm-9">
-              <input type="text" class="form-control" id="bustIn" name="bustIn"
+              <input type="text" class="form-control {{(formErrors.bust) ? 'is-invalid' : ''}}" id="bustIn" name="bustIn"
                 placeholder="cm" formControlName="bust" pattern="[0-9]*">
+              <div class="invalid-feedback">{{formErrors.bust}}</div>
             </div>
           </div>
 
           <div class="form-group row">
-            <label for="waistIn" class="col-12 col-sm-3 col-form-label">Waist (cm)</label>
+            <label for="waistIn" class="col-12 col-sm-3 col-form-label">Waist</label>
             <div class="col-12 col-sm-9">
-              <input type="text" class="form-control" id="waistIn" name="waistIn"
+              <input type="text" class="form-control {{(formErrors.waist) ? 'is-invalid' : ''}}" id="waistIn" name="waistIn"
                 placeholder="cm" formControlName="waist" pattern="[0-9]*">
+              <div class="invalid-feedback">{{formErrors.waist}}</div>
             </div>
           </div>
 
           <div class="form-group row">
-            <label for="hipIn" class="col-12 col-sm-3 col-form-label">Hip (cm)</label>
+            <label for="hipIn" class="col-12 col-sm-3 col-form-label">Hip</label>
             <div class="col-12 col-sm-9">
-              <input type="text" class="form-control" id="hipIn" name="hipIn" 
+              <input type="text" class="form-control {{(formErrors.hip) ? 'is-invalid' : ''}}" id="hipIn" name="hipIn" 
                 placeholder="cm" formControlName="hip" pattern="[0-9]*">
+              <div class="invalid-feedback">{{formErrors.hip}}</div>
             </div>
           </div>
 
           <div class="form-group row">
-            <label for="lumberIn" class="col-12 col-sm-3 col-form-label">Lumber (cm)</label>
+            <label for="lumberIn" class="col-12 col-sm-3 col-form-label">Lumber</label>
             <div class="col-12 col-sm-9">
-              <input type="text" class="form-control" id="lumberIn" name="lumberIn"
+              <input type="text" class="form-control {{(formErrors.lumber) ? 'is-invalid' : ''}}" id="lumberIn" name="lumberIn"
                 placeholder="cm" formControlName="lumber" pattern="[0-9]*">
+              <div class="invalid-feedback">{{formErrors.lumber}}</div>
             </div>
           </div>
 
           <div class="form-group row">
-            <label for="lumberHeightIn" class="col-12 col-sm-3 col-form-label">Lumber height (cm)</label>
+            <label for="lumberHeightIn" class="col-12 col-sm-3 col-form-label">Lumber height</label>
             <div class="col-12 col-sm-9">
-              <input type="text" class="form-control" id="lumberHeightIn" name="lumberHeightIn"
+              <input type="text" class="form-control {{(formErrors.lumberHeight) ? 'is-invalid' : ''}}" id="lumberHeightIn" name="lumberHeightIn"
                 placeholder="cm" formControlName="lumberHeight" pattern="[0-9]*">
+              <div class="invalid-feedback">{{formErrors.lumberHeight}}</div>
             </div>
           </div>
         </div>
@@ -235,5 +246,41 @@
         </div>
       </div>
     </form>
+
+    <div *ngIf="showPatientInfo">
+      <h3>New patient information</h3>
+      <p>Birthday: {{newPatient.birthday}}</p>
+      <p>Sex: {{newPatient.sex}}</p>
+      <p>Height: {{newPatient.height}}</p>
+      <p>Weight: {{newPatient.weight}}</p>
+      <p>Patient Type: {{newPatient.patientType}}</p>
+      <p>Risser sign: {{newPatient.risser}}</p>
+        
+      <p>Apex1 starts: {{newPatient.apexStart1}}</p>
+      <p>Cobb angle: {{newPatient.cobbAng1}}</p>
+      <p>Apex1 ends: {{newPatient.apexEnd1}}</p>
+      <p>Direction: {{newPatient.direction1}}</p>
+
+      <p>Cobb angle: {{newPatient.cobbAng2}}</p>
+      <p>Apex2 ends: {{newPatient.apexEnd2}}</p>
+      <p>Direction: {{newPatient.direction2}}</p>
+        
+      <p>Cobb angle: {{newPatient.cobbAng3}}</p>
+      <p>Apex3 ends: {{newPatient.apexEnd3}}</p>
+      <p>Direction: {{newPatient.direction3}}</p>
+        
+      <p>First day of visiting: {{newPatient.firstVisit}}</p>
+      <p>X-ray file: {{newPatient.xRayFile}}</p>
+      <p>3D Scand file: {{newPatient.threeDScanFile}}</p>
+        
+      <p>Shoulder: {{newPatient.shoulder}}</p>
+      <p>Bust: {{newPatient.bust}}</p>
+      <p>Waitst: {{newPatient.waist}}</p>
+      <p>Hip: {{newPatient.hip}}</p>
+      <p>Lumber: {{newPatient.lumber}}</p>
+      <p>Lumber height: {{newPatient.lumberHeight}}</p>
+      
+    </div>
+
   </div>
 </div><!-- container -->

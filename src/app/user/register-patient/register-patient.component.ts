@@ -66,7 +66,7 @@ export class RegisterPatientComponent implements OnInit {
       'required': "Patient's height is required.",
       'pattern': "Patient's height should be a number."
     },
-    'wieght': {
+    'weight': {
       'required': "Patient's weight is required.",
       'pattern': "Patient's weight should be a number."
     },
@@ -79,11 +79,12 @@ export class RegisterPatientComponent implements OnInit {
     'apexStart1': {
       'required': 'Apex1 is required.'
     },
-    'CobbAng1': {
-      'required': 'Cobb Angle is required.'
+    'cobbAng1': {
+      'required': 'Cobb angle is required.',
+      'pattern': 'Cobb angle should be a number.'
     },
     'apexEnd1': {
-      'required': 'ApexEnd1 is required.'
+      'required': 'End of apex1 is required.'
     },
     'direction1': {
       'required': 'Direction1 is required.'
@@ -139,23 +140,23 @@ export class RegisterPatientComponent implements OnInit {
     this.patientForm = this.fb.group({
       birthday: ['', [Validators.required]],
       sex: [this.sexes[1], [Validators.required]],
-      height: [0, [Validators.required]],
-      weight: [0, Validators.required],
+      height: ['', [Validators.required]],
+      weight: ['', [Validators.required]],
       patientType: [this.patientTypes[0], Validators.required],
       risser: [this.rissers[0], Validators.required],
       
-      apexStart1: [this.vertebralColumns[0], Validators.required],
-      cobbAng1: [0, [Validators.required, Validators.pattern]],
-      apexEnd1: [this.vertebralColumns[1], Validators.required],
+      apexStart1: ['', Validators.required],
+      cobbAng1: ['', [Validators.required, Validators.pattern]],
+      apexEnd1: ['', Validators.required],
       direction1: [this.directions[0], Validators.required],
       
       //apexStart2: '',
-      cobbAng2: [0, Validators.pattern],
+      cobbAng2: ['', Validators.pattern],
       apexEnd2: '',
       direction2: '',
       
       //apexStart3: '',
-      cobbAng3: [0, Validators.pattern],
+      cobbAng3: ['', Validators.pattern],
       apexEnd3: '',
       direction3: '',
       
@@ -163,12 +164,12 @@ export class RegisterPatientComponent implements OnInit {
       xRayFile: '',
       threeDScanFile: '',
       
-      shoulder: [0, [Validators.required, Validators.pattern]],
-      bust: [0, [Validators.required, Validators.pattern]],
-      waist: [0, [Validators.required, Validators.pattern]],
-      hip: [0, [Validators.required, Validators.pattern]],
-      lumber: [0, [Validators.required, Validators.pattern]],
-      lumberHeight: [0, [Validators.required, Validators.pattern]]
+      shoulder: ['', [Validators.required, Validators.pattern]],
+      bust: ['', [Validators.required, Validators.pattern]],
+      waist: ['', [Validators.required, Validators.pattern]],
+      hip: ['', [Validators.required, Validators.pattern]],
+      lumber: ['', [Validators.required, Validators.pattern]],
+      lumberHeight: ['', [Validators.required, Validators.pattern]]
     });
 
     this.patientForm.valueChanges
@@ -183,14 +184,19 @@ export class RegisterPatientComponent implements OnInit {
     
     for (const field in this.formErrors) {
       // clear previous error message (if any)
+      //console.log(`field: ${field}`);
       this.formErrors[field] = '';
       const control = form.get(field);
       if (control && control.dirty && !control.valid) {
         //console.log(`${field} - dirty: ${control.dirty}, valid: ${control.valid}`);
+        //console.log(`field: ${field}`);
         const messages = this.validationMessages[field];
+        //console.log(messages);
         //console.log(control.errors);
         for (const key in control.errors) {
+          //console.log(`key: ${key}`);
           this.formErrors[field] += messages[key] + ' ';
+          //console.log(this.formErrors[field]);
         }
       }
     }
@@ -203,10 +209,40 @@ export class RegisterPatientComponent implements OnInit {
     this.showPatientInfo = true;
 
     setTimeout(() => {
-      /*
       this.patientForm.reset({
+        birthday: '',
+        sex: this.sexes[1],
+        height: '',
+        weight: '',
+        patientType: this.patientTypes[0],
+        risser: this.rissers[0],
+        
+        apexStart1: '',
+        cobbAng1: '',
+        apexEnd1: '',
+        direction1: this.directions[0],
+        
+        //apexStart2: '',
+        cobbAng2: '',
+        apexEnd2: '',
+        direction2: '',
+        
+        //apexStart3: '',
+        cobbAng3: '',
+        apexEnd3: '',
+        direction3: '',
+        
+        firstVisit: '',
+        xRayFile: '',
+        threeDScanFile: '',
+        
+        shoulder: '',
+        bust: '',
+        waist: '',
+        hip: '',
+        lumber: '',
+        lumberHeight: '',
       });
-      */
       this.showPatientInfo = false;
     }, 5000);
   }

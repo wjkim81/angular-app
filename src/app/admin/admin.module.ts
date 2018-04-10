@@ -6,9 +6,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { AdminRoutingModule } from './admin-routing/admin-routing.module';
-
 import { baseURL } from '../shared/baseurl';
+
+import { AdminRoutingModule } from './admin-routing/admin-routing.module';
 
 import { AdminComponent } from './admin.component';
 import { AdminNavbarComponent } from './admin-navbar/admin-navbar.component';

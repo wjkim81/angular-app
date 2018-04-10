@@ -1,0 +1,28 @@
+.solid-bottom-border {
+  border-bottom: 1px solid #ccc;
+}
+
+.orderOption {
+  padding-top: 20px;
+}
+
+.listbox-area {
+  margin: 0px;
+  padding: 0;
+  //height: 600px;
+  overflow-y: auto;
+  width: 100%;
+  //border: 1px solid #ccc; 
+}
+
+.table-font {
+  font-size: 12px;
+}
+
+.after-table-margin {
+  padding: 10px 0px 20px 0px;
+}
+
+tr:nth-child(even) {
+    background-color: #eeeeee;
+}
