@@ -55,6 +55,7 @@ export class RegisterMemberComponent implements OnInit {
     'password': {
       'required': 'Password is required.',
       'minlength': 'Password must be at least 6 characters long.',
+      'maxlength': 'Password must be less than 25 characters long.'
     },
     'confirmPassword': {
       'required': 'Confirm Password is required.',

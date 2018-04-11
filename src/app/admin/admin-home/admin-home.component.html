@@ -22,27 +22,27 @@
         </div>
         <div class="modal-body">
           <form>
-          <div class="form-group row">
-    
-            <div class="col-12 col-sm-4 col-lg-3">
-              <select class="form-control" id="country" name="country">
-                <option>All countries</option>
-                <option *ngFor="let country of countries" [value]="country">{{country}}</option>
-              </select>  
+            <div class="form-group row">
+      
+              <div class="col-12 col-sm-4 col-lg-3">
+                <select class="form-control" id="country" name="country">
+                  <option>All countries</option>
+                  <option *ngFor="let country of countries" [value]="country">{{country}}</option>
+                </select>  
+              </div>
+              <div class="col-12 col-sm-4 offset-lg-3 col-lg-3">
+                <select class="form-control" id="type" name="type">
+                  <option>All types</option>
+                  <option *ngFor="let type of types" [value]="type">{{type}}</option>
+                </select>
+              </div>
+              <div class="col-12 col-sm-4 col-lg-3">
+                <select class="form-control" id="subject" name="subject">
+                  <option>All subjects</option>
+                  <option *ngFor="let subject of subjects" [value]="subject">{{subject}}</option>
+                </select>
+              </div>
             </div>
-            <div class="col-12 col-sm-4 offset-lg-3 col-lg-3">
-              <select class="form-control" id="type" name="type">
-                <option>All types</option>
-                <option *ngFor="let type of types" [value]="type">{{type}}</option>
-              </select>
-            </div>
-            <div class="col-12 col-sm-4 col-lg-3">
-              <select class="form-control" id="subject" name="subject">
-                <option>All subjects</option>
-                <option *ngFor="let subject of subjects" [value]="subject">{{subject}}</option>
-              </select>
-            </div>
-          </div>
           </form>
           <div class="row listbox-area">
             <div class="col-12">
@@ -88,8 +88,6 @@
         </div>
       <!--</div>
     </div>-->
-  
-  <!--</div>-->
   </ng-template><!-- selectHospitalModal -->
 
   <div class="row form-group orderOption">
@@ -139,7 +137,7 @@
           <thead class="thead-inverse">
             <tr>
               <th><input type="checkbox" name="checkPatient" id="checkPatient"></th>
-              <th>Hospital</th>
+              <th>Hospital <span class="fa fa-caret-down"></span></th>
               <th>ID</th>
               <th>Birthday</th>
               <th>Height</th>

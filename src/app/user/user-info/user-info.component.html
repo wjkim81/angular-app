@@ -1,119 +1,151 @@
 <div class="container">
+  <p>contactForm.value: {{contactForm.value | json}}</p>
+  <p>contactFormErrors: {{contactFormErrors | json}}</p>
+  <p>contactForm.valid: {{contactForm.valid}}</p>
+
   <div class="row">
-    <form class="col-12">
-      <div class="row align-items-center mb-3">
-        <label for="changePassword1" class="col-12 offset-sm-2 col-sm-2 col-form-label">ID</label>
-         <div class="input-group col-12 col-sm-6">
-            <input type="text" class="form-control" class="input-group-addon" disabled placeholder="<$ testId $>">
-            <button type="submit" class="btn btn-primary" id="changePassword1">
-              Change password
-            </button>
+    <div class="col-12 text-right">
+    
+      <div class="form-group row align-items-center mb-3">
+        <label for="username" class="col-12 offset-sm-2 col-sm-2 col-form-label">User Name</label>
+        <div class="col-12 col-sm-4">
+          <input type="text" class="form-control" id="username" placeholder="valuentrust" disabled>
         </div>
-      </div>
-      <div class="row align-items-center mb-3">
-        <label for="nameIn1" class="col-12 offset-sm-2 col-sm-2 col-form-label align-self-center">Name*</label>
-        <div class="col-12 col-sm-6 align-self-center">
-          <input type="text" class="form-control" id="nameIn1" name="nameIn1">
-        </div>
-      </div>
-      <div class="row  align-items-center mb-3">
-        <label for="subjectIn1" class="col-12 offset-sm-2 col-sm-2 col-form-label align-self-center">Subject*</label>
-        <div class="col-12 col-sm-6 align-self-center">
-          <select type="text" name="subjectIn1" id="subjectIn1" class="form-control">
-            <option>가정의학과</option>
-            <option>내과</option>
-            <option>마취통증의학과</option>
-            <option>방사선종양학과</option>
-            <option>병리과</option>
-            <option>비뇨기과</option>
-            <option>산부인과</option>
-            <option>성형외과</option>
-            <option>소아청소년과</option>
-            <option>신경과</option>
-            <option>신경외과</option>
-            <option>안과</option>
-            <option>영상의학과</option>
-            <option>예방의학과</option>
-            <option>외과</option>
-            <option>응급의학과</option>
-            <option>이비인후과</option>
-            <option>임상약리학과</option>
-            <option>재활의학과</option>
-            <option>정신건강의학과</option>
-            <option>정형외과</option>
-            <option>진단검사의학과</option>
-            <option>피부가</option>
-            <option>흉부외과</option>              
-          </select>
-        </div>
-      </div>
-      <div class="row align-items-center mb-3">
-        <label for="typeIn1" class="col-12 offset-sm-2 col-sm-2 col-form-label">Type*</label>
-        <div class="col-12 col-sm-6">
-          <select type="text" name="typeIn1" id="typeIn1" class="form-control">
-            <option>University</option>
-            <option>General</option>
-            <option>Normal hospital</option>
-            <option>Clinic</option>
-            <option>Korean Medicine</option>            
-          </select>
-        </div>
-      </div>
-      <div class="row align-items-center mb-3">
-        <label for="countryIn1" class="col-12 offset-sm-2 col-sm-2 col-form-label">Country*</label>
         <div class="col-12 col-sm-2">
-          <select type="text" name="countryIn1" id="countryIn1" class="form-control">
-            <option>South Korea</option>
-          </select>
-        </div>
-        <label for="cityIn1" class="col-12 col-sm-2 col-form-label">City*</label>
-        <div class="col-12 col-sm-2">
-          <select type="text" name="cityIn1" id="cityIn1" class="form-control">
-            <option>Seoul</option>
-          </select>
-        </div>
-      </div>
-      <div class="row align-items-center mb-3">
-        <label for="locationDetailIn1" class="col-12 offset-sm-2 col-sm-2 col-form-label align-self-center">Location1*</label>
-        <div class="col-12 col-sm-6 align-self-center">
-          <input type="text" class="form-control" name="locationDetailIn1" id="locationDetailIn1">
-        </div>
-      </div>
-      <div class="row align-items-center mb-3">
-        <label for="locationMoreIn1" class="col-12 offset-sm-2 col-sm-2 col-form-label align-self-center">Location2</label>
-        <div class="col-12 col-sm-2 align-self-center">
-          <input type="text" class="form-control" name="locationMoreIn1" id="locationMoreIn1">
-        </div>
-        <label for="postalCodeIn1" class="col-12 col-sm-2 col-form-label align-self-center">Postal code</label>
-        <div class="col-12 col-sm-2 align-self-center">
-          <input type="text" class="form-control" name="postalCodeIn1" id="postalCodeIn1">
-        </div>
-      </div>
-      <div class="row align-items-center mb-3">
-        <label for="managerNameIn1" class="col-12 offset-sm-2 col-sm-2 col-form-label align-self-center">Manager Name*</label>
-        <div class="col-12 col-sm-6 align-self-center">
-          <input type="text" class="form-control" id="managerNameIn1" name="managerNameIn1">
-        </div>
-      </div>
-      <div class="row align-items-center mb-3">
-        <label for="phoneNumberIn1" class="col-12 offset-sm-2 col-sm-2 col-form-label align-self-center">Phone number*</label>
-        <div class="col-12 col-sm-6 align-self-center">
-          <input type="text" class="form-control" id="phoneNumberIn1" name="phoneNumberIn1">
-        </div>
-      </div>
-      <div class="row align-items-center mb-3">
-        <label for="mobileNumberIn1" class="col-12 offset-sm-2 col-sm-2 col-form-label align-self-center">Mobile number*</label>
-        <div class="col-12 col-sm-6 align-self-center">
-          <input type="text" class="form-control" id="mobileNumberIn1" name="mobileNumberIn1">
-        </div>
-      </div>
-      <div class="form-group row mb-3">
-        <div class="col-12 text-center">
-          <button type="submit" class="btn btn-primary" id="saveMemberMyInfoButton">
-            Save
+          <button type="submit" class="btn btn-primary" id="submitChangePwd" (click)="open(changePasswordModal)">
+            Change password
           </button>
         </div>
       </div>
-    </form>
+
+      <ng-template #changePasswordModal let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title">Change passowrd</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group row align-items-center mb-3">
+              <label for="newPassword" class="col-4 col-form-label">New password</label>
+              <div class="col-8">
+                <input type="password" class="form-control" id="newPassword">
+              </div>
+              <label for="rePassword" class="col-4 col-form-label">Confirm password</label>
+              <div class="col-8">
+                <input type="password" class="form-control" id="rePassword">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer text-center">
+          <div class="col-md justify-content-center">
+            <button type="submit" class="btn btn-primary" (click)="c('Close click')">Save</button>
+          </div>
+        </div>
+      </ng-template><!-- changePasswordModal -->
+
+      <div class="form-group row align-items-center mb-3">
+        <label for="firstname" class="col-12 offset-sm-2 col-sm-2 col-form-label">First Name</label>
+        <div class="col-12 col-sm-2">
+          <input type="text" class="form-control" id="firstname" disabled>
+        </div>
+        <label for="lastname" class="col-12 col-sm-2 col-form-label">Last Name</label>
+        <div class="col-12 col-sm-2">
+          <input type="text" class="form-control" id="lastname" disabled>
+        </div>
+      </div>
+
+      <div class="form-group row align-items-center mb-3">
+        <label for="type" class="col-12 offset-sm-2 col-sm-2 col-form-label">Type</label>
+        <div class="col-12 col-sm-2">
+          <input id="text" class="form-control" id="type" disabled>
+        </div>
+        <label for="subject" class="col-12 col-sm-2 col-form-label">Subject</label>
+        <div class="col-12 col-sm-2">
+          <input id="text" class="form-control" id="subject" disabled>
+        </div>
+      </div>
+
+      <div class="form-group row align-items-center mb-3">
+        <label for="country" class="col-12 offset-sm-2 col-sm-2 col-form-label">Country</label>
+        <div class="col-12 col-sm-2">
+          <input id="text" class="form-control" id="country" disabled>
+        </div>
+        <label for="city" class="col-12 col-sm-2 col-form-label">City</label>
+        <div class="col-12 col-sm-2">
+          <input id="text" class="form-control" id="city" disabled>
+        </div>
+      </div>
+
+      <div class="form-group row align-items-center mb-3">
+        <label for="address" class="col-12 offset-sm-2 col-sm-2 col-form-label">address</label>
+        <div class="col-12 col-sm-6">
+          <input type="text" class="form-control" id="address" disabled>
+        </div>
+      </div>
+
+      <div class="form-group row align-items-center mb-3">
+        <label for="institution" class="col-12 offset-sm-2 col-sm-2 col-form-label">institution</label>
+        <div class="col-12 col-sm-2">
+          <input type="text" class="form-control" id="institution" disabled>
+        </div>
+        <label for="postCode" class="col-12 col-sm-2 col-form-label">Post code</label>
+        <div class="col-12 col-sm-2">
+          <input type="text" class="form-control" id="postCode" disabled>
+        </div>
+      </div>
+
+      <form class="col-12 text-right" novalidate [formGroup]="contactForm" (ngSubmit)="submitContact()" *ngIf=!(showMemberInfo)>
+        <div class="form-group row align-items-center mb-3">
+          <label for="managerName" class="col-12 offset-sm-2 col-sm-2 col-form-label">Manager Name</label>
+          <div class="col-12 col-sm-6">
+            <input type="text" class="form-control" id="managerName" disabled>
+          </div>
+        </div>
+
+        <div class="form-group row align-items-center mb-3">
+          <label for="phoneNum" class="col-12 offset-sm-2 col-sm-2 col-form-label">Phone number</label>
+          <div class="col-12 col-sm-2">
+            <input type="text" class="form-control {{(contactFormErrors.phoneNum) ? 'is-invalid' : ''}}" id="phoneNum" formControlName="phoneNum">
+            <div class="invalid-feedback">{{contactFormErrors.phoneNum}}</div>
+          </div>
+          <label for="mobileNum" class="col-12 col-sm-2 col-form-label">Mobile number</label>
+          <div class="col-12 col-sm-2">
+            <input type="text" class="form-control {{(contactFormErrors.mobileNum) ? 'is-invalid' : ''}}" id="mobileNum" formControlName="mobileNum">
+            <div class="invalid-feedback">{{contactFormErrors.mobileNum}}</div>
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <div class="col-12 text-center">
+            <button type="submit" class="btn {{contactForm.valid ? 'btn-primary' : 'btn-secondary'}}" id="submitMember" [disabled]="contactForm.invalid">
+              Save
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+<!--
+    <div *ngIf="showMemberInfo">
+      <h3>New member information</h3>
+      <p>ID: {{newMember.id}}</p>
+      <p>Password: {{newMember.password}}</p>
+      <p>First Name: {{newMember.firstname}}</p>
+      <p>Last Name: {{newMember.lastname}}</p>
+      <p>Type: {{newMember.type}}</p>
+      <p>Subject: {{newMember.subject}}</p>
+      <p>Country: {{newMember.country}}</p>
+      <p>City: {{newMember.city}}</p>
+      <p>Location 1: {{newMember.address}}</p>
+      <p>Location 2: {{newMember.institution}}</p>
+      <p>Post Code: {{newMember.postCode}}</p>
+      <p>Manager Name: {{newMember.manaerName}}</p>
+      <p>Phone Num.: {{newMember.phoneNum}}</p>
+      <p>Mobile Num.: {{newMember.mobileNum}}</p>
+    </div>
+-->
   </div>
+
 </div><!-- container -->
