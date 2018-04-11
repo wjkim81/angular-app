@@ -39,6 +39,48 @@ export class AdminHomeComponent implements OnInit {
   // Testing with modal
   closeResult: string;
 
+  /**
+   * columns {key: value}
+   * key is a propterty of Patient object
+   * value is its column name in a table
+   */
+  columns = {
+    'hospital': 'Hospital',
+    'name': 'Name',
+    'birthday': 'Birthday',
+    'height': 'Hegith',
+    'weight': 'Weight',
+    'sex': 'Sex',
+    'type': 'Type',
+    'risser': 'Risser',
+    'apexStart1': 'Apex1',
+    'apexStart2': 'Apex2',
+    'apexStart3': 'Apex3',
+    'visitDays': 'Visit Days'
+  };
+
+  orderColumns = {
+    'hospital': false,
+    'name': false,
+    'birthday': false,
+    'height': false,
+    'weight': false,
+    'sex': false,
+    'type': false,
+    'risser': false,
+    'apexStart1': false,
+    'apexStart2': false,
+    'apexStart3': false,
+    'visitDays': true
+  }
+
+  currentOrderCol: string;
+  byDescentOrder: boolean;
+
+  columnKeys: string[];
+  columnNames: string[];
+
+
   constructor(
     private modalService: NgbModal
   ) { }
@@ -59,11 +101,32 @@ export class AdminHomeComponent implements OnInit {
     this.numAllPatients = this.patients.length;
     this.numPatientsInTable = this.patients.length;
 
-    //console.log(MEMBERS);
+    this.columnKeys = Object.keys(this.columns);
+    this.columnNames = Object.values(this.columns);
+    
+    this.currentOrderCol = 'visitDays';
+    this.byDescentOrder = true;
+
+    console.log(this.orderColumns);
+    //console.log(this.columnKeys);
   }
 
   open(content) {
     this.modalService.open(content, { size: 'lg' });
   }
 
+  setOrder(column: string) {
+    
+    if (this.orderColumns[column]) {
+      this.byDescentOrder = !(this.byDescentOrder);
+    } else {
+      this.orderColumns[this.currentOrderCol] = false;
+      this.orderColumns[column] = true;
+      this.byDescentOrder = true;
+      this.currentOrderCol = column;
+    }
+    //console.log(column);
+    //console.log(this.orderColumns);
+    //console.log(this.byDescentOrder);
+  }
 }

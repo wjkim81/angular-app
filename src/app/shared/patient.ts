@@ -6,7 +6,7 @@ class PatientFile {
 }
 
 export class Patient {
-  patientId: number;
+  patientId: string;
   memberId: string;
   name: string;
   hospital: string;
@@ -18,23 +18,23 @@ export class Patient {
   weight: number;
   type: string;
   risser: string;//number;
-  apex1Start: string;
-  apex1Cobb: number;
-  apex1End: string;
-  apex1Direction: string;
-  apex2Start: string;
-  apex2Cobb: number;
-  apex2End: string;
-  apex2Direction: string;
-  apex3Start: string;
-  apex3Cobb: number;
-  apex3End: string;
-  apex3Direction: string;
-  bodySp: string;//number;
-  bodyB: string;//number;
-  bodyW: string;//number;
-  bodyH: string;//number;
-  bodyL: string;//number;
-  bodyLh: string;//number;
-  visitedDays: string[];//string[];
+  apexStart1: string;
+  cobbAng1: number;
+  apexEnd1: string;
+  direction1: string;
+  apexStart2: string;
+  cobbAng2: number;
+  apexEnd2: string;
+  direction2: string;
+  apexStart3: string;
+  cobbAng3: number;
+  apexEnd3: string;
+  direction3: string;
+  shoulder: number;
+  bust: number;
+  waist: number;
+  hip: number;
+  lumber: number;
+  lumberHeight: number;
+  visitDays: string;//string[];
 }

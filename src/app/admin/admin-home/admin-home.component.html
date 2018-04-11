@@ -92,6 +92,7 @@
 
   <div class="row form-group orderOption">
     <div class="col-12 col-sm-12 col-md-3">
+      <!--
       <select class="form-control">
         <option value="descentOrderbyRegisteration">Registration↓</option>
         <option value="ascentOrderByAge">Age↑</option>
@@ -101,6 +102,7 @@
         <option value="ascentOrderByApex1">Apex1 angle↑</option>
         <option value="descentOrderByApex1">Apex1 angle↓</option>
       </select>
+      -->
     </div>
     <div class="input-group col-12 col-sm-12 offset-md-1 col-md-8">
     <!--<div class="col-12 col-sm-6 offset-md-1 col-md-2">-->
@@ -137,7 +139,11 @@
           <thead class="thead-inverse">
             <tr>
               <th><input type="checkbox" name="checkPatient" id="checkPatient"></th>
-              <th>Hospital <span class="fa fa-caret-down"></span></th>
+              <th *ngFor="let ck of columnKeys; let i = index" (click)="setOrder(ck)">
+                {{columns[ck]}} <span class="{{(orderColumns[ck]) ? ((byDescentOrder) ? 'fa fa-caret-down' : 'fa fa-caret-up') : ''}}"></span>
+              </th>
+              <!--
+              <th (click)="onClickMe()">Hospital <span class="fa fa-caret-down"></span></th>
               <th>ID</th>
               <th>Birthday</th>
               <th>Height</th>
@@ -149,12 +155,15 @@
               <th>Apex2</th>
               <th>Apex3</th>
               <th>First visit</th>
-              <th>Recent visit</th>  
+              <th>Recent visit</th>
+              -->
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let patient of patients; let even = even; let odd = odd" [ngClass]="{ odd: odd, even: even }">
-              <td><input type="checkbox"  [value]="patient"></td>
+              <td><input type="checkbox" [value]="patient"></td>
+              <td *ngFor="let ck of columnKeys">{{patient[ck]}}</td>
+              <!--
               <td>{{patient.hospital}}</td>
               <td>{{patient.patientId}}</td>
               <td>{{patient.birthday}}</td>
@@ -168,6 +177,7 @@
               <td>{{patient.apex3Start}}</td>
               <td>{{patient.patientVisit}}</td>
               <td>{{patient.patientVisit}}</td>
+              -->
             </tr>
           </tbody>
         </table>
