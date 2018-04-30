@@ -2,8 +2,10 @@ import { Routes } from '@angular/router';
 
 import { AdminComponent } from '../admin.component';
 import { AdminHomeComponent } from '../admin-home/admin-home.component';
-import { ListHoispitalsComponent } from '../list-hoispitals/list-hoispitals.component';
+import { ListMembersComponent } from '../list-members/list-members.component';
+import { RegisterOrganizationComponent } from '../register-organization/register-organization.component';
 import { RegisterMemberComponent } from '../register-member/register-member.component';
+import { PatientdetailComponent } from '../patientdetail/patientdetail.component';
 
 export const adminRoutes: Routes = [{
   path: '',
@@ -14,12 +16,20 @@ export const adminRoutes: Routes = [{
       component: AdminHomeComponent
     },
     {
-      path: 'admin/list-hospitals',
-      component: ListHoispitalsComponent
+      path: 'admin/list-members',
+      component: ListMembersComponent
+    },
+        {
+      path: 'admin/register-organization',
+      component: RegisterOrganizationComponent
     },
     {
       path: 'admin/register-member',
       component: RegisterMemberComponent
+    },
+    {
+      path: 'patients/:id',
+      component: PatientdetailComponent
     },
     {
       path: '', redirectTo: '/admin/home', pathMatch: 'full'

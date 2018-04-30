@@ -6,7 +6,13 @@ import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { SUBJECTS, TYPES, COUNTRIES } from '../../shared/member-options';
+
+
 import { Member } from '../../shared/member';
+import { MemberService } from '../../services/member.service';
+
+import { Organization } from '../../shared/organization';
+import { OrganizationService } from '../../services/organization.service';
 
 import { PasswordValidation } from '../../services/password-validation';
 
@@ -17,13 +23,18 @@ import { PasswordValidation } from '../../services/password-validation';
 })
 export class RegisterMemberComponent implements OnInit {
 
-  subjects: string[];
-  types: string[];
-  countries: string[];
-
+  //countryOptions: string[];
+  //typeOptions: string[];
+  organizationOptions: string[];
+  subjectOptions: string[];
+  
   newMember: Member;
   memberForm: FormGroup;
+
+  organizations: Organization[];
+
   errMess: string;
+  registerStatus: string;
 
   showMemberInfo: boolean;
 
@@ -33,9 +44,9 @@ export class RegisterMemberComponent implements OnInit {
     'confirmPassword': '',
     'firstname': '',
     'lastname': '',
-    'type': '',
+    //'type': '',
     'subject': '',
-    'country': '',
+    //'country': '',
     'city': '',
     'address': '',
     'phoneNum': '',
@@ -67,20 +78,23 @@ export class RegisterMemberComponent implements OnInit {
     'lastname': {
       'required': 'Last name is required.',
     },
-    'type': {
-      'required': 'Type is required.',
-    },
+    //'type': {
+    //  'required': 'Type is required.',
+    //},
     'subject': {
       'required': 'Subject is required.',
     },
-    'country': {
-      'required': 'Country is required.',
-    },
+    //'country': {
+    //  'required': 'Country is required.',
+    //},
     'city': {
       'required': 'City is required.',
     },
     'address': {
       'required': 'Address is required.',
+    },
+    'organization': {
+      'required': 'Organization is required.',
     },
     'phoneNum': {
       'required': 'Phone number is required.',
@@ -90,36 +104,59 @@ export class RegisterMemberComponent implements OnInit {
     },
   };
   
+  orgsLoaded: boolean;
+
   constructor(
     private location: Location,
     private fb: FormBuilder,
+    private organizationService: OrganizationService,
+    private memberService: MemberService,
     @Inject('BaseURL') private BaseURL
   ) { }
 
   ngOnInit() {
-    this.subjects = SUBJECTS;
-    this.types = TYPES;
-    this.countries = COUNTRIES;
-    //console.log(this.subjects);
+    this.orgsLoaded = false;
+    this.organizationService.getOrganizations()
+    .subscribe((orgs) => {
+      console.log(orgs);
+      this.organizations = orgs;
 
-    //console.log(this.BaseURL);
-    this.createForm();
-    this.showMemberInfo = false;
+      //var countries: string[] = [];
+      //var types:string[] = []
+      var organizations: Organization[] = [];
+      
+      for (var i = 0; i < orgs.length; i++) {
+        //countries.push(orgs[i].country);
+        //types.push(orgs[i].type);
+        organizations.push(orgs[i]);
+      }
+      //this.countryOptions = Array.from(new Set(countries));
+      //this.typeOptions = Array.from(new Set(types));
+      //console.log(this.orgNameOptions);
+      this.subjectOptions = SUBJECTS;
+
+      this.orgsLoaded = true;
+      this.showMemberInfo = false;
+      this.createForm();
+    }, (errMess) => {
+      this.errMess = <any>errMess;
+    });
   }
 
   createForm() {
+    console.log('createForm');
     this.memberForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(4) ]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(25) ]],
       confirmPassword: ['', [Validators.required]],
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
-      type: [this.types[0], Validators.required],
-      subject: [this.subjects[0], Validators.required],
-      country: [this.countries[0], Validators.required],
+      //type: [this.typeOptions[0], Validators.required],
+      subject: [this.subjectOptions[0], Validators.required],
+      //country: [this.countryOptions[0], Validators.required],
       city: ['', Validators.required],
       address: ['', Validators.required],
-      institution: '',
+      organization: [this.organizations[0]._id, Validators.required],
       postCode: '',
       managerName: '',
       phoneNum: ['', Validators.required],
@@ -158,29 +195,33 @@ export class RegisterMemberComponent implements OnInit {
     this.newMember = this.memberForm.value;
     console.log(this.newMember);
 
-    this.showMemberInfo = true;
+    this.memberService.registerMember(this.newMember)
+    .subscribe((status) => {
+      this.registerStatus = status;
+      this.showMemberInfo = true;
 
-    setTimeout(() => {
-      
-      this.memberForm.reset({
-        username: '',
-        password: '',
-        confirmPassword: '',
-        firstname: '',
-        lastname: '',
-        type: this.types[0],
-        subject: this.subjects[0],
-        country: this.countries[0],
-        city: '',
-        address: '',
-        institution: '',
-        postCode: '',
-        managerName: '',
-        phoneNum: '',
-        mobileNum: ''
-      });
+      setTimeout(() => {
+        this.memberForm.reset({
+          username: '',
+          password: '',
+          confirmPassword: '',
+          firstname: '',
+          lastname: '',
+          //type: this.typeOptions[0],
+          subject: this.subjectOptions[0],
+          //country: this.countryOptions[0],
+          city: '',
+          address: '',
+          organization: this.organizations[0]._id,
+          postCode: '',
+          managerName: '',
+          phoneNum: '',
+          mobileNum: ''
+        });
 
-      this.showMemberInfo = false;
-    }, 5000);
+        this.showMemberInfo = false;
+        this.newMember = null;
+      }, 5000);
+    });
   }
 }

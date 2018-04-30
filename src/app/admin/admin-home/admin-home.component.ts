@@ -1,9 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 
+
+
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 import { Patient } from '../../shared/patient';
+import { PatientService } from '../../services/patient.service';
+
 import { Member } from '../../shared/member';
 import { PATIENTS } from '../../shared/patients';
 import { MEMBERS } from '../../shared/members';
@@ -23,11 +28,12 @@ export class AdminHomeComponent implements OnInit {
   countries: string[];
 
   sexes: string[];
-  patient_types: string[];
+  patientTypes: string[];
   rissers: number[];
   stages: string[];
 
   patients: Patient[];
+  patientsInTable: Patient[];
   selectedPatients: Patient[];
 
   members: Member[];
@@ -35,9 +41,16 @@ export class AdminHomeComponent implements OnInit {
   numAllPatients: number;
   numPatientsInTable: number;
 
+  errMess: string;
 
   // Testing with modal
   closeResult: string;
+
+  /**
+   * Filter option form
+   */
+  //dateFilterForm: FormGroup;
+  optionFilterForm: FormGroup;
 
   /**
    * columns {key: value}
@@ -45,7 +58,8 @@ export class AdminHomeComponent implements OnInit {
    * value is its column name in a table
    */
   columns = {
-    'hospital': 'Hospital',
+    'organization': 'Organization',
+    'patientId': 'Patient ID',
     'name': 'Name',
     'birthday': 'Birthday',
     'height': 'Hegith',
@@ -60,7 +74,8 @@ export class AdminHomeComponent implements OnInit {
   };
 
   orderColumns = {
-    'hospital': false,
+    'organization': false,
+    'patientId': false,
     'name': false,
     'birthday': false,
     'height': false,
@@ -75,18 +90,27 @@ export class AdminHomeComponent implements OnInit {
   }
 
   currentOrderCol: string;
-  byDescentOrder: boolean;
+  ascend: boolean;
 
   columnKeys: string[];
   columnNames: string[];
 
+  searchDateStart: Date;
+  searchDateEnd: Date;
+  today: Date;
+  //searchDateStartStr: string;
+  //searchDateEndStr: string;
+
 
   constructor(
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private fb: FormBuilder,
+    private patientService: PatientService,
+    @Inject('BaseURL') private BaseURL
   ) { }
 
   ngOnInit() {
-    this.patients = PATIENTS;
+    //this.patients = PATIENTS;
     this.members = MEMBERS;
 
     this.subjects = SUBJECTS;
@@ -94,21 +118,54 @@ export class AdminHomeComponent implements OnInit {
     this.countries = COUNTRIES;
 
     this.sexes = SEXES;
-    this.patient_types = PATIENT_TYPES;
+    this.patientTypes = PATIENT_TYPES;
     this.rissers = RISSERS;
     this.stages = STAGES;
 
-    this.numAllPatients = this.patients.length;
-    this.numPatientsInTable = this.patients.length;
-
+    
     this.columnKeys = Object.keys(this.columns);
     this.columnNames = Object.values(this.columns);
     
     this.currentOrderCol = 'visitDays';
-    this.byDescentOrder = true;
+    this.ascend = false;
 
     console.log(this.orderColumns);
     //console.log(this.columnKeys);
+
+    let dayDiff = (24*60*60*1000) * 7; // 7days difference
+    //this.searchDateStart = new Date();
+    this.searchDateEnd = new Date();
+    this.searchDateStart = new Date();
+    this.today = new Date();
+    this.searchDateStart.setTime(this.searchDateEnd.getTime() - dayDiff);
+
+    /*
+    this.dateFilterForm = this.fb.group({
+      'searchDateStart': this.searchDateStart,
+      'searchDateEnd': this.searchDateEnd
+    });
+    */
+    this.optionFilterForm = this.fb.group({
+      'sex': '',
+      'patientType': '',
+      'risser': '',
+      'stage': ''
+    })
+
+    console.log(this.searchDateStart.toISOString());
+
+/*
+    this.patientService.getPatients()
+    .subscribe((patients) => {
+      console.log(patients);
+      this.patients = patients;
+      this.patientsInTable = this.patients;
+      this.numAllPatients = this.patients.length;
+      this.numPatientsInTable = this.patientsInTable.length;
+    }, (errMess) => {
+      this.errMess = <any>errMess
+    });
+    */
   }
 
   open(content) {
@@ -118,15 +175,43 @@ export class AdminHomeComponent implements OnInit {
   setOrder(column: string) {
     
     if (this.orderColumns[column]) {
-      this.byDescentOrder = !(this.byDescentOrder);
+      this.ascend = !(this.ascend);
     } else {
       this.orderColumns[this.currentOrderCol] = false;
       this.orderColumns[column] = true;
-      this.byDescentOrder = true;
+      this.ascend = true;
       this.currentOrderCol = column;
     }
     //console.log(column);
     //console.log(this.orderColumns);
-    //console.log(this.byDescentOrder);
+    //console.log(this.ascend);
+  }
+
+  
+  submitOptionFilter() {
+    this.patientsInTable = this.patients.filter((patient) => {
+      var numSpineInfos = patient.spineInfos.length;
+      var included = true;
+      if (this.optionFilterForm.value.sex !== '') {
+        if (patient.sex != this.optionFilterForm.value.sex) included = false;
+      }
+      
+      if (this.optionFilterForm.value.patientType !== '') {
+        if (patient.spineInfos[numSpineInfos-1].type != this.optionFilterForm.value.patientType) included = false;
+      }
+      
+      if (this.optionFilterForm.value.risser !== '') {
+        patient.spineInfos[numSpineInfos-1].risser = this.optionFilterForm.value.risser;
+      }
+/*
+      if (this.optionFilterForm.value.stage !== '') {
+        if (patient.stage != this.optionFilterForm.value.stage) included = false;
+      }
+*/
+      //console.log(member);
+      return included;
+    });
+    this.numPatientsInTable = this.patientsInTable.length;
+    //console.log(this.membersInTable);
   }
 }

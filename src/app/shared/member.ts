@@ -1,18 +1,18 @@
+import { Organization } from './organization';
+
 export class Member {
-  id: string;
+  _id: string;
+  username: string;
   password: string;
   firstname: string;
   lastname: string;
-  role: string;
+  //admin: boolean;
+  organization: Organization;
   subject: string;
-  type: string;
-  country: string;
   city: string;
   address: string;
-  institution: string;
   postCode: string;
   managerName: string;
   phoneNum: string;
   mobileNum: string;
-  joinDate: string;
 }

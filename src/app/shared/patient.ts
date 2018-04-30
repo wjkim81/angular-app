@@ -1,23 +1,23 @@
-class PatientFile {
-  type: number;
-  name: string;
-  filePath: string;
-  date: string;
-}
+import { Organization } from './organization';
 
-export class Patient {
-  patientId: string;
-  memberId: string;
-  name: string;
-  hospital: string;
-  hospitalId: number;//string;
-  age: number;
-  birthday: string;
-  sex: string;
+
+class bodyMeasurement {
+  updatedBy: string;
   height: number;
   weight: number;
+  shoulder: number;
+  bust: number;
+  waist: number;
+  hip: number;
+  lumber: number;
+  lumberHeight: number;
+}
+
+class spineInfo{
+  updatedBy: string;
   type: string;
-  risser: string;//number;
+  risser: number;
+  stage: string;
   apexStart1: string;
   cobbAng1: number;
   apexEnd1: string;
@@ -30,11 +30,31 @@ export class Patient {
   cobbAng3: number;
   apexEnd3: string;
   direction3: string;
-  shoulder: number;
-  bust: number;
-  waist: number;
-  hip: number;
-  lumber: number;
-  lumberHeight: number;
-  visitDays: string;//string[];
+}
+
+class xRayFile {
+  updatedBy: string;
+  filePath: string;
+}
+
+class threeDFile {
+  updatedBy: string;
+  filePath: string;
+}
+
+export class Patient {
+  _id: string;
+
+  name: string;
+  birthday: string;
+  sex: string;
+
+  organization: string;
+
+  patientId: string;
+  bodyMeasurements: [bodyMeasurement];
+  spineInfos: [spineInfo];
+  xRayFiles: [xRayFile];
+  threeDFiles: [threeDFile];
+  patientVisits: [string];
 }

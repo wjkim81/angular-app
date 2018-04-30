@@ -1,9 +1,14 @@
 <div class="container">
-  <p>memberForm.value: {{memberForm.value | json}}</p>
-  <p>formErrors: {{formErrors | json}}</p>
-  <p>memberForm.valid: {{memberForm.valid}}</p>
+
+  <div *ngIf="orgsLoaded">
+    <p>memberForm.value: {{memberForm.value | json}}</p>
+    <p>formErrors: {{formErrors | json}}</p>
+    <p>memberForm.valid: {{memberForm.valid}}</p>
+  </div>
+
   <div class="row">
-    <form class="col-12 text-right" novalidate [formGroup]="memberForm" (ngSubmit)="submitMember()" *ngIf=!(showMemberInfo)>
+    
+    <form class="col-12 text-right" novalidate [formGroup]="memberForm" (ngSubmit)="submitMember()" *ngIf="orgsLoaded && !(showMemberInfo)">
 
       <div class="form-group row align-items-center mb-3">
         <label for="username" class="col-12 offset-sm-2 col-sm-2 col-form-label">User Name*</label>
@@ -40,34 +45,69 @@
       </div>
 
       <div class="form-group row align-items-center mb-3">
+        <!--
         <label for="type" class="col-12 offset-sm-2 col-sm-2 col-form-label">Type*</label>
         <div class="col-12 col-sm-2">
           <select id="type" class="form-control {{(formErrors.type) ? 'is-invalid' : ''}}" formControlName="type">
-            <option *ngFor="let type of types" [value]="type">{{type}}</option>
+            <option *ngFor="let type of typeOptions" [value]="type">{{type}}</option>
             <div class="invalid-feedback">{{formErrors.type}}</div>
+          </select>
+        </div>
+        -->
+        <label for="organization" class="col-12 offset-sm-2 col-sm-2 col-form-label">Organization*</label>
+        <div class="col-12 col-sm-2">
+          <select id="organization" class="form-control {{(formErrors.organization) ? 'is-invalid' : ''}}" formControlName="organization">
+            <option *ngFor="let organization of organizations" [value]="organization._id">{{organization.name}}</option>
+            <div class="invalid-feedback">{{formErrors.organization}}</div>
           </select>
         </div>
         <label for="subject" class="col-12 col-sm-2 col-form-label">Subject*</label>
         <div class="col-12 col-sm-2">
           <select id="subject" class="form-control {{(formErrors.subject) ? 'is-invalid' : ''}}" formControlName="subject">
-            <option *ngFor="let subject of subjects" [value]="subject">{{subject}}</option>
+            <option *ngFor="let subject of subjectOptions" [value]="subject">{{subject}}</option>
             <div class="invalid-feedback">{{formErrors.subject}}</div>
           </select>
         </div>
       </div>
 
+      <!--
       <div class="form-group row align-items-center mb-3">
         <label for="country" class="col-12 offset-sm-2 col-sm-2 col-form-label">Country*</label>
         <div class="col-12 col-sm-2">
           <select id="country" class="form-control {{(formErrors.country) ? 'is-invalid' : ''}}" formControlName="country">
-            <option *ngFor="let country of countries" [value]="country">{{country}}</option>
+            <option *ngFor="let country of countryOptions" [value]="country">{{country}}</option>
             <div class="invalid-feedback">{{formErrors.country}}</div>
           </select>
         </div>
+        
         <label for="city" class="col-12 col-sm-2 col-form-label">City*</label>
         <div class="col-12 col-sm-2">
           <input type="text" class="form-control {{(formErrors.city) ? 'is-invalid' : ''}}" id="city" formControlName="city">
           <div class="invalid-feedback">{{formErrors.city}}</div>
+        </div>
+        
+      </div>
+      -->
+      <div class="form-group row align-items-center mb-3">
+        <!--
+        <label for="organization" class="col-12 offset-sm-2 col-sm-2 col-form-label">Organization*</label>
+        <div class="col-12 col-sm-2">
+          <select id="organization" class="form-control {{(formErrors.organization) ? 'is-invalid' : ''}}" formControlName="organization">
+            <option *ngFor="let organization of orgNameOptions" [value]="organization">{{organization}}</option>
+            <div class="invalid-feedback">{{formErrors.organization}}</div>
+          </select>
+        </div>
+        -->
+        
+        <label for="city" class="col-12 offset-sm-2 col-sm-2 col-form-label">City*</label>
+        <div class="col-12 col-sm-2">
+          <input type="text" class="form-control {{(formErrors.city) ? 'is-invalid' : ''}}" id="city" formControlName="city">
+          <div class="invalid-feedback">{{formErrors.city}}</div>
+        </div>
+        
+        <label for="postCode" class="col-12 col-sm-2 col-form-label">Post code</label>
+        <div class="col-12 col-sm-2">
+          <input type="text" class="form-control" id="postCode" formControlName="postCode">
         </div>
       </div>
 
@@ -76,17 +116,6 @@
         <div class="col-12 col-sm-6">
           <input type="text" class="form-control {{(formErrors.address) ? 'is-invalid' : ''}}" id="address" formControlName="address">
           <div class="invalid-feedback">{{formErrors.address}}</div>
-        </div>
-      </div>
-
-      <div class="form-group row align-items-center mb-3">
-        <label for="institution" class="col-12 offset-sm-2 col-sm-2 col-form-label">institution</label>
-        <div class="col-12 col-sm-2">
-          <input type="text" class="form-control" id="institution" formControlName="institution">
-        </div>
-        <label for="postCode" class="col-12 col-sm-2 col-form-label">Post code</label>
-        <div class="col-12 col-sm-2">
-          <input type="text" class="form-control" id="postCode" formControlName="postCode">
         </div>
       </div>
 
@@ -118,10 +147,11 @@
         </div>
       </div>
     </form>
-
+    
     <div *ngIf="showMemberInfo">
       <h3>New member information</h3>
-      <p>ID: {{newMember.id}}</p>
+      <p>Register Status: {{status}}</p>
+      <p>ID: {{newMember.username}}</p>
       <p>Password: {{newMember.password}}</p>
       <p>First Name: {{newMember.firstname}}</p>
       <p>Last Name: {{newMember.lastname}}</p>
@@ -130,7 +160,7 @@
       <p>Country: {{newMember.country}}</p>
       <p>City: {{newMember.city}}</p>
       <p>Location 1: {{newMember.address}}</p>
-      <p>Location 2: {{newMember.institution}}</p>
+      <p>Location 2: {{newMember.organization}}</p>
       <p>Post Code: {{newMember.postCode}}</p>
       <p>Manager Name: {{newMember.manaerName}}</p>
       <p>Phone Num.: {{newMember.phoneNum}}</p>

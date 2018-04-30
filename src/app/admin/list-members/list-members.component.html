@@ -1,0 +1,99 @@
+<div class="container-fluid">
+  <p>memberFilterForm.value: {{memberFilterForm.value | json}}</p>
+  <p>checkedMembers:</p>
+  <p *ngFor="let checked of checkedMembers; let i = index">checkedMembers[{{i}}]: {{checked}}</p>
+  <form novalidate [formGroup]="memberFilterForm" (ngSubmit)="submitMemberFilter()">
+    <div class="row form-group orderOption">
+      <div class="col-12 col-sm-6 col-md-2">
+        <select class="form-control" formControlName="country">
+          <option value="">All countries</option>
+          <option *ngFor="let country of countryOptions" [ngValue]="country">{{country}}</option>
+        </select>
+      </div>  
+      <div class="col-12 col-sm-6 col-md-2">
+        <select class="form-control" formControlName="type">
+          <option value="">All types</option>
+          <option *ngFor="let type of typeOptions">{{type}}</option>
+        </select>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <select class="form-control" formControlName="organization">
+          <option value="">All organizations</option>
+          <option *ngFor="let org of orgOptions">{{org}}</option>
+        </select>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <select class="form-control" formControlName="subject">
+          <option value="">All subjetcs</option>
+          <option *ngFor="let subject of subjectOptions">{{subject}}</option>
+        </select>
+      </div>
+      <div class="col-12 col-sm-12 offset-md-2 col-md-2">
+        <button class="btn btn-primary btn-block">Filter</button>
+      </div>
+    </div><!-- row Order Option -->
+  </form>
+
+  <div class="row listbox-area">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-stripped table-font">
+          <thead class="thead-inverse">
+            <tr>
+              <th><input type="checkbox" name="memberAll" id="memberAll"
+                [value]="checkedAll"
+                (change)="checkAllMember()"></th>
+              <th>ID</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Country</th>
+              <th>Type</th>
+              <th>Organization</th>
+              <th>Subject</th>
+              <th>City</th>
+              <th>Address</th>
+              <!--<th># of patients</th>-->
+              <!--<th>Status</th>-->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let member of membersInTable; let i = index">
+              <th><input type="checkbox" [value]="member._id"
+              (change)="changeCheckedMembers(i)"
+              [checked]="checkedMembers[i]"></th>
+              <td appHighlight><a [routerLink]="['/members', member._id]">{{member.username}}</a></td>
+              <td>{{member.firstname}}</td>
+              <td>{{member.lastname}}</td>
+              <td>{{member.organization.country}}</td>
+              <td>{{member.organization.type}}</td>
+              <td>{{member.organization.name}}</td>
+              <td>{{member.subject}}</td>
+              <td>{{member.city}}</td>
+              <td>{{member.address}}</td>
+              <!--<td>{{numAllPatients}}</td>-->
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row after-table-margin">
+    <div class="col-12 col-sm-6 col-md-2">
+      <a role="button" class="btn btn-primary btn-block" href="javascript:v_edit();">EDIT</a>
+    </div>
+    <div class="col-12 col-sm-6 col-md-2">
+      <button type="submit"
+          class="btn btn-block {{!(removeBtnDisabled) ? 'btn-primary' : 'btn-secondary'}}"
+          [disabled]="removeBtnDisabled"
+          (click)="removeMembers()">
+        REMOVE</button>
+    </div>
+    <div class="col-md">
+    </div>
+    <div class="col-12 col-sm-12 col-md-2 float-right">
+      {{numMembersInTable}} / {{numAllMembers}}
+    </div> 
+  </div><!-- row table-edit -->
+</div><!-- container -->

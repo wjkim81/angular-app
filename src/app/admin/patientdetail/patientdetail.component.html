@@ -1,0 +1,127 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <h4>Profile</h4>
+    </div>
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-stripped table-font">
+          <thead class="thead-inverse">
+            <tr>
+              <th>Patient Id</th>
+              <th>Birthday</th>
+              <th>Sex</th>
+              <th>Type</th>
+              <th>Risser</th>
+              <th>Apex1</th>
+              <th>Apex2</th>
+              <th>Apex3</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{patient.patientId}}</td>
+              <td>{{patient.birthday}}</td>
+              <td>{{patient.sex}}</td>
+              <td>{{patient.type}}</td>
+              <td>{{patient.risser}}</td>
+              <td>{{patient.apexStart1}}-{{patient.cobbAng1}}-{{patient.apexStart2}}</td>
+              <td>{{patient.apexStart2}}-{{patient.cobbAng2}}-{{patient.apexStart3}}</td>
+              <td>{{patient.apexStart3}}-{{patient.cobbAng3}}-{{patient.apexEnd3}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div><!-- profile table size -->
+
+    <div class="col-12">
+      <h4>Body Size</h4>
+    </div>
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-stripped table-font">
+          <thead class="thead-inverse">
+            <tr>
+              <th>Height</th>
+              <th>Weight</th>
+              <th>Shoulder</th>
+              <th>Bust</th>
+              <th>Waist</th>
+              <th>Hip</th>
+              <th>Lumber</th>
+              <th>Lumber Height</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{patient.height}}</td>
+              <td>{{patient.weight}}</td>
+              <td>{{patient.shoulder}}</td>
+              <td>{{patient.bust}}</td>
+              <td>{{patient.waist}}</td>
+              <td>{{patient.hip}}</td>
+              <td>{{patient.lumber}}</td>
+              <td>{{patient.lumberHeight}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div><!-- body size table -->
+
+    <div class="col-12 col-sm-6">
+      <div class="row">
+        <div class="col-12 col-sm-6">
+          <h3>X-ray images</h3>
+        </div>
+        <div class="col-12 col-sm-6">
+          <div class="btn-group" role="group">
+            <button class="btn btn-primary">Upload</button>
+            <button class="btn btn-primary">Download</button>
+            <button class="btn btn-primary">Delete</button>
+          </div>
+        </div>
+
+        <div class="col-12 table-responsive">
+          <table class="table table-stripped">
+            <tbody>
+              <tr>
+                <td><input type="checkbox" name="checkXray" id="checkXray"></td>
+                <td>{{patient.visitDays}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div><!--X-ray image table -->
+    
+    <div class="col-12 col-sm-6">
+      <div class="row">
+        <div class="col-12 col-sm-6">
+          <h3>3D images</h3>
+        </div>
+        <div class="col-12 col-sm-6">
+          <div class="btn-group" role="group">
+            <button class="btn btn-primary">Upload</button>
+            <button class="btn btn-primary">Download</button>
+            <button class="btn btn-primary">Delete</button>
+          </div>
+        </div>
+
+        <div class="col-12 table-responsive">
+          <table class="table table-stripped">
+            <tbody>
+              <tr>
+                <td><input type="checkbox" name="checkXray" id="checkXray"></td>
+                <td>{{patient.visitDays}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div><!--3D image table -->
+
+    <div class="col-12 text-center">
+      <button class="btn btn-primary">Order a product</button>
+    </div>
+  </div>
+</div><!-- container -->
