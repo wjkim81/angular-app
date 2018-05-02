@@ -170,7 +170,7 @@
           <tbody>
             <tr *ngFor="let patient of patientsInTable; let even = even; let odd = odd" [ngClass]="{ odd: odd, even: even }">
               <td><input type="checkbox" [value]="patient"></td>
-              <td *ngFor="let ck of columnKeys" [routerLink]="['/patients', patient.id]" appHighlight>{{patient[ck]}}</td>
+              <td *ngFor="let ck of columnKeys" [routerLink]="['/admin/patients', patient.id]" appHighlight>{{patient[ck]}}</td>
               <!--
               <td>{{patient.hospital}}</td>
               <td>{{patient.patientId}}</td>

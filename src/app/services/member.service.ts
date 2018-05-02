@@ -36,13 +36,13 @@ export class MemberService {
   getMembers(): Observable<Member[]> {
     console.log(baseURL);
     return this.http.get(baseURL + 'members')
-    .catch(error => { console.log('error: '); console.log(error); return this.processHTTPMsgService.handleError(error); });
+      .catch(error => { console.log('error: '); console.log(error); return this.processHTTPMsgService.handleError(error); });
   }
 
   getMember(id: string): Observable<Member> {
     console.log('id: ', id);
-    return  this.http.get(baseURL + 'members/'+ id)
-                    .catch(error => { return this.processHTTPMsgService.handleError(error); });
+    return  this.http.get(baseURL + 'members/' + id)
+      .catch(error => { return this.processHTTPMsgService.handleError(error); });
   }
 
   registerMember(member: Member) {

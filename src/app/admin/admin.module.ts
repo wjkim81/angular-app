@@ -29,6 +29,7 @@ import { ProcessHTTPMsgService } from '../services/process-httpmsg.service';
 import { OrganizationService } from '../services/organization.service';
 import { MemberService } from '../services/member.service';
 import { PatientService } from '../services/patient.service';
+import { MemberdetailComponent } from './memberdetail/memberdetail.component';
 
 
 
@@ -49,7 +50,8 @@ import { PatientService } from '../services/patient.service';
     RegisterOrganizationComponent,
     RegisterMemberComponent,
     ListMembersComponent,
-    PatientdetailComponent
+    PatientdetailComponent,
+    MemberdetailComponent
   ],
   providers: [
     HttpClientModule,

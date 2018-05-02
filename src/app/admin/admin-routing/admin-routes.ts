@@ -6,6 +6,7 @@ import { ListMembersComponent } from '../list-members/list-members.component';
 import { RegisterOrganizationComponent } from '../register-organization/register-organization.component';
 import { RegisterMemberComponent } from '../register-member/register-member.component';
 import { PatientdetailComponent } from '../patientdetail/patientdetail.component';
+import { MemberdetailComponent } from '../memberdetail/memberdetail.component';
 
 export const adminRoutes: Routes = [{
   path: '',
@@ -28,8 +29,12 @@ export const adminRoutes: Routes = [{
       component: RegisterMemberComponent
     },
     {
-      path: 'patients/:id',
+      path: 'admin/patients/:id',
       component: PatientdetailComponent
+    },
+    {
+      path: 'admin/members/:id',
+      component: MemberdetailComponent
     },
     {
       path: '', redirectTo: '/admin/home', pathMatch: 'full'

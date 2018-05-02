@@ -61,7 +61,7 @@
               <th><input type="checkbox" [value]="member._id"
               (change)="changeCheckedMembers(i)"
               [checked]="checkedMembers[i]"></th>
-              <td appHighlight><a [routerLink]="['/members', member._id]">{{member.username}}</a></td>
+              <td appHighlight><a [routerLink]="['/admin/members', member._id]">{{member.username}}</a></td>
               <td>{{member.firstname}}</td>
               <td>{{member.lastname}}</td>
               <td>{{member.organization.country}}</td>
