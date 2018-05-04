@@ -1,6 +1,6 @@
 import { Patient } from './patient';
 
-export const PATIENTS: Patient[] = [
+export const PATIENTS: any[] = [
   {
     "patientId": "a",
     "name": "이**",

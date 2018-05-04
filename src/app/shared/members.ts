@@ -1,6 +1,6 @@
 import { Member } from './member';
 
-export const MEMBERS: Member[] = [
+export const MEMBERS: any[] = [
   {
     "id": "1",
     "password": "password",

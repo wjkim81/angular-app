@@ -1,41 +1,51 @@
 <div class="container-fluid">
+  <p>searchDateStart: {{searchDateStart | date:'yyyy-MM-dd'}}, searchDateEnd: {{searchDateEnd | date:'yyyy-MM-dd'}}</p>
+  <p>optionFilterForm.value: {{optionFilterForm.value | json}}</p>
+  
   <div class="row form-group orderOption">
-    <div class="col-12 col-sm-12 col-md-3">
-      <select class="form-control">
-        <option value="descentOrderbyRegisteration">Registration↓</option>
-        <option value="ascentOrderByAge">Age↑</option>
-        <option value="descentOrderByAge">Age↓</option>
-        <option value="ascentOrderByWeight">Weight↑</option>
-        <option value="descentOrderByWeight">Weight↓</option>
-        <option value="ascentOrderByApex1">Apex1 angle↑</option>
-        <option value="descentOrderByApex1">Apex1 angle↓</option>
-      </select>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-5">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="searchPrepend">Between</span>
+        </div>
+        <input type="date" class="form-control" id="searchDateStart" name="searchDateStart" max="searchDateEnd | date:'yyyy-MM-dd'"
+          [ngModel]="searchDateStart | date:'yyyy-MM-dd'" (ngModelChange)="searchDateStart = $event">
+        <input type="date" class="form-control" id="searchDateEnd" name="searchDateEnd" max="today | date:'yyyy-MM-dd'"
+          [ngModel]="searchDateEnd | date:'yyyy-MM-dd'" (ngModelChange)="searchDateEnd = $event">
+        <div class="input-group-append">
+          <button class="btn btn-primary">Search</button>
+        </div>
+      </div>
     </div>
-    <div class="input-group col-12 col-sm-12 offset-md-1 col-md-8">
-    <!--<div class="col-12 col-sm-6 offset-md-1 col-md-2">-->
-      <select class="form-control">
-        <option>All sex</option>
-        <option *ngFor="let sex of sexes" [value]="patientSex">{{sex}}</option>
-      </select>
-    <!--</div>-->
-    <!--<div class="col-12 col-sm-6 col-md-2">-->
-      <select class="form-control">
-        <option> All patient types</option>
-        <option *ngFor="let patientType of patient_types" [value]="patientType">{{patientType}}</option>
-      </select>
-    <!--</div>-->
-    <!--<div class="col-12 col-sm-6 col-md-2">-->
-      <select class="form-control">
-        <option> All rissers</option>
-        <option *ngFor="let risser of rissers" [value]="risser">{{risser}}</option>
-      </select>
-    <!--</div>-->
-    <!--<div class="col-12 col-sm-6 col-md-2">-->
-      <select class="form-control">
-        <option> All stages</option>
-        <option *ngFor="let stage of stages" [value]="stage">{{stage}}</option>
-      </select>
-    <!--</div>-->
+
+    <div class="col-12 col-sm-12 col-md-12 col-lg-7">
+      <form novalidate [formGroup]="optionFilterForm" (ngSubmit)="submitOptionFilter()">
+        <div class="input-group">
+
+          <select class="form-control" formControlName="sex">
+            <option value="">All sex</option>
+            <option *ngFor="let sex of sexes" [ngValue]="sex">{{sex}}</option>
+          </select>
+
+          <select class="form-control" formControlName="patientType">
+            <option value="">All patient types</option>
+            <option *ngFor="let patientType of patientTypes" [ngValue]="patientType">{{patientType}}</option>
+          </select>
+
+          <select class="form-control" formControlName="risser">
+            <option value="">All rissers</option>
+            <option *ngFor="let risser of rissers" [ngValue]="risser">{{risser}}</option>
+          </select>
+
+          <select class="form-control" formControlName="stage">
+            <option value="">All stages</option>
+            <option *ngFor="let stage of stages" [ngValue]="stage">{{stage}}</option>
+          </select>
+          <div class="input-group-append">
+            <button class="btn btn-primary">Filter</button>
+          </div>
+        </div>
+      </form>
     </div>
   </div><!-- row Order Option -->
 
@@ -46,37 +56,15 @@
           <thead class="thead-inverse">
             <tr>
               <th><input type="checkbox" name="checkPatient" id="checkPatient"></th>
-              <th>Hospital</th>
-              <th>ID</th>
-              <th>Birthday</th>
-              <th>Height</th>
-              <th>Weight</th>
-              <th>Sex</th>
-              <th>Type</th>
-              <th>Risser</th>
-              <th>Apex1</th>
-              <th>Apex2</th>
-              <th>Apex3</th>
-              <th>First visit</th>
-              <th>Recent visit</th>  
+              <th *ngFor="let ck of columnKeys; let i = index" (click)="setOrder(ck)">
+                {{columns[ck]}} <span class="{{(orderColumns[ck]) ? ((ascend) ? 'fa fa-caret-up' : 'fa fa-caret-down') : ''}}"></span>
+              </th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let patient of patients; let even = even; let odd = odd" [ngClass]="{ odd: odd, even: even }">
-              <td><input type="checkbox"  [value]="patient"></td>
-              <td>{{patient.hospital}}</td>
-              <td>{{patient.patientId}}</td>
-              <td>{{patient.birthday}}</td>
-              <td>{{patient.height}}</td>
-              <td>{{patient.weight}}</td>
-              <td>{{patient.sex}}</td>
-              <td>{{patient.type}}</td>
-              <td>{{patient.risser}}</td>
-              <td>{{patient.apex1Start}}</td>
-              <td>{{patient.apex2Start}}</td>
-              <td>{{patient.apex3Start}}</td>
-              <td>{{patient.patientVisit}}</td>
-              <td>{{patient.patientVisit}}</td>
+            <tr *ngFor="let patient of patientsInTable; let even = even; let odd = odd" [ngClass]="{ odd: odd, even: even }">
+              <td><input type="checkbox" [value]="patient"></td>
+              <td *ngFor="let ck of columnKeys" [routerLink]="['/admin/patients', patient.id]" appHighlight>{{patient[ck]}}</td>
             </tr>
           </tbody>
         </table>

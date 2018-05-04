@@ -16,25 +16,43 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
 
 import { AppComponent } from './app.component';
 
+import { CoreModule } from './core-module/core-module.module';
 import { AdminModule } from './admin/admin.module';
 import { UserModule } from './user/user.module';
 
+import { AuthService } from './services/auth.service';
+import { AuthInterceptor, UnauthorizedInterceptor } from './services/auth.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
-    //UserHomeComponent//,
   ],
   imports: [
     BrowserModule,
     //FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    CoreModule.forRoot(),
     AdminModule,
     UserModule
     //NgbModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    /*
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UnauthorizedInterceptor,
+      multi: true
+    }
+    */
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

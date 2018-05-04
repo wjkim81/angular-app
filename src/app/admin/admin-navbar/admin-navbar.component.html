@@ -16,11 +16,12 @@
         <li class="nav-item" routerLinkActive="active"><a class="nav-link" routerLink="/admin/register-organization"> Register an Organization</a></li>
         <li class="nav-item" routerLinkActive="active"><a class="nav-link" routerLink="/admin/register-member"> Register a Member</a></li>
         <!--<li class="nav-item" routerLinkActive="active"><a class="nav-link" routerLink="#"> My info</a></li>-->
-        <li class="nav-item" routerLinkActive="active"><a class="nav-link"><span class="fa fa-sign-out"></span> Logout</a></li>
+        <!--<li class="nav-item" routerLinkActive="active"><a class="nav-link"><span class="fa fa-sign-out"></span> Logout</a></li>-->
       </ul>
       <span class="navbar-text">
         {{admin}} 님 환영합니다.
       </span>
+      <a class="nav-link" (click)="logOut()"><span class="fa fa-sign-out"></span> Logout</a>
     </div><!-- /.navbar-collapse -->
   </div><!-- container -->
 </nav><!-- nav -->

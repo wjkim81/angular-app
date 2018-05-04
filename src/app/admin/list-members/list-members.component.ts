@@ -91,7 +91,7 @@ export class ListMembersComponent implements OnInit {
       this.numCheckedMembers = 0;
       this.removeBtnDisabled = true;
     }, (errMess) => {
-      this.errMess = <any>errMess
+      this.errMess = <any>errMess;
     });
   }
 

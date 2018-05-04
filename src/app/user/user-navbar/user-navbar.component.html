@@ -15,11 +15,13 @@
         <li class="nav-item" routerLinkActive="active"><a class="nav-link" routerLink="/register-patient"> Register a Patient</a></li>
         <!--<li class="nav-item" routerLinkActive="active"><a class="nav-link" routerLink="/admin/register-hospital"> Register a Hospital</a></li>-->
         <li class="nav-item" routerLinkActive="active"><a class="nav-link" routerLink="/user-info"> My info</a></li>
-        <li class="nav-item" routerLinkActive="active"><a class="nav-link" routerLink="/#"><span class="fa fa-sign-out"></span> Logout</a></li>
+        <!--<li class="nav-item" routerLinkActive="active"><a class="nav-link" routerLink="/#"><span class="fa fa-sign-out"></span> Logout</a></li>-->
       </ul>
+
       <span class="navbar-text">
         {{user}} 님 환영합니다.
       </span>
+      <a class="nav-link" (click)="logOut()"><span class="fa fa-sign-out"></span> Logout</a>
     </div><!-- /.navbar-collapse -->
   </div><!-- container -->
 </nav><!-- nav -->

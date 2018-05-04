@@ -10,40 +10,61 @@ import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
+import { AuthResponse, JWTResponse } from '../shared/response';
+
+/*
 interface AuthResponse {
   status: string,
   success: string,
   token: string
 };
 
+
 interface JWTResponse {
   status: string,
   success: string,
-  user: any
+  member: any
 };
+*/
 
 @Injectable()
 export class AuthService {
 
- tokenKey: string = 'JWT';
- isAuthenticated: Boolean = false;
- username: Subject<string> = new Subject<string>();
- authToken: string = undefined;
+  tokenKey: string = 'JWT';
+  isAuthenticated: Boolean = false;
+  username: Subject<string> = new Subject<string>();
+  authToken: string = undefined;
 
-  constructor(private http: HttpClient,
+  constructor(
+    private http: HttpClient,
     private processHTTPMsgService: ProcessHTTPMsgService) { 
   }
   
   checkJWTtoken() {
-    this.http.get<JWTResponse>(baseURL + 'users/checkJWTtoken')
+    this.http.get<JWTResponse>(baseURL + 'members/checkJWTtoken')
     .subscribe(res => {
       console.log("JWT Token Valid: ", res);
-      this.sendUsername(res.user.username);
+      this.sendUsername(res.member.username);
     },
     err => {
       console.log("JWT Token invalid: ", err);
       this.destroyUserCredentials();
     })
+  }
+
+  validateJWTtoken(): Observable<JWTResponse> {
+    console.log('validateJWTtoken');
+    return this.http.get<JWTResponse>(baseURL + 'members/checkJWTtoken')
+    .map(res => {
+      console.log("JWT Token Valid: ", res);
+      this.sendUsername(res.member.username);
+      return res;
+    })
+    .catch(err => {
+      console.log("JWT Token invalid: ", err);
+      //this.destroyUserCredentials();
+      return this.processHTTPMsgService.handleError(err);
+    });
   }
  
   sendUsername(name: string) {
@@ -64,6 +85,24 @@ export class AuthService {
     }
   }
 
+  validateUserCredentials(callback) {
+    var credentials = JSON.parse(localStorage.getItem(this.tokenKey));
+    console.log("validateUserCredentials ", credentials);
+    if (credentials && credentials.username != undefined) {
+      this.useCredentials(credentials);
+      //console.log('authToken: ', this.authToken);
+      if (this.authToken) {
+        this.validateJWTtoken()
+        .subscribe((res) => {
+          callback(res, null);
+        }, (errMess) => {
+          callback(null, errMess);
+        });
+      }
+    }
+    callback(null, 'No credentials');
+  }
+
   storeUserCredentials(credentials: any) {
     console.log("storeUserCredentials ", credentials);    
     localStorage.setItem(this.tokenKey, JSON.stringify(credentials));
@@ -74,6 +113,7 @@ export class AuthService {
     this.isAuthenticated = true;
     this.sendUsername(credentials.username);
     this.authToken = credentials.token;
+    console.log('useCredentials authToken: ', this.authToken);
   }
 
   destroyUserCredentials() {
@@ -87,14 +127,16 @@ export class AuthService {
 
   }
 
-  logIn(user: any): Observable<any> {
-    return this.http.post<AuthResponse>(baseURL + 'users/login', 
-      {"username": user.username, "password": user.password})
+  logIn(member: any): Observable<any> {
+    console.log('POST ' + baseURL + 'members/login');
+    console.log('username: ' + member.username + ', password: ', member.password);
+    return this.http.post<AuthResponse>(baseURL + 'members/login', 
+      {"username": member.username, "password": member.password})
       .map(res => {
-          this.storeUserCredentials({username: user.username, token: res.token});
-          return {'success': true, 'username': user.username };
+          this.storeUserCredentials({username: member.username, token: res.token});
+          return {'success': true, 'username': member.username };
       })
-        .catch(error => { return this.processHTTPMsgService.handleError(error); });
+      .catch(error => { return this.processHTTPMsgService.handleError(error); });
   }
 
   logOut() {
@@ -110,6 +152,15 @@ export class AuthService {
   }
 
   getToken(): string {
-    return this.authToken;
+    var credentials = JSON.parse(localStorage.getItem(this.tokenKey));
+    var authToken: string;
+    if (credentials)
+       authToken = credentials.token;
+    else
+      authToken = undefined;
+      
+    console.log('getToken: ', authToken);
+    return authToken;
+    //return this.authToken;
   }
 }

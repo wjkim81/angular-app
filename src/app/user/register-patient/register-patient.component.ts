@@ -36,6 +36,8 @@ export class RegisterPatientComponent implements OnInit {
   apex3exist: boolean;
 
   formErrors = {
+    'firstname': '',
+    'lastname': '',
     'birthday': '',
     'sex': '',
     'height': '',
@@ -56,6 +58,12 @@ export class RegisterPatientComponent implements OnInit {
   };
 
    validationMessages = {
+    'firstname': {
+      'required': "Patient's first name is required."
+    },
+    'lastname': {
+      'required': "Patient's last name is required."
+    },
     'birthday': {
       'required': "Patient's birthday is required."
     },
@@ -138,10 +146,11 @@ export class RegisterPatientComponent implements OnInit {
 
   createForm() {
     this.patientForm = this.fb.group({
+      firstname: ['', [Validators.required]],
+      lastname: ['', [Validators.required]],
       birthday: ['', [Validators.required]],
       sex: [this.sexes[1], [Validators.required]],
-      height: ['', [Validators.required]],
-      weight: ['', [Validators.required]],
+
       patientType: [this.patientTypes[0], Validators.required],
       risser: [this.rissers[0], Validators.required],
       
@@ -163,7 +172,9 @@ export class RegisterPatientComponent implements OnInit {
       firstVisit: '',
       xRayFile: '',
       threeDScanFile: '',
-      
+
+      height: ['', [Validators.required]],
+      weight: ['', [Validators.required]],
       shoulder: ['', [Validators.required, Validators.pattern]],
       bust: ['', [Validators.required, Validators.pattern]],
       waist: ['', [Validators.required, Validators.pattern]],
@@ -210,10 +221,10 @@ export class RegisterPatientComponent implements OnInit {
 
     setTimeout(() => {
       this.patientForm.reset({
+        firstname: '',
+        lastname: '',
         birthday: '',
         sex: this.sexes[1],
-        height: '',
-        weight: '',
         patientType: this.patientTypes[0],
         risser: this.rissers[0],
         
@@ -235,7 +246,9 @@ export class RegisterPatientComponent implements OnInit {
         firstVisit: '',
         xRayFile: '',
         threeDScanFile: '',
-        
+
+        height: '',
+        weight: '',
         shoulder: '',
         bust: '',
         waist: '',

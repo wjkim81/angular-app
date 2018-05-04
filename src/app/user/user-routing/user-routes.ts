@@ -4,6 +4,7 @@ import { UserComponent } from '../user.component';
 import { UserHomeComponent } from '../user-home/user-home.component';
 import { RegisterPatientComponent } from '../register-patient/register-patient.component';
 import { UserInfoComponent } from '../user-info/user-info.component';
+import { UserLoginComponent } from '../user-login/user-login.component';
 
 export const userRoutes: Routes = [{
   path: '',
@@ -20,6 +21,10 @@ export const userRoutes: Routes = [{
     {
       path: 'user-info',
       component: UserInfoComponent
+    },
+    {
+      path: 'user-login',
+      component: UserLoginComponent
     },
     {
       path: '', redirectTo: '/home', pathMatch: 'full'
