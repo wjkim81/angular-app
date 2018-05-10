@@ -21,18 +21,6 @@ export class MemberService {
     private processHTTPMsgService: ProcessHTTPMsgService
   ) { }
   
-  filterMembers(members: Member[], filter: string[]): Member[] {
-    //var filterOption = ['country', 'type', 'subject'];
-    var filteredMembers: Member[];
-    var filterOption = ['country'];
-    
-    filteredMembers = members;
-    for (var i=0; i < filter.length; i++) {
-      filteredMembers.filter((member) => { return filteredMembers[filterOption[i]] === filter[i] });
-    }
-    return filteredMembers;
-  }
-
   getMembers(): Observable<Member[]> {
     console.log(baseURL);
     return this.http.get(baseURL + 'members')
@@ -41,7 +29,7 @@ export class MemberService {
 
   getMember(id: string): Observable<Member> {
     console.log('id: ', id);
-    return  this.http.get(baseURL + 'members/' + id)
+    return  this.http.get(baseURL + 'members/member/' + id)
       .catch(error => { return this.processHTTPMsgService.handleError(error); });
   }
 

@@ -220,7 +220,7 @@ export class RegisterMemberComponent implements OnInit {
         });
 
         this.showMemberInfo = false;
-        this.newMember = null;
+        this.newMember = undefined;
       }, 5000);
     });
   }

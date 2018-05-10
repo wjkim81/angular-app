@@ -3,7 +3,7 @@
   <p>formErrors: {{formErrors | json}}</p>
   <p>patientForm.valid: {{patientForm.valid}}</p>
   <div class="row">
-    <form class="col-12" novalidate [formGroup]="patientForm" (ngSubmit)="submitPatient()" *ngIf=!(showPatientfo)>
+    <form class="col-12" novalidate [formGroup]="patientForm" (ngSubmit)="submitPatient()" *ngIf=!(showPatientInfo)>
       <div class="row">
         <div class="col-12 col-md-8 boarder-solid">
           
@@ -17,12 +17,12 @@
             <label for="firstname" class="col-12 col-sm-2 col-form-label">First Name</label>
             <!--<div class="input-group col-9">-->
             <div class="col-12 col-sm-4">
-              <input type="text" class="form-control" id="fistrname" name="fistrname" formControlName="firstname">
-              <div class="invalid-feedback">{{formErrors.fistrname}}</div>
+              <input type="text" class="form-control {{(formErrors.firstname) ? 'is-invalid' : ''}}" id="fistrname" name="fistrname" formControlName="firstname">
+              <div class="invalid-feedback">{{formErrors.firstname}}</div>
             </div>
             <label for="lastname" class="col-12 col-sm-2 col-form-label">Last Name</label>
             <div class="col-12 col-sm-4">
-              <input type="text" class="form-control algin-item-center" id="lastname" name="lastname" formControlName="lastname">
+              <input type="text" class="form-control {{(formErrors.lastname) ? 'is-invalid' : ''}}" id="lastname" name="lastname" formControlName="lastname">
               <div class="invalid-feedback">{{formErrors.lastname}}</div>
             </div>
           </div>
@@ -31,12 +31,12 @@
             <label for="birthday" class="col-12 col-sm-2 col-form-label">Birthday</label>
             <!--<div class="input-group col-9">-->
             <div class="col-12 col-sm-4">
-              <input type="date" class="form-control" id="birthday" name="birthday" formControlName="birthday">
+              <input type="date" class="form-control {{(formErrors.birthday) ? 'is-invalid' : ''}}" id="birthday" name="birthday" formControlName="birthday">
               <div class="invalid-feedback">{{formErrors.birthday}}</div>
             </div>
             <label for="sex" class="col-12 col-sm-2 col-form-label">Sex</label>
             <div class="col-12 col-sm-4">
-              <select class="form-control algin-item-center" id="sex" name="sex" formControlName="sex">
+              <select class="form-control {{(formErrors.sex) ? 'is-invalid' : ''}}" id="sex" name="sex" formControlName="sex">
                 <option *ngFor="let sex of sexes" [ngValue]="sex">{{sex}}</option>
               </select>
               <div class="invalid-feedback">{{formErrors.sex}}</div>
@@ -44,10 +44,10 @@
           </div>
 
           <div class="form-group row">
-            <label for="patientType" class="col-12 col-sm-2 col-form-label">Type</label>
+            <label for="type" class="col-12 col-sm-2 col-form-label">Type</label>
             <div class="col-12 col-sm-4">
-              <select class="form-control" id="patientType" name="patientType" formControlName="patientType">
-                <option *ngFor="let patientType of patientTypes" [ngValue]="patientType">{{patientType}}</option>            
+              <select class="form-control" id="type" name="type" formControlName="type">
+                <option *ngFor="let type of types" [ngValue]="type">{{type}}</option>            
               </select>
               <!--<input type="text" class="form-control" id="registerType" name="registerType" placeholder="Type">-->
             </div>
@@ -83,7 +83,7 @@
             </div>
             <div class="col-8 col-sm-4 col-md-3">
               <select class="form-control" id="direction1" name="direction1" formControlName="direction1">
-                <!--<option [value]="" disabled>Direction</option>-->
+                <option value="" disabled>Direction</option>
                 <option *ngFor="let direction1 of directions" [ngValue]="direction1">{{direction1}}</option>
               </select>
               <!--<input type="text" class="form-control" id="registerDirection1" name="registerDirection1" placeholder="Direction">-->
@@ -94,7 +94,7 @@
             <label class="col-12 col-sm-12 col-md-2 col-form-label">Apex2</label>
             <div class="col-4 col-sm-2 col-md-2">
               <select class="form-control" id="apexStart2" name="apexStart2">
-                <!--<option value="" disabled>SN</option>-->
+                <option value="">SN</option>
                 <option *ngFor="let apexStart2 of vertebralColumns" [ngValue]="apexStart2">{{apexStart2}}</option>            
               </select>
               <!--<input type="text" class="form-control" id="registerSnL1" name="registerSnL1" placeholder="SN">-->
@@ -105,14 +105,14 @@
             </div>
             <div class="col-4 col-sm-2 col-md-2">
               <select class="form-control" id="apexEnd2" name="apexEnd2">
-                <!--<option value="" disabled>SN</option>-->
+                <option value="">SN</option>
                 <option *ngFor="let apexEnd2 of vertebralColumns" [ngValue]="apexEnd2">{{apexEnd2}}</option>
               </select>
               <!--<input type="text" class="form-control" id="registerSnR1" name="registerSnR1" placeholder="SN">-->
             </div>
             <div class="col-8 col-sm-4 col-md-3">
               <select class="form-control" id="direction2" name="direction2" formControlName="direction2">
-                <!--<option value="" disabled>Direction</option>-->
+                <option value="">Direction</option>
                 <option *ngFor="let direction2 of directions" [ngValue]="direction2">{{direction2}}</option>
               </select>
               <!--<input type="text" class="form-control" id="registerDirection1" name="registerDirection1" placeholder="Direction">-->
@@ -123,7 +123,7 @@
             <label class="col-12 col-sm-12 col-md-2 col-form-label">Apex3</label>
             <div class="col-4 col-sm-2 col-md-2">
               <select class="form-control" id="apexStart3" name="apexStart3">
-                <!--<option value="" disabled>SN</option>-->
+                <option value="">SN</option>
                 <option *ngFor="let apexStart3 of vertebralColumns" [ngValue]="apexStart3">{{apexStart3}}</option>            
               </select>
               <!--<input type="text" class="form-control" id="registerSnL1" name="registerSnL1" placeholder="SN">-->
@@ -134,14 +134,14 @@
             </div>
             <div class="col-4 col-sm-2 col-md-2">
               <select class="form-control" id="apexEnd3" name="apexEnd3">
-                <!--<option value="" disabled>SN</option>-->
+                <option value="">SN</option>
                 <option *ngFor="let apexEnd3 of vertebralColumns" [ngValue]="apexEnd3">{{apexEnd3}}</option>
               </select>
               <!--<input type="text" class="form-control" id="registerSnR1" name="registerSnR1" placeholder="SN">-->
             </div>
             <div class="col-8 col-sm-4 col-md-3">
               <select class="form-control" id="direction3" name="direction3" formControlName="direction3">
-               <!--<option [value]="" disabled>Direction</option>-->
+               <option value="">Direction</option>
                 <option *ngFor="let direction3 of directions" [ngValue]="direction3">{{direction3}}</option>
               </select>
               <!--<input type="text" class="form-control" id="registerDirection1" name="registerDirection1" placeholder="Direction">-->
@@ -260,39 +260,45 @@
       </div>
     </form>
 
-    <div *ngIf="showPatientfo">
+    <div *ngIf="showPatientInfo">
       <h3>New patient information</h3>
+      <p>First Name: {{newPatient.firstname}}</p>
+      <p>Last Name: {{newPatient.lastname}}</p>
       <p>Birthday: {{newPatient.birthday}}</p>
       <p>Sex: {{newPatient.sex}}</p>
-      <p>Height: {{newPatient.height}}</p>
-      <p>Weight: {{newPatient.weight}}</p>
-      <p>Patient Type: {{newPatient.patientType}}</p>
-      <p>Risser sign: {{newPatient.risser}}</p>
-        
-      <p>Apex1 starts: {{newPatient.apexStart1}}</p>
-      <p>Cobb angle: {{newPatient.cobbAng1}}</p>
-      <p>Apex1 ends: {{newPatient.apexEnd1}}</p>
-      <p>Direction: {{newPatient.direction1}}</p>
 
-      <p>Cobb angle: {{newPatient.cobbAng2}}</p>
-      <p>Apex2 ends: {{newPatient.apexEnd2}}</p>
-      <p>Direction: {{newPatient.direction2}}</p>
+      <p>Patient Type: {{newPatient.spineInfos[0].type}}</p>
+      <p>Risser sign: {{newPatient.spineInfos[0].risser}}</p>
         
-      <p>Cobb angle: {{newPatient.cobbAng3}}</p>
-      <p>Apex3 ends: {{newPatient.apexEnd3}}</p>
-      <p>Direction: {{newPatient.direction3}}</p>
+      <p>Apex1 starts: {{newPatient.spineInfos[0].apexStart1}}</p>
+      <p>Cobb angle: {{newPatient.spineInfos[0].cobbAng1}}</p>
+      <p>Apex1 ends: {{newPatient.spineInfos[0].apexEnd1}}</p>
+      <p>Direction: {{newPatient.spineInfos[0].direction1}}</p>
+
+      <p>Apex1 starts: {{newPatient.spineInfos[0].apexStart2}}</p>
+      <p>Cobb angle: {{newPatient.spineInfos[0].cobbAng2}}</p>
+      <p>Apex2 ends: {{newPatient.spineInfos[0].apexEnd2}}</p>
+      <p>Direction: {{newPatient.spineInfos[0].direction2}}</p>
         
-      <p>First day of visiting: {{newPatient.firstVisit}}</p>
-      <p>X-ray file: {{newPatient.xRayFile}}</p>
-      <p>3D Scand file: {{newPatient.threeDScanFile}}</p>
+      <p>Apex1 starts: {{newPatient.spineInfos[0].apexStart3}}</p>
+      <p>Cobb angle: {{newPatient.spineInfos[0].cobbAng3}}</p>
+      <p>Apex3 ends: {{newPatient.spineInfos[0].apexEnd3}}</p>
+      <p>Direction: {{newPatient.spineInfos[0].direction3}}</p>
         
-      <p>Shoulder: {{newPatient.shoulder}}</p>
-      <p>Bust: {{newPatient.bust}}</p>
-      <p>Waitst: {{newPatient.waist}}</p>
-      <p>Hip: {{newPatient.hip}}</p>
-      <p>Lumber: {{newPatient.lumber}}</p>
-      <p>Lumber height: {{newPatient.lumberHeight}}</p>
+      <p>Height: {{newPatient.bodyMeasurements[0].height}}</p>
+      <p>Weight: {{newPatient.bodyMeasurements[0].weight}}</p>
+      <p>Shoulder: {{newPatient.bodyMeasurements[0].shoulder}}</p>
+      <p>Bust: {{newPatient.bodyMeasurements[0].bust}}</p>
+      <p>Waitst: {{newPatient.bodyMeasurements[0].waist}}</p>
+      <p>Hip: {{newPatient.bodyMeasurements[0].hip}}</p>
+      <p>Lumber: {{newPatient.bodyMeasurements[0].lumber}}</p>
+      <p>Lumber height: {{newPatient.bodyMeasurements[0].lumberHeight}}</p>
       
+      <p>X-ray file: {{newPatient.xRayFiles}}</p>
+      <p>3D Scand file: {{newPatient.threeDScanFiles}}</p>
+      <p>First day of visiting: {{newPatient.visitedDays}}</p>
+
+
     </div>
 
   </div>

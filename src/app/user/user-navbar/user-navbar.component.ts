@@ -27,7 +27,7 @@ export class UserNavbarComponent implements OnInit {
   }
 
   logOut() {
-    console.log('Lot out');
+    console.log('Log out');
     this.authservice.logOut();
     this.router.navigate(['user-login']);
   }

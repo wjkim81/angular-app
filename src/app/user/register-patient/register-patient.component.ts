@@ -8,7 +8,9 @@ import { Location } from '@angular/common';
 import { SUBJECTS, TYPES, COUNTRIES } from '../../shared/member-options';
 import { SEXES, PATIENT_TYPES, RISSERS, STAGES, VERTEBRAL_COLUMNS, DIRECTIONS} from '../../shared/patient-options';
 import { Member } from '../../shared/member';
-import { Patient } from '../../shared/patient';
+import { BodyMeasurement, SpineInfo, XRayFile, ThreeDFile, Patient } from '../../shared/patient';
+
+import { PatientService } from '../../services/patient.service';
 
 import { PasswordValidation } from '../../services/password-validation';
 
@@ -20,13 +22,13 @@ import { PasswordValidation } from '../../services/password-validation';
 export class RegisterPatientComponent implements OnInit {
 
   sexes: string[];
-  patientTypes: string[];
+  types: string[];
   rissers: number[];
   stages: string[];
   vertebralColumns: string[];
   directions: string[];
 
-  newPatient: Patient;
+  newPatient: any;
   patientForm: FormGroup;
   errMess: string;
 
@@ -129,12 +131,13 @@ export class RegisterPatientComponent implements OnInit {
   constructor(
     private location: Location,
     private fb: FormBuilder,
+    private patientservice: PatientService,
     @Inject('BaseURL') private BaseURL
   ) { }
 
   ngOnInit() {
     this.sexes = SEXES;
-    this.patientTypes = PATIENT_TYPES;
+    this.types = PATIENT_TYPES;
     this.rissers = RISSERS;
     this.stages = STAGES;
     this.vertebralColumns = VERTEBRAL_COLUMNS;
@@ -151,36 +154,36 @@ export class RegisterPatientComponent implements OnInit {
       birthday: ['', [Validators.required]],
       sex: [this.sexes[1], [Validators.required]],
 
-      patientType: [this.patientTypes[0], Validators.required],
+      type: [this.types[0], Validators.required],
       risser: [this.rissers[0], Validators.required],
       
       apexStart1: ['', Validators.required],
-      cobbAng1: ['', [Validators.required, Validators.pattern]],
+      cobbAng1: [null, [Validators.required, Validators.pattern]],
       apexEnd1: ['', Validators.required],
-      direction1: [this.directions[0], Validators.required],
+      direction1: ['', Validators.required],
       
-      //apexStart2: '',
-      cobbAng2: ['', Validators.pattern],
-      apexEnd2: '',
+      apexStart2: null,
+      cobbAng2: [null, Validators.pattern],
+      apexEnd2: null,
       direction2: '',
       
-      //apexStart3: '',
-      cobbAng3: ['', Validators.pattern],
-      apexEnd3: '',
+      apexStart3: null,
+      cobbAng3: [null, Validators.pattern],
+      apexEnd3: null,
       direction3: '',
       
       firstVisit: '',
       xRayFile: '',
       threeDScanFile: '',
 
-      height: ['', [Validators.required]],
-      weight: ['', [Validators.required]],
-      shoulder: ['', [Validators.required, Validators.pattern]],
-      bust: ['', [Validators.required, Validators.pattern]],
-      waist: ['', [Validators.required, Validators.pattern]],
-      hip: ['', [Validators.required, Validators.pattern]],
-      lumber: ['', [Validators.required, Validators.pattern]],
-      lumberHeight: ['', [Validators.required, Validators.pattern]]
+      height: [null, [Validators.required]],
+      weight: [null, [Validators.required]],
+      shoulder: [null, [Validators.required, Validators.pattern]],
+      bust: [null, [Validators.required, Validators.pattern]],
+      waist: [null, [Validators.required, Validators.pattern]],
+      hip: [null, [Validators.required, Validators.pattern]],
+      lumber: [null, [Validators.required, Validators.pattern]],
+      lumberHeight: [, [Validators.required, Validators.pattern]]
     });
 
     this.patientForm.valueChanges
@@ -214,50 +217,172 @@ export class RegisterPatientComponent implements OnInit {
   }
 
   submitPatient() {
-    this.newPatient = this.patientForm.value;
-    console.log(this.newPatient);
+    var patient = this.patientForm.value;
+    //console.log('patient: ', patient);
+    //console.log('patient.height: ', patient.height);
+    var bodyMeasurement: BodyMeasurement;
+    var spineInfo: SpineInfo;
+    var threeDFile: ThreeDFile;
+    var xRayFile: XRayFile;
+    let today = new Date();
+    //bodyMeasurement.updatedBy = 
+    /*
+    bodyMeasurement = {
+      'updatedBy': '',
+      'height': +patient.height,
+      'weight': +patient.weight,
+      'shoulder': +patient.shoulder,
+      'bust': +patient.bust,
+      'waist': +patient.waist,
+      'hip': +patient.hip,
+      'lumber': +patient.lumber,
+      'lumberHeight': +patient.lumberHeight
+    };
+    //console.log('bodyMeasurement: ', bodyMeasurement);
+    spineInfo = {
+      'updatedBy': '',
+      'type': patient.type,
+      'risser': +patient.risser,
+      'stage': patient.stage,
+      'apexStart1': patient.apexStart1,
+      'cobbAng1': +patient.cobbAng1,
+      'apexEnd1': patient.apexEnd1,
+      'direction1': patient.direction1,
+      'apexStart2': patient.apexStart2,
+      'cobbAng2': +patient.cobbAng2,
+      'apexEnd2': patient.apexEnd2,
+      'direction2': patient.direction2,
+      'apexStart3': patient.apexStart3,
+      'cobbAng3': +patient.cobbAng3,
+      'apexEnd3': patient.apexEnd3,
+      'direction3': patient.direction3
+      //this.newPatient = patient.patientId;
+    };
+    */
 
-    this.showPatientInfo = true;
+    this.newPatient = {
+      //'_id': '',
+      //'organization': '',
+      'firstname': patient.firstname,
+      'lastname': patient.lastname,
+      'birthday': patient.birthday,
+      'sex': patient.sex,
+      //'bodyMeasurements': [bodyMeasurement],
+      //'spineInfos': [spineInfo],
+      'visitedDays': [today.toISOString()]
+    }
 
-    setTimeout(() => {
-      this.patientForm.reset({
-        firstname: '',
-        lastname: '',
-        birthday: '',
-        sex: this.sexes[1],
-        patientType: this.patientTypes[0],
-        risser: this.rissers[0],
-        
-        apexStart1: '',
-        cobbAng1: '',
-        apexEnd1: '',
-        direction1: this.directions[0],
-        
-        //apexStart2: '',
-        cobbAng2: '',
-        apexEnd2: '',
-        direction2: '',
-        
-        //apexStart3: '',
-        cobbAng3: '',
-        apexEnd3: '',
-        direction3: '',
-        
-        firstVisit: '',
-        xRayFile: '',
-        threeDScanFile: '',
+    if (patient.apexStart1) this.newPatient.spineInfos = [{
+      'updatedBy': '',
+      'type': patient.type,
+      'risser': +patient.risser,
+      'stage': patient.stage,
+      'apexStart1': patient.apexStart1,
+      'cobbAng1': +patient.cobbAng1,
+      'apexEnd1': patient.apexEnd1,
+      'direction1': patient.direction1,
+      'apexStart2': patient.apexStart2,
+      'cobbAng2': +patient.cobbAng2,
+      'apexEnd2': patient.apexEnd2,
+      'direction2': patient.direction2,
+      'apexStart3': patient.apexStart3,
+      'cobbAng3': +patient.cobbAng3,
+      'apexEnd3': patient.apexEnd3,
+      'direction3': patient.direction3,
+      //'timestamps': {
+      //  'createdAt': today.toISOString(),
+      //  'updatedAt': today.toISOString()
+      //}
+    }];
 
-        height: '',
-        weight: '',
-        shoulder: '',
-        bust: '',
-        waist: '',
-        hip: '',
-        lumber: '',
-        lumberHeight: '',
-      });
-      this.showPatientInfo = false;
-    }, 5000);
+    if (patient.height) this.newPatient.bodyMeasurements = [{
+      'updatedBy': '',
+      'height': +patient.height,
+      'weight': +patient.weight,
+      'shoulder': +patient.shoulder,
+      'bust': +patient.bust,
+      'waist': +patient.waist,
+      'hip': +patient.hip,
+      'lumber': +patient.lumber,
+      'lumberHeight': +patient.lumberHeight,
+      //'timestamps': {
+      //  'createdAt': today.toISOString(),
+      //  'updatedAt': today.toISOString()
+      //}
+    }];
+
+    if (patient.threeDFile) this.newPatient.xRayFiles = [{
+      'updatedBy': '',
+      'filePath': patient.xRayFile,
+      //'timestamps': {
+      //  'createdAt': today.toISOString(),
+      //  'updatedAt': today.toISOString()
+      //}
+    }];
+
+    if (patient.threeDFile) this.newPatient.threeDFile = [{
+      'updatedBy': '',
+      'filePath': patient.threeDFile,
+      //'timestamps': {
+      //  'createdAt': today.toISOString(),
+      //  'updatedAt': today.toISOString()
+      //}
+    }];
+    /*
+    this.newPatient.bodyMeasurements.push(bodyMeasurement);
+    this.newPatient.spineInfos.push(spineInfo);
+    this.newPatient.threeDFiles.push(threeDFile);
+    this.newPatient.xRayFiles.push(xRayFile);
+    this.newPatient.visitedDays.push(today.toISOString());
+    */
+    console.log('New patient information: ', this.newPatient);
+    this.patientservice.postPatient(this.newPatient)
+    .subscribe((patient) => {
+      this.showPatientInfo = true;
+      setTimeout(() => {
+        this.patientForm.reset({
+          firstname: '',
+          lastname: '',
+          birthday: '',
+          sex: this.sexes[1],
+          type: this.types[0],
+          risser: this.rissers[0],
+          
+          apexStart1: '',
+          cobbAng1: null,
+          apexEnd1: '',
+          direction1: '',
+          
+          apexStart2: null,
+          cobbAng2: null,
+          apexEnd2: null,
+          direction2: '',
+          
+          apexStart3: null,
+          cobbAng3: null,
+          apexEnd3: null,
+          direction3: '',
+          
+          firstVisit: '',
+          xRayFile: '',
+          threeDScanFile: '',
+
+          height: null,
+          weight: null,
+          shoulder: null,
+          bust: null,
+          waist: null,
+          hip: null,
+          lumber: null,
+          lumberHeight: null,
+        });
+
+        this.showPatientInfo = false;
+        this.newPatient = undefined;
+      }, 5000);
+    })
+
+
   }
 
 }

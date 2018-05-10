@@ -28,7 +28,7 @@ export class AdminNavbarComponent implements OnInit {
 
   logOut() {
     console.log('Lot out');
-    //this.authservice.logOut();
-    //this.router.navigate(['user-login']);
+    this.authservice.logOut();
+    this.router.navigate(['user-login']);
   }
 }

@@ -49,22 +49,54 @@
     </div>
   </div><!-- row Order Option -->
 
-  <div class="row listbox-area">
+  <div class="row listbox-area" *ngIf="patients">
     <div class="col-12">
       <div class="table-responsive">
         <table class="table table-stripped table-font">
           <thead class="thead-inverse">
             <tr>
               <th><input type="checkbox" name="checkPatient" id="checkPatient"></th>
+              <!--
               <th *ngFor="let ck of columnKeys; let i = index" (click)="setOrder(ck)">
                 {{columns[ck]}} <span class="{{(orderColumns[ck]) ? ((ascend) ? 'fa fa-caret-up' : 'fa fa-caret-down') : ''}}"></span>
               </th>
+              -->
+              <!--<th>Patient ID</th>-->
+              <th>Name</th>
+              <th>Birthday</th>
+              <th>Sex</th>
+              <th>Type</th>
+              <th>Risser</th>
+              <th>Stage</th>
+              <th>Apex1</th>
+              <th>Apex2</th>
+              <th>Apex3</th>
+              <th>Last Visit</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let patient of patientsInTable; let even = even; let odd = odd" [ngClass]="{ odd: odd, even: even }">
+            <tr *ngFor="let patient of patientsInTable; let i = index; let even = even; let odd = odd"
+              [ngClass]="{ odd: odd, even: even }">
               <td><input type="checkbox" [value]="patient"></td>
+              <!--
               <td *ngFor="let ck of columnKeys" [routerLink]="['/admin/patients', patient.id]" appHighlight>{{patient[ck]}}</td>
+              -->
+              <!--<td>{{patient.patientId}}</td>-->
+              <td><a [routerLink]="['/patient', patient._id]" appHighlight>{{patient.firstname}} {{patient.lastname}}</a></td>
+              <!--<td>{{patient.firstname}} {{patient.lastname}}</td>-->
+              <td>{{patient.birthday | date}}</td>
+              <td>{{patient.sex}}</td>
+              <td>{{patient.spineInfos[numSpineInfos[i]-1].type}}</td>
+              <td>{{patient.spineInfos[numSpineInfos[i]-1].risser}}</td>
+              <td>{{patient.spineInfos[numSpineInfos[i]-1].stage}}</td>
+              <td>{{patient.spineInfos[numSpineInfos[i]-1].apexStart1}}-{{patient.spineInfos[numSpineInfos[i]-1].cobbAng1}}-{{patient.spineInfos[numSpineInfos[i]-1].apexEnd1}} {{patient.spineInfos[numSpineInfos[i]-1].direction1}}</td>
+              <!--
+              <td *ngIf="patient.spineInfos[numSpineInfos[i]-1].apexStart2">{{patient.spineInfos[numSpineInfos[i]-1].apexStart2}}-{{patient.spineInfos[numSpineInfos[i]-1].cobbAng2}}-{{patient.spineInfos[numSpineInfos[i]-1].apexEnd2}} {{patient.spineInfos[numSpineInfos[i]-1].direction3}}</td>
+              <td *ngIf="patient.spineInfos[numSpineInfos[i]-1].apexStart3">{{patient.spineInfos[numSpineInfos[i]-1].apexStart3}}-{{patient.spineInfos[numSpineInfos[i]-1].cobbAng3}}-{{patient.spineInfos[numSpineInfos[i]-1].apexEnd3}} {{patient.spineInfos[numSpineInfos[i]-1].direction3}}</td>
+              -->
+              <td>{{patient.spineInfos[numSpineInfos[i]-1].apexStart2}}-{{patient.spineInfos[numSpineInfos[i]-1].cobbAng2}}-{{patient.spineInfos[numSpineInfos[i]-1].apexEnd2}} {{patient.spineInfos[numSpineInfos[i]-1].direction3}}</td>
+              <td>{{patient.spineInfos[numSpineInfos[i]-1].apexStart3}}-{{patient.spineInfos[numSpineInfos[i]-1].cobbAng3}}-{{patient.spineInfos[numSpineInfos[i]-1].apexEnd3}} {{patient.spineInfos[numSpineInfos[i]-1].direction3}}</td>
+              <td>{{patient.updatedAt | date}}</td>
             </tr>
           </tbody>
         </table>

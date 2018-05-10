@@ -10,7 +10,9 @@ import 'rxjs/add/operator/do';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private inj: Injector) {}
+  constructor(
+    private inj: Injector
+    ) {}
  
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     console.log('AuthInterceptor');
@@ -34,8 +36,8 @@ export class UnauthorizedInterceptor implements HttpInterceptor {
  
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     console.log('UnauthorizedInterceptor');
-    const authService = this.inj.get(AuthService);
-    const authToken = authService.getToken();
+    const authservice = this.inj.get(AuthService);
+    const authToken = authservice.getToken();
     
     return next
       .handle(req)
@@ -45,7 +47,7 @@ export class UnauthorizedInterceptor implements HttpInterceptor {
         if (err instanceof HttpErrorResponse) {
           if (err.status === 401 && authToken) {
             console.log("Unauthorized Interceptor: ", err);
-            authService.checkJWTtoken();
+            authservice.checkJWTtoken();
           }
         }
       });

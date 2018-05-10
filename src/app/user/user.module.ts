@@ -20,11 +20,13 @@ import { UserHomeComponent } from './user-home/user-home.component';
 import { RegisterPatientComponent } from './register-patient/register-patient.component';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { UserLoginComponent } from './user-login/user-login.component';
+import { PatientdetailComponent } from './patientdetail/patientdetail.component';
 
 import { baseURL } from '../shared/baseurl';
 import { ProcessHTTPMsgService } from '../services/process-httpmsg.service';
 
 import { PatientService } from '../services/patient.service';
+
 //import { AuthService } from '../services/auth.service';
 //import { AuthInterceptor, UnauthorizedInterceptor } from '../services/auth.interceptor';
 
@@ -45,7 +47,8 @@ import { PatientService } from '../services/patient.service';
     UserHomeComponent,
     RegisterPatientComponent,
     UserInfoComponent,
-    UserLoginComponent
+    UserLoginComponent,
+    PatientdetailComponent
   ],
   providers: [
     HttpClientModule,

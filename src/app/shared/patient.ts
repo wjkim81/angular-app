@@ -1,7 +1,7 @@
 import { Organization } from './organization';
 
 
-class bodyMeasurement {
+export class BodyMeasurement {
   updatedBy: string;
   height: number;
   weight: number;
@@ -11,9 +11,11 @@ class bodyMeasurement {
   hip: number;
   lumber: number;
   lumberHeight: number;
+  createdAt: string;
+  updatedAt: string;
 }
 
-class spineInfo{
+export class SpineInfo {
   updatedBy: string;
   type: string;
   risser: number;
@@ -30,31 +32,42 @@ class spineInfo{
   cobbAng3: number;
   apexEnd3: string;
   direction3: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
-class xRayFile {
+export class XRayFile {
   updatedBy: string;
   filePath: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
-class threeDFile {
+export class ThreeDFile {
   updatedBy: string;
   filePath: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export class Patient {
   _id: string;
 
-  name: string;
+  firstname: string;
+  lastname: string;
   birthday: string;
   sex: string;
 
   organization: string;
 
-  patientId: string;
-  bodyMeasurements: [bodyMeasurement];
-  spineInfos: [spineInfo];
-  xRayFiles: [xRayFile];
-  threeDFiles: [threeDFile];
-  patientVisits: [string];
+  //patientId: string;
+  bodyMeasurements: [BodyMeasurement];
+  spineInfos: [SpineInfo];
+  xRayFiles: [XRayFile];
+  threeDFiles: [ThreeDFile];
+  visitedDays: [string];
+  createdAt: string;
+  updatedAt: string;
 }

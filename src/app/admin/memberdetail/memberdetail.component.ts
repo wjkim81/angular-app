@@ -27,7 +27,7 @@ export class MemberdetailComponent implements OnInit {
 
     this.route.params
       .switchMap((params: Params) => { return this.memberservice.getMember(params['id']); })
-      .subscribe(member => { this.member = member }, errmess => this.errMess = <any>errmess);
+      .subscribe(member => { this.member = member; console.log(this.member); }, errmess => this.errMess = <any>errmess);
   }
 
 }

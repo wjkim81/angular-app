@@ -62,7 +62,7 @@ export class AuthService {
     })
     .catch(err => {
       console.log("JWT Token invalid: ", err);
-      //this.destroyUserCredentials();
+      this.destroyUserCredentials();
       return this.processHTTPMsgService.handleError(err);
     });
   }
@@ -99,12 +99,14 @@ export class AuthService {
           callback(null, errMess);
         });
       }
+    } else {
+      //console.log('No credentials log');
+      callback(null, 'No credentials');
     }
-    callback(null, 'No credentials');
   }
 
   storeUserCredentials(credentials: any) {
-    console.log("storeUserCredentials ", credentials);    
+    console.log("storeUserCredentials ", credentials);
     localStorage.setItem(this.tokenKey, JSON.stringify(credentials));
     this.useCredentials(credentials);
   }
@@ -133,6 +135,7 @@ export class AuthService {
     return this.http.post<AuthResponse>(baseURL + 'members/login', 
       {"username": member.username, "password": member.password})
       .map(res => {
+        console.log(res)
           this.storeUserCredentials({username: member.username, token: res.token});
           return {'success': true, 'username': member.username };
       })

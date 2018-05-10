@@ -6,12 +6,12 @@ import { Params, Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { Patient } from '../../shared/patient';
-import { JWTResponse } from '../../shared/response';
 
 import { PATIENTS } from '../../shared/patients';
 import { PatientService } from '../../services/patient.service';
 
 import { AuthService } from '../../services/auth.service';
+import { JWTResponse } from '../../shared/response';
 
 import { SUBJECTS, TYPES, COUNTRIES } from '../../shared/member-options';
 import { SEXES, PATIENT_TYPES, RISSERS, STAGES } from '../../shared/patient-options';
@@ -33,6 +33,10 @@ export class UserHomeComponent implements OnInit {
   stages: string[];
 
   patients: Patient[];
+  numSpineInfos: number[];
+  numBodyMeasurements: number[];
+  numVisited: number[];
+
   patientsInTable: Patient[];
   selectedPatients: Patient[];
 
@@ -53,35 +57,36 @@ export class UserHomeComponent implements OnInit {
    * value is its column name in a table
    */
   columns = {
-    'organization': 'Organization',
+    //'organization': 'Organization',
     'patientId': 'Patient ID',
-    'name': 'Name',
+    'firstname': 'First Name',
+    'lastname': 'Last Name',
     'birthday': 'Birthday',
-    'height': 'Hegith',
-    'weight': 'Weight',
     'sex': 'Sex',
     'type': 'Type',
     'risser': 'Risser',
+    'stage': 'Stage',
     'apexStart1': 'Apex1',
     'apexStart2': 'Apex2',
     'apexStart3': 'Apex3',
-    'visitDays': 'Visit Days'
+    //'firstday': 'First Day',
+    'updatedAt': 'Last day'
   };
 
   orderColumns = {
-    'organization': false,
+    //'organization': false,
     'patientId': false,
-    'name': false,
+    'firstname': false,
+    'lastname': false,
     'birthday': false,
-    'height': false,
-    'weight': false,
     'sex': false,
     'type': false,
     'risser': false,
+    'stage': false,
     'apexStart1': false,
     'apexStart2': false,
     'apexStart3': false,
-    'visitDays': true
+    'updateAt': false
   }
 
   currentOrderCol: string;
@@ -102,32 +107,33 @@ export class UserHomeComponent implements OnInit {
     private router: Router,
     private location:Location,
     private patientService: PatientService,
-    private authservice: AuthService,
+    private authService: AuthService,
     @Inject('BaseURL') private BaseURL
   ) {
     /*
-    this.authservice.loadUserCredentials();
-    if (!this.authservice.isAuthenticated) {
+    this.authService.loadUserCredentials();
+    if (!this.authService.isAuthenticated) {
       this.location.replaceState('/'); // clears browser history so they can't navigate with back button
       this.router.navigate(['/user-login']);
     }
     */
 
     console.log('user-home');
-    this.authservice.validateUserCredentials((res, err) => {
-      console.log('authservice.validateUserCredentials');
+    this.authService.validateUserCredentials((res, err) => {
+      console.log('authService.validateUserCredentials');
       console.log('res: ', res);
       console.log('err: ', err);
       if (err) {
         this.errMess = err;
       }
  
-      console.log('authenticated: ', this.authservice.isAuthenticated);
-      if (!this.authservice.isAuthenticated) {
+      console.log('authenticated: ', this.authService.isAuthenticated);
+      if (!this.authService.isAuthenticated) {
         
         this.location.replaceState('/'); // clears browser history so they can't navigate with back button
         this.router.navigate(['/user-login']);
       } else {
+        console.log(res.member);
         console.log('Logged in')
       }
     });
@@ -150,7 +156,7 @@ export class UserHomeComponent implements OnInit {
     this.columnKeys = Object.keys(this.columns);
     this.columnNames = Object.values(this.columns);
     
-    this.currentOrderCol = 'visitDays';
+    this.currentOrderCol = 'updatedAt';
     this.ascend = false;
 
     //console.log(this.orderColumns);
@@ -171,6 +177,23 @@ export class UserHomeComponent implements OnInit {
     })
 
     console.log(this.searchDateStart.toISOString());
+    //this.patientService.getPatients()
+    this.patientService.getPatientsBetween(this.searchDateStart.toISOString(), this.searchDateEnd.toISOString())
+    .subscribe((patients) => {
+      this.patients = patients;
+      this.patientsInTable = this.patients;
+      this.numAllPatients = this.patients.length;
+      this.numPatientsInTable = this.patients.length;
+
+      this.numSpineInfos = this.patients.map((patient) => patient.spineInfos.length);
+      this.numBodyMeasurements = this.patients.map((patient) => patient.bodyMeasurements.length);
+      this.numVisited = this.patients.map((patient) => patient.visitedDays.length);
+      console.log(this.numSpineInfos);
+      console.log(this.numBodyMeasurements);
+      console.log(this.numVisited);
+    }, (errMess) => {
+      this.errMess = <any>errMess;
+    })
   }
 
   submitOptionFilter() {
@@ -186,7 +209,7 @@ export class UserHomeComponent implements OnInit {
       }
       
       if (this.optionFilterForm.value.risser !== '') {
-        patient.spineInfos[numSpineInfos-1].risser = this.optionFilterForm.value.risser;
+        if (patient.spineInfos[numSpineInfos-1].risser != this.optionFilterForm.value.risser) included = false;
       }
 /*
       if (this.optionFilterForm.value.stage !== '') {

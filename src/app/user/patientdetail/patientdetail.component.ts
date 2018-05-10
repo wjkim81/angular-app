@@ -10,12 +10,7 @@ import { BodyMeasurement, SpineInfo, XRayFile, ThreeDFile, Patient } from '../..
 import { PATIENTS } from '../../shared/patients';
 
 import { SEXES, PATIENT_TYPES, RISSERS, STAGES, VERTEBRAL_COLUMNS, DIRECTIONS} from '../../shared/patient-options';
-import { Member } from '../../shared/member';
-
-
 import { PatientService } from '../../services/patient.service';
-
-import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'app-patientdetail',
@@ -44,7 +39,6 @@ export class PatientdetailComponent implements OnInit {
   vertebralColumns: string[];
   directionOptions: string[];
 
-  
   formErrors = {
     'type': '',
     'risser': '',
@@ -274,9 +268,8 @@ export class PatientdetailComponent implements OnInit {
   }
 
   submitSpineDiag() {
-    console.log('Submit new spine diagnosis');
     let newSpineInfo = this.spineDiagForm.value;
-    //console.log(newSpineInfo);
+    console.log(newSpineInfo);
     this.patientservice.postSpineDiag(this.patient._id, newSpineInfo)
     .subscribe((patient) => {
       console.log('subscribe');
@@ -288,4 +281,5 @@ export class PatientdetailComponent implements OnInit {
       console.log(errMess);
     });
   }
+
 }

@@ -1,99 +1,8 @@
 <div class="container-fluid">
-  <div class="row solid-bottom-border">
-    <div class="col-6 col-sm-8">
-       <h2>Patients List</h2>
-    </div>
-    <div class="col-6 col-sm-4">
-      <button class="btn btn-primary float-right" (click)="open(selectHospitalModal)">
-        Select hospital
-      </button>
-    </div>
-  </div><!-- Select hospital -->
-
-  <!--<div id="selectHospitalModal" #content class="modal fade" role="dialog">-->
-  <ng-template #selectHospitalModal let-c="close" let-d="dismiss">
-    <!--<div class="modal-dialog modal-lg" role="content">
-      <div class="modal-content">-->
-        <div class="modal-header">
-          <h4 class="modal-title">Select a Hospital</h4>
-          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group row">
-      
-              <div class="col-12 col-sm-4 col-lg-3">
-                <select class="form-control" id="country" name="country">
-                  <option>All countries</option>
-                  <option *ngFor="let country of countries" [value]="country">{{country}}</option>
-                </select>  
-              </div>
-              <div class="col-12 col-sm-4 offset-lg-3 col-lg-3">
-                <select class="form-control" id="type" name="type">
-                  <option>All types</option>
-                  <option *ngFor="let type of types" [value]="type">{{type}}</option>
-                </select>
-              </div>
-              <div class="col-12 col-sm-4 col-lg-3">
-                <select class="form-control" id="subject" name="subject">
-                  <option>All subjects</option>
-                  <option *ngFor="let subject of subjects" [value]="subject">{{subject}}</option>
-                </select>
-              </div>
-            </div>
-          </form>
-          <div class="row listbox-area">
-            <div class="col-12">
-              <div class="table-responsive">
-                <table class="table table-stripped table-font">
-                  <thead class="thead-inverse">
-                    <tr>
-                      <th><input type="checkbox" name="checkList" id="checkList"></th>
-                      <th>Hospital</th>
-                      <th>Country</th>
-                      <th>Type</th>
-                      <th>Subject</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let member of members">
-                      <td><input type="checkbox" [value]="member"></td>
-                      <td>{{member.institution}}</td>
-                      <td>{{member.country}}</td>
-                      <td>{{member.type}}</td>
-                      <td>{{member.subject}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <div class="row after-table-margin">
-            <div class="col-6">
-              <button role="button" class="btn btn-primary">Select all</button>
-            </div>
-            <div class="col-6 text-right">
-              <p id="parts2">0 / 0 Hospital</p>
-            </div> 
-          </div>
-        </div>
-          
-        <div class="modal-footer text-center">
-          <div class="col-md justify-content-center">
-            <button type="button" class="btn btn-primary">Done</button>
-            <button type="submit" class="btn btn-primary" (click)="c('Close click')">Close</button>
-          </div>
-        </div>
-      <!--</div>
-    </div>-->
-  </ng-template><!-- selectHospitalModal -->
-
   <p>searchDateStart: {{searchDateStart | date:'yyyy-MM-dd'}}, searchDateEnd: {{searchDateEnd | date:'yyyy-MM-dd'}}</p>
   <p>optionFilterForm.value: {{optionFilterForm.value | json}}</p>
+  
   <div class="row form-group orderOption">
-    
     <div class="col-12 col-sm-12 col-md-12 col-lg-5">
       <div class="input-group">
         <div class="input-group-prepend">
@@ -104,7 +13,7 @@
         <input type="date" class="form-control" id="searchDateEnd" name="searchDateEnd" max="today | date:'yyyy-MM-dd'"
           [ngModel]="searchDateEnd | date:'yyyy-MM-dd'" (ngModelChange)="searchDateEnd = $event">
         <div class="input-group-append">
-          <button class="btn btn-primary">Search</button>
+          <button class="btn btn-primary" (click)="submitDateCondition()">Search</button>
         </div>
       </div>
     </div>
@@ -115,22 +24,22 @@
 
           <select class="form-control" formControlName="sex">
             <option value="">All sex</option>
-            <option *ngFor="let sex of sexes" [ngValue]="sex">{{sex}}</option>
+            <option *ngFor="let sex of sexOptions" [ngValue]="sex">{{sex}}</option>
           </select>
 
           <select class="form-control" formControlName="patientType">
             <option value="">All patient types</option>
-            <option *ngFor="let patientType of patientTypes" [ngValue]="patientType">{{patientType}}</option>
+            <option *ngFor="let patientType of patientTypeOptions" [ngValue]="patientType">{{patientType}}</option>
           </select>
 
           <select class="form-control" formControlName="risser">
             <option value="">All rissers</option>
-            <option *ngFor="let risser of rissers" [ngValue]="risser">{{risser}}</option>
+            <option *ngFor="let risser of risserOptions" [ngValue]="risser">{{risser}}</option>
           </select>
 
           <select class="form-control" formControlName="stage">
             <option value="">All stages</option>
-            <option *ngFor="let stage of stages" [ngValue]="stage">{{stage}}</option>
+            <option *ngFor="let stage of stageOtions" [ngValue]="stage">{{stage}}</option>
           </select>
           <div class="input-group-append">
             <button class="btn btn-primary">Filter</button>
@@ -140,52 +49,56 @@
     </div>
   </div><!-- row Order Option -->
 
-  <div class="row listbox-area">
+  <div class="row listbox-area" *ngIf="patients">
     <div class="col-12">
       <div class="table-responsive">
         <table class="table table-stripped table-font">
           <thead class="thead-inverse">
             <tr>
               <th><input type="checkbox" name="checkPatient" id="checkPatient"></th>
+              <!--
               <th *ngFor="let ck of columnKeys; let i = index" (click)="setOrder(ck)">
                 {{columns[ck]}} <span class="{{(orderColumns[ck]) ? ((ascend) ? 'fa fa-caret-up' : 'fa fa-caret-down') : ''}}"></span>
               </th>
-              <!--
-              <th (click)="onClickMe()">Hospital <span class="fa fa-caret-down"></span></th>
-              <th>ID</th>
+              -->
+              <!--<th>Patient ID</th>-->
+              <th>Organization</th>
+              <th>Name</th>
               <th>Birthday</th>
-              <th>Height</th>
-              <th>Weight</th>
               <th>Sex</th>
               <th>Type</th>
               <th>Risser</th>
+              <th>Stage</th>
               <th>Apex1</th>
               <th>Apex2</th>
               <th>Apex3</th>
-              <th>First visit</th>
-              <th>Recent visit</th>
-              -->
+              <th>Last Update</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let patient of patientsInTable; let even = even; let odd = odd" [ngClass]="{ odd: odd, even: even }">
+            <tr *ngFor="let patient of patientsInTable; let i = index; let even = even; let odd = odd"
+              [ngClass]="{ odd: odd, even: even }">
               <td><input type="checkbox" [value]="patient"></td>
-              <td *ngFor="let ck of columnKeys" [routerLink]="['/admin/patients', patient.id]" appHighlight>{{patient[ck]}}</td>
               <!--
-              <td>{{patient.hospital}}</td>
-              <td>{{patient.patientId}}</td>
-              <td>{{patient.birthday}}</td>
-              <td>{{patient.height}}</td>
-              <td>{{patient.weight}}</td>
-              <td>{{patient.sex}}</td>
-              <td>{{patient.type}}</td>
-              <td>{{patient.risser}}</td>
-              <td>{{patient.apex1Start}}</td>
-              <td>{{patient.apex2Start}}</td>
-              <td>{{patient.apex3Start}}</td>
-              <td>{{patient.patientVisit}}</td>
-              <td>{{patient.patientVisit}}</td>
+              <td *ngFor="let ck of columnKeys" [routerLink]="['/admin/patients', patient.id]" appHighlight>{{patient[ck]}}</td>
               -->
+              <!--<td>{{patient.patientId}}</td>-->
+              <td>{{patient.organization.name}}</td>
+              <td><a [routerLink]="['/admin/patients', patient._id]" appHighlight>{{patient.firstname}} {{patient.lastname}}</a></td>
+              <!--<td>{{patient.firstname}} {{patient.lastname}}</td>-->
+              <td>{{patient.birthday | date}}</td>
+              <td>{{patient.sex}}</td>
+              <td>{{patient.spineInfos[numSpineInfos[i]-1].type}}</td>
+              <td>{{patient.spineInfos[numSpineInfos[i]-1].risser}}</td>
+              <td>{{patient.spineInfos[numSpineInfos[i]-1].stage}}</td>
+              <td>{{patient.spineInfos[numSpineInfos[i]-1].apexStart1}}-{{patient.spineInfos[numSpineInfos[i]-1].cobbAng1}}-{{patient.spineInfos[numSpineInfos[i]-1].apexEnd1}} {{patient.spineInfos[numSpineInfos[i]-1].direction1}}</td>
+              <!--
+              <td *ngIf="patient.spineInfos[numSpineInfos[i]-1].apexStart2">{{patient.spineInfos[numSpineInfos[i]-1].apexStart2}}-{{patient.spineInfos[numSpineInfos[i]-1].cobbAng2}}-{{patient.spineInfos[numSpineInfos[i]-1].apexEnd2}} {{patient.spineInfos[numSpineInfos[i]-1].direction3}}</td>
+              <td *ngIf="patient.spineInfos[numSpineInfos[i]-1].apexStart3">{{patient.spineInfos[numSpineInfos[i]-1].apexStart3}}-{{patient.spineInfos[numSpineInfos[i]-1].cobbAng3}}-{{patient.spineInfos[numSpineInfos[i]-1].apexEnd3}} {{patient.spineInfos[numSpineInfos[i]-1].direction3}}</td>
+              -->
+              <td>{{patient.spineInfos[numSpineInfos[i]-1].apexStart2}}-{{patient.spineInfos[numSpineInfos[i]-1].cobbAng2}}-{{patient.spineInfos[numSpineInfos[i]-1].apexEnd2}} {{patient.spineInfos[numSpineInfos[i]-1].direction3}}</td>
+              <td>{{patient.spineInfos[numSpineInfos[i]-1].apexStart3}}-{{patient.spineInfos[numSpineInfos[i]-1].cobbAng3}}-{{patient.spineInfos[numSpineInfos[i]-1].apexEnd3}} {{patient.spineInfos[numSpineInfos[i]-1].direction3}}</td>
+              <td>{{patient.updatedAt | date}}</td>
             </tr>
           </tbody>
         </table>
