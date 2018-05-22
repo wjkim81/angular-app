@@ -118,6 +118,7 @@ export class UserHomeComponent implements OnInit {
     }
     */
 
+   
     console.log('user-home');
     this.authService.validateUserCredentials((res, err) => {
       console.log('authService.validateUserCredentials');

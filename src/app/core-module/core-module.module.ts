@@ -1,12 +1,15 @@
 import { NgModule, ModuleWithProviders, Optional, SkipSelf  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { AuthService } from '../services/auth.service';
 import { AuthInterceptor, UnauthorizedInterceptor } from '../services/auth.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   imports: [
+    NgbModule.forRoot(),
     CommonModule
   ],
   declarations: []

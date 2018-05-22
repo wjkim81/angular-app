@@ -1,7 +1,9 @@
 <div class="container">
+  <!--
   <p>patientForm.value: {{patientForm.value | json}}</p>
   <p>formErrors: {{formErrors | json}}</p>
   <p>patientForm.valid: {{patientForm.valid}}</p>
+  -->
   <div class="row">
     <form class="col-12" novalidate [formGroup]="patientForm" (ngSubmit)="submitPatient()" *ngIf=!(showPatientInfo)>
       <div class="row">
@@ -61,10 +63,10 @@
           </div>
           
           <div class="form-group row">
-            <label class="col-12 col-sm-12 col-md-2 col-form-label">Apex1</label>
+            <label class="col-12 col-sm-12 col-md-2 col-form-label">Curve1</label>
             <div class="col-4 col-sm-2 col-md-2">
               <select class="form-control" id="apexStart1" name="apexStart1" formControlName="apexStart1">
-                <option value="" disabled>SN</option>
+                <option value="" disabled>Above</option>
                 <option *ngFor="let apexStart1 of vertebralColumns" [ngValue]="apexStart1">{{apexStart1}}</option>
               </select>
               <!--<input type="text" class="form-control" id="registerSnL1" name="registerSnL1" placeholder="SN">-->
@@ -76,7 +78,7 @@
             </div>
             <div class="col-4 col-sm-2 col-md-2">
               <select class="form-control" id="apexEnd1" name="apexEnd1" formControlName="apexEnd1">
-                <option value="" disabled>SN</option>
+                <option value="" disabled>Below</option>
                 <option *ngFor="let apexEnd1 of vertebralColumns" [ngValue]="apexEnd1">{{apexEnd1}}</option>
               </select>
               <!--<input type="text" class="form-control" id="registerSnR1" name="registerSnR1" placeholder="SN">-->
@@ -91,10 +93,10 @@
           </div>
 
           <div class="form-group row">
-            <label class="col-12 col-sm-12 col-md-2 col-form-label">Apex2</label>
+            <label class="col-12 col-sm-12 col-md-2 col-form-label">Curve2</label>
             <div class="col-4 col-sm-2 col-md-2">
               <select class="form-control" id="apexStart2" name="apexStart2">
-                <option value="">SN</option>
+                <option value="">Above</option>
                 <option *ngFor="let apexStart2 of vertebralColumns" [ngValue]="apexStart2">{{apexStart2}}</option>            
               </select>
               <!--<input type="text" class="form-control" id="registerSnL1" name="registerSnL1" placeholder="SN">-->
@@ -105,7 +107,7 @@
             </div>
             <div class="col-4 col-sm-2 col-md-2">
               <select class="form-control" id="apexEnd2" name="apexEnd2">
-                <option value="">SN</option>
+                <option value="">Below</option>
                 <option *ngFor="let apexEnd2 of vertebralColumns" [ngValue]="apexEnd2">{{apexEnd2}}</option>
               </select>
               <!--<input type="text" class="form-control" id="registerSnR1" name="registerSnR1" placeholder="SN">-->
@@ -120,10 +122,10 @@
           </div>
 
           <div class="form-group row">
-            <label class="col-12 col-sm-12 col-md-2 col-form-label">Apex3</label>
+            <label class="col-12 col-sm-12 col-md-2 col-form-label">Curve3</label>
             <div class="col-4 col-sm-2 col-md-2">
               <select class="form-control" id="apexStart3" name="apexStart3">
-                <option value="">SN</option>
+                <option value="">Above</option>
                 <option *ngFor="let apexStart3 of vertebralColumns" [ngValue]="apexStart3">{{apexStart3}}</option>            
               </select>
               <!--<input type="text" class="form-control" id="registerSnL1" name="registerSnL1" placeholder="SN">-->
@@ -134,7 +136,7 @@
             </div>
             <div class="col-4 col-sm-2 col-md-2">
               <select class="form-control" id="apexEnd3" name="apexEnd3">
-                <option value="">SN</option>
+                <option value="">Below</option>
                 <option *ngFor="let apexEnd3 of vertebralColumns" [ngValue]="apexEnd3">{{apexEnd3}}</option>
               </select>
               <!--<input type="text" class="form-control" id="registerSnR1" name="registerSnR1" placeholder="SN">-->
@@ -164,12 +166,14 @@
             </div>
           </div>
 
+          <!--
           <div class="form-group row">
             <label for="3dScanFile" class="col-12 col-sm-2 col-form-label">3D scan file</label>
             <div class="col-12 col-sm-6">
               <input type="file" class="form-control-file" id="3dScanFile" name="3dScanFile" formControlName="threeDScanFile">
             </div>
           </div>
+          -->
         </div>
 
         <div class="col-12 col-md-4 boarder-solid">
@@ -228,6 +232,7 @@
             </div>
           </div>
 
+          <!--
           <div class="form-group row">
             <label for="lumber" class="col-12 col-sm-3 col-form-label">Lumber</label>
             <div class="col-12 col-sm-9">
@@ -245,6 +250,7 @@
               <div class="invalid-feedback">{{formErrors.lumberHeight}}</div>
             </div>
           </div>
+          -->
         </div>
 
         <div class="col-12">
@@ -270,19 +276,19 @@
       <p>Patient Type: {{newPatient.spineInfos[0].type}}</p>
       <p>Risser sign: {{newPatient.spineInfos[0].risser}}</p>
         
-      <p>Apex1 starts: {{newPatient.spineInfos[0].apexStart1}}</p>
+      <p>Curve1 starts: {{newPatient.spineInfos[0].CurveStart1}}</p>
       <p>Cobb angle: {{newPatient.spineInfos[0].cobbAng1}}</p>
-      <p>Apex1 ends: {{newPatient.spineInfos[0].apexEnd1}}</p>
+      <p>Curve1 ends: {{newPatient.spineInfos[0].CurveEnd1}}</p>
       <p>Direction: {{newPatient.spineInfos[0].direction1}}</p>
 
-      <p>Apex1 starts: {{newPatient.spineInfos[0].apexStart2}}</p>
+      <p>Curve1 starts: {{newPatient.spineInfos[0].apexStart2}}</p>
       <p>Cobb angle: {{newPatient.spineInfos[0].cobbAng2}}</p>
-      <p>Apex2 ends: {{newPatient.spineInfos[0].apexEnd2}}</p>
+      <p>Curve2 ends: {{newPatient.spineInfos[0].apexEnd2}}</p>
       <p>Direction: {{newPatient.spineInfos[0].direction2}}</p>
         
-      <p>Apex1 starts: {{newPatient.spineInfos[0].apexStart3}}</p>
+      <p>Curve1 starts: {{newPatient.spineInfos[0].apexStart3}}</p>
       <p>Cobb angle: {{newPatient.spineInfos[0].cobbAng3}}</p>
-      <p>Apex3 ends: {{newPatient.spineInfos[0].apexEnd3}}</p>
+      <p>Curve3 ends: {{newPatient.spineInfos[0].apexEnd3}}</p>
       <p>Direction: {{newPatient.spineInfos[0].direction3}}</p>
         
       <p>Height: {{newPatient.bodyMeasurements[0].height}}</p>
@@ -291,11 +297,13 @@
       <p>Bust: {{newPatient.bodyMeasurements[0].bust}}</p>
       <p>Waitst: {{newPatient.bodyMeasurements[0].waist}}</p>
       <p>Hip: {{newPatient.bodyMeasurements[0].hip}}</p>
+      <!--
       <p>Lumber: {{newPatient.bodyMeasurements[0].lumber}}</p>
       <p>Lumber height: {{newPatient.bodyMeasurements[0].lumberHeight}}</p>
+      -->
       
       <p>X-ray file: {{newPatient.xRayFiles}}</p>
-      <p>3D Scand file: {{newPatient.threeDScanFiles}}</p>
+      <!--<p>3D Scand file: {{newPatient.threeDScanFiles}}</p>-->
       <p>First day of visiting: {{newPatient.visitedDays}}</p>
 
 

@@ -37,7 +37,7 @@ import { PatientService } from '../services/patient.service';
 @NgModule({
   imports: [
     CommonModule,
-    NgbModule.forRoot(),
+    NgbModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,

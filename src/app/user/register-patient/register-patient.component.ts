@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Inject } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Params, ActivatedRoute } from '@angular/router';
+import { Params, Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { SUBJECTS, TYPES, COUNTRIES } from '../../shared/member-options';
@@ -10,6 +10,7 @@ import { SEXES, PATIENT_TYPES, RISSERS, STAGES, VERTEBRAL_COLUMNS, DIRECTIONS} f
 import { Member } from '../../shared/member';
 import { BodyMeasurement, SpineInfo, XRayFile, ThreeDFile, Patient } from '../../shared/patient';
 
+import { AuthService } from '../../services/auth.service';
 import { PatientService } from '../../services/patient.service';
 
 import { PasswordValidation } from '../../services/password-validation';
@@ -55,8 +56,8 @@ export class RegisterPatientComponent implements OnInit {
     'bust': '',
     'waist': '',
     'hip': '',
-    'lumber': '',
-    'lumberHeight': ''
+    //'lumber': '',
+    //'lumberHeight': ''
   };
 
    validationMessages = {
@@ -118,6 +119,7 @@ export class RegisterPatientComponent implements OnInit {
       'required': 'Measurement of hip is required.',
       'pattern': 'Measurement of hip should be a number.'
     },
+    /*
     'lumber': {
       'required': 'Measurement of lumber is required.',
       'pattern': 'Measurement of lumber should be a number.'
@@ -126,14 +128,37 @@ export class RegisterPatientComponent implements OnInit {
       'required': 'Measurement of lumber height is required.',
       'pattern': 'Measurement of lumber height should be a number.'
     },
+    */
   };
   
   constructor(
-    private location: Location,
     private fb: FormBuilder,
+    private router: Router,
+    private location: Location,
     private patientservice: PatientService,
+    private authService: AuthService,
     @Inject('BaseURL') private BaseURL
-  ) { }
+  ) { 
+    console.log('register-patient');
+    this.authService.validateUserCredentials((res, err) => {
+      console.log('authService.validateUserCredentials');
+      console.log('res: ', res);
+      console.log('err: ', err);
+      if (err) {
+        this.errMess = err;
+      }
+ 
+      console.log('authenticated: ', this.authService.isAuthenticated);
+      if (!this.authService.isAuthenticated) {
+        
+        this.location.replaceState('/'); // clears browser history so they can't navigate with back button
+        this.router.navigate(['/user-login']);
+      } else {
+        console.log(res.member);
+        console.log('Logged in')
+      }
+    });
+  }
 
   ngOnInit() {
     this.sexes = SEXES;
@@ -182,8 +207,8 @@ export class RegisterPatientComponent implements OnInit {
       bust: [null, [Validators.required, Validators.pattern]],
       waist: [null, [Validators.required, Validators.pattern]],
       hip: [null, [Validators.required, Validators.pattern]],
-      lumber: [null, [Validators.required, Validators.pattern]],
-      lumberHeight: [, [Validators.required, Validators.pattern]]
+      //lumber: [null, [Validators.required, Validators.pattern]],
+      //lumberHeight: [, [Validators.required, Validators.pattern]]
     });
 
     this.patientForm.valueChanges
@@ -303,8 +328,8 @@ export class RegisterPatientComponent implements OnInit {
       'bust': +patient.bust,
       'waist': +patient.waist,
       'hip': +patient.hip,
-      'lumber': +patient.lumber,
-      'lumberHeight': +patient.lumberHeight,
+      //'lumber': +patient.lumber,
+      //'lumberHeight': +patient.lumberHeight,
       //'timestamps': {
       //  'createdAt': today.toISOString(),
       //  'updatedAt': today.toISOString()
@@ -373,8 +398,8 @@ export class RegisterPatientComponent implements OnInit {
           bust: null,
           waist: null,
           hip: null,
-          lumber: null,
-          lumberHeight: null,
+          //lumber: null,
+          //lumberHeight: null,
         });
 
         this.showPatientInfo = false;

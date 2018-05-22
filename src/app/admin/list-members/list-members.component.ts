@@ -123,6 +123,7 @@ export class ListMembersComponent implements OnInit {
       this.checkedMembers.push(false)
     //console.log(this.membersInTable);
   }
+  
   checkAllMember() {
     this.checkedAll = !this.checkedAll;
     for(var i = 0; i < this.numMembersInTable; i++) {

@@ -7,6 +7,9 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Params, Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
+import { Organization } from '../../shared/organization';
+import { OrganizationService } from '../../services/organization.service';
+
 import { Patient } from '../../shared/patient';
 import { PatientService } from '../../services/patient.service';
 
@@ -41,18 +44,20 @@ export class AdminHomeComponent implements OnInit {
   numBodyMeasurements: number[];
   numVisited: number[];
 
+  patientsInOrgs: Patient[];
   patientsInTable: Patient[];
   selectedPatients: Patient[];
 
-  members: Member[];
+  organizations: Organization[];
+  //members: Member[];
 
   numAllPatients: number;
   numPatientsInTable: number;
 
-  errMess: string;
+  orgsErrMess: string;
+  patientsErrMess: string;
 
-  // Testing with modal
-  closeResult: string;
+  checkedOrgs: any;
 
   /**
    * Filter option form
@@ -117,6 +122,7 @@ export class AdminHomeComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private location:Location,
+    private organizationService: OrganizationService,
     private patientService: PatientService,
     private authService: AuthService,
     @Inject('BaseURL') private BaseURL
@@ -124,7 +130,7 @@ export class AdminHomeComponent implements OnInit {
 
   ngOnInit() {
     //this.patients = PATIENTS;
-    this.members = MEMBERS;
+    //this.members = MEMBERS;
 
     this.subjects = SUBJECTS;
     this.types = TYPES;
@@ -169,9 +175,31 @@ export class AdminHomeComponent implements OnInit {
 
     console.log(this.dateStart.toISOString());
 
+    this.organizationService.getOrganizations()
+    .subscribe((orgs) => {
+      this.organizations = orgs;
+
+      this.checkedOrgs = {
+        "checked": [],
+        "orgsId": [],
+        "checkedAll": true,
+        "numChecked": orgs.length
+      }
+
+      for (var i = 0; i < orgs.length; i++) {
+        this.checkedOrgs.checked.push(true);
+        this.checkedOrgs.orgsId.push(orgs[i]._id);
+      }
+      
+    }, (errMess) => {
+      this.orgsErrMess = <any>errMess;
+    })
+
     this.patientService.getPatientsBetweenForAdmin(this.dateStart.toISOString(), this.dateEnd.toISOString())
     .subscribe((patients) => {
       this.patients = patients;
+
+      this.patientsInOrgs = this.patients;
       this.patientsInTable = this.patients;
       this.numAllPatients = this.patients.length;
       this.numPatientsInTable = this.patients.length;
@@ -183,7 +211,7 @@ export class AdminHomeComponent implements OnInit {
       console.log(this.numBodyMeasurements);
       console.log(this.numVisited);
     }, (errMess) => {
-      this.errMess = <any>errMess;
+      this.patientsErrMess = <any>errMess;
     });
   }
 
@@ -224,12 +252,13 @@ export class AdminHomeComponent implements OnInit {
       console.log(this.numBodyMeasurements);
       console.log(this.numVisited);
     }, (errMess) => {
-      this.errMess = <any>errMess;
+      this.patientsErrMess = <any>errMess;
     });
   }
   
   submitOptionFilter() {
-    this.patientsInTable = this.patients.filter((patient) => {
+    //this.patientsInTable = this.patients.filter((patient) => {
+    this.patientsInTable = this.patientsInOrgs.filter((patient) => {
       var numSpineInfos = patient.spineInfos.length;
       var included = true;
       if (this.optionFilterForm.value.sex !== '') {
@@ -253,5 +282,59 @@ export class AdminHomeComponent implements OnInit {
     });
     this.numPatientsInTable = this.patientsInTable.length;
     //console.log(this.membersInTable);
+  }
+
+  checkAllOrgs() {
+    //console.log(this.checkedOrgs.checkedAll);
+    this.checkedOrgs.checkedAll = !this.checkedOrgs.checkedAll;
+    for(var i = 0; i < this.checkedOrgs.checked.length; i++) {
+      //console.log(this.checkedOrgs.checked[i]);
+      this.checkedOrgs.checked[i] = this.checkedOrgs.checkedAll;
+    }
+
+    this.checkedOrgs.numChecked = this.getNumCheckedOrgs();
+  }
+
+  changeCheckedOrgs(i) {
+    //console.log(i, ' is changed');
+    //if (this.checkedOrgs.checked[i]) {
+    //  console.log(i, ' is changed');
+    //  this.checkedOrgs.checked[i] = !this.checkedOrgs.checked[i];
+    //}
+    this.checkedOrgs.checked[i] = !this.checkedOrgs.checked[i];
+    //console.log(this.checkedOrgs);
+    this.checkedOrgs.numChecked = this.getNumCheckedOrgs();
+
+    /*
+    if (this.checkedOrgs.numChecked === this.checkedOrgs.checked.length)
+      this.checkedOrgs.checkedAll = true;
+    else 
+      this.checkedOrgs.checkedAll = false;
+    */
+  }
+
+  getNumCheckedOrgs(): number {
+    return this.checkedOrgs.checked.filter(checked => checked).length;
+  }
+
+  filterOrganizations() {
+    this.patientsInOrgs = this.patients.filter((patient) => {
+      //console.log('patient: ', patient.organization._id);
+      var included = false;
+      for (var i = 0; i < this.checkedOrgs.checked.length; i++ ) {
+        if (this.checkedOrgs.checked[i]) {
+          //console.log('checkedOrg: ', this.checkedOrgs.orgsId[i])
+          if (patient.organization["_id"] === this.checkedOrgs.orgsId[i]) {
+            included = true;
+            break;
+          }
+        }
+      }
+        
+      return included;
+    });
+    
+    this.patientsInTable = this.patientsInOrgs;
+    this.numPatientsInTable = this.patientsInTable.length;
   }
 }

@@ -273,8 +273,12 @@ export class PatientdetailComponent implements OnInit {
     this.patientservice.postSpineDiag(this.patient._id, newSpineInfo)
     .subscribe((patient) => {
       console.log('subscribe');
-      console.log(this.patient);
+
+      this.patient = undefined;
       this.patient = patient;
+
+      console.log(this.patient);
+      
       this.spineDiagModal.close();
     }, (errMess) => {
       this.errMess = <any>errMess;
@@ -282,4 +286,23 @@ export class PatientdetailComponent implements OnInit {
     });
   }
 
+  submitBodyMeasurement() {
+    console.log('Submit new body measurement');
+    let newBdInfo = this.bodyMeasureForm.value;
+    //console.log(newSpineInfo);
+    this.patientservice.postBodyMeasurement(this.patient._id, newBdInfo)
+    .subscribe((patient) => {
+      console.log('subscribe');
+
+      //this.patient = undefined;
+      this.patient = patient;
+
+      console.log(this.patient);
+      
+      this.bodyMeasureModal.close();
+    }, (errMess) => {
+      this.errMess = <any>errMess;
+      console.log(errMess);
+    });
+  }
 }

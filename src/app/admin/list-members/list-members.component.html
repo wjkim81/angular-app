@@ -1,7 +1,9 @@
 <div class="container-fluid">
+  <!--
   <p>memberFilterForm.value: {{memberFilterForm.value | json}}</p>
   <p>checkedMembers:</p>
   <p *ngFor="let checked of checkedMembers; let i = index">checkedMembers[{{i}}]: {{checked}}</p>
+  -->
   <form novalidate [formGroup]="memberFilterForm" (ngSubmit)="submitMemberFilter()">
     <div class="row form-group orderOption">
       <div class="col-12 col-sm-6 col-md-2">
@@ -58,9 +60,9 @@
           </thead>
           <tbody>
             <tr *ngFor="let member of membersInTable; let i = index">
-              <th><input type="checkbox" [value]="member._id"
+              <td><input type="checkbox" [value]="member._id"
               (change)="changeCheckedMembers(i)"
-              [checked]="checkedMembers[i]"></th>
+              [checked]="checkedMembers[i]"></td>
               <td appHighlight><a [routerLink]="['/admin/members', member._id]">{{member.username}}</a></td>
               <td>{{member.firstname}}</td>
               <td>{{member.lastname}}</td>
@@ -80,6 +82,7 @@
   </div>
   
   <div class="row after-table-margin">
+    <!--
     <div class="col-12 col-sm-6 col-md-2">
       <a role="button" class="btn btn-primary btn-block" href="javascript:v_edit();">EDIT</a>
     </div>
@@ -90,6 +93,7 @@
           (click)="removeMembers()">
         REMOVE</button>
     </div>
+    -->
     <div class="col-md">
     </div>
     <div class="col-12 col-sm-12 col-md-2 float-right">

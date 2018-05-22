@@ -1,7 +1,56 @@
 <div class="container-fluid">
+  <div class="row" *ngIf="organizations">
+    <!--
+    <p>checkedOrgs: {{checkedOrgs | json}}</p>
+    -->
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-stripped table-font">
+          <thead class="thead-inverse">
+            <tr>
+              <th><input type="checkbox" name="orgsAll" id="orgsAll"
+                [value]="checkedOrgs.checkedAll"
+                (change)="checkAllOrgs()" checked></th>
+              
+              <!--
+              <th><input type="checkbox" name="orgsAll" id="orgsAll"></th>
+              -->
+              <th>Name</th>
+              <th>Country</th>
+              <th>Type</th>
+              <th>Number of patients</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let org of organizations; let i = index">
+              <td><input type="checkbox" [value]="org._id"
+              (change)="changeCheckedOrgs(i)"
+              [checked]="checkedOrgs.checked[i]" checked>
+              </td>
+              <td>{{org.name}}</td>
+              <td>{{org.country}}</td>
+              <td>{{org.type}}</td>
+              <td>{{org.patients.length}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 text-center">
+      <button type="submit" class="btn btn-primary" id="filterOrganizations" (click)="filterOrganizations()">
+        Filter Patients with Organizations
+      </button>
+    </div>
+  </div>
+
+
+  <!--
   <p>searchDateStart: {{searchDateStart | date:'yyyy-MM-dd'}}, searchDateEnd: {{searchDateEnd | date:'yyyy-MM-dd'}}</p>
   <p>optionFilterForm.value: {{optionFilterForm.value | json}}</p>
-  
+  <p>patientsInOrgs.length: {{patientsInOrgs}}</p>
+  -->
   <div class="row form-group orderOption">
     <div class="col-12 col-sm-12 col-md-12 col-lg-5">
       <div class="input-group">
@@ -39,7 +88,7 @@
 
           <select class="form-control" formControlName="stage">
             <option value="">All stages</option>
-            <option *ngFor="let stage of stageOtions" [ngValue]="stage">{{stage}}</option>
+            <option *ngFor="let stage of stageOptions" [ngValue]="stage">{{stage}}</option>
           </select>
           <div class="input-group-append">
             <button class="btn btn-primary">Filter</button>
@@ -55,13 +104,7 @@
         <table class="table table-stripped table-font">
           <thead class="thead-inverse">
             <tr>
-              <th><input type="checkbox" name="checkPatient" id="checkPatient"></th>
-              <!--
-              <th *ngFor="let ck of columnKeys; let i = index" (click)="setOrder(ck)">
-                {{columns[ck]}} <span class="{{(orderColumns[ck]) ? ((ascend) ? 'fa fa-caret-up' : 'fa fa-caret-down') : ''}}"></span>
-              </th>
-              -->
-              <!--<th>Patient ID</th>-->
+              <!--<th><input type="checkbox" name="checkPatient" id="checkPatient"></th>-->
               <th>Organization</th>
               <th>Name</th>
               <th>Birthday</th>
@@ -78,11 +121,7 @@
           <tbody>
             <tr *ngFor="let patient of patientsInTable; let i = index; let even = even; let odd = odd"
               [ngClass]="{ odd: odd, even: even }">
-              <td><input type="checkbox" [value]="patient"></td>
-              <!--
-              <td *ngFor="let ck of columnKeys" [routerLink]="['/admin/patients', patient.id]" appHighlight>{{patient[ck]}}</td>
-              -->
-              <!--<td>{{patient.patientId}}</td>-->
+              <!--<td><input type="checkbox" [value]="patient"></td>-->
               <td>{{patient.organization.name}}</td>
               <td><a [routerLink]="['/admin/patients', patient._id]" appHighlight>{{patient.firstname}} {{patient.lastname}}</a></td>
               <!--<td>{{patient.firstname}} {{patient.lastname}}</td>-->
@@ -105,17 +144,23 @@
       </div>
     </div>
   </div>
+
+  
   <div class="row after-table-margin">
+    <!--
     <div class="col-12 col-sm-6 col-md-2">
-      <a role="button" class="btn btn-primary btn-block" href="javascript:v_edit();">EDIT</a>
+      <a role="button" class="btn btn-primary btn-block">EDIT</a>
     </div>
     <div class="col-12 col-sm-6 col-md-2">
-      <a role="button" class="btn btn-primary btn-block" href="javascript:v_on();">REMOVE</a>
+      <a role="button" class="btn btn-primary btn-block">REMOVE</a>
     </div>
+    -->
     <div class="col-md">
     </div>
+    
     <div class="col-12 col-sm-12 col-md-2 float-right">
       {{numPatientsInTable}} / {{numAllPatients}} Patients
     </div> 
-  </div><!-- row table-edit -->
+  </div>
+  
 </div><!-- container -->

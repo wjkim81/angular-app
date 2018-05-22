@@ -63,4 +63,10 @@ export class PatientService {
     return this.http.post(baseURL + 'patients/' + patientId + '/spineInfos', spineInfo)
       .catch(error => { return this.processHTTPMsgService.handleError(error); }); 
   }
+
+  postBodyMeasurement(patientId: string, bdInfo: BodyMeasurement) {
+    //console.log(patient);
+    return this.http.post(baseURL + 'patients/' + patientId + '/bodyMeasurements', bdInfo)
+      .catch(error => { return this.processHTTPMsgService.handleError(error); }); 
+  }
 }
