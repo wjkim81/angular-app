@@ -48,9 +48,9 @@ export class PatientdetailComponent implements OnInit {
   formErrors = {
     'type': '',
     'risser': '',
-    'apexStart1': '',
+    'curveStart1': '',
     'cobbAng1': '',
-    'apexEnd1': '',
+    'curveEnd1': '',
     'direction1': '',
     'firstVisit': '',
     'height': '',
@@ -58,9 +58,9 @@ export class PatientdetailComponent implements OnInit {
     'shoulder': '',
     'bust': '',
     'waist': '',
-    'hip': '',
-    'lumber': '',
-    'lumberHeight': ''
+    'hip': ''//,
+    //'lumber': '',
+    //'lumberHeight': ''
   };
 
    validationMessages = {
@@ -70,15 +70,15 @@ export class PatientdetailComponent implements OnInit {
     'risser': {
       'required': 'Risser is required.'
     },
-    'apexStart1': {
+    'curveStart1': {
       'required': 'Apex1 is required.'
     },
     'cobbAng1': {
       'required': 'Cobb angle is required.',
       'pattern': 'Cobb angle should be a number.'
     },
-    'apexEnd1': {
-      'required': 'End of apex1 is required.'
+    'curveEnd1': {
+      'required': 'End of curve1 is required.'
     },
     'direction1': {
       'required': 'Direction1 is required.'
@@ -106,7 +106,7 @@ export class PatientdetailComponent implements OnInit {
     'hip': {
       'required': 'Measurement of hip is required.',
       'pattern': 'Measurement of hip should be a number.'
-    },
+    }/*,
     'lumber': {
       'required': 'Measurement of lumber is required.',
       'pattern': 'Measurement of lumber should be a number.'
@@ -114,7 +114,7 @@ export class PatientdetailComponent implements OnInit {
     'lumberHeight': {
       'required': 'Measurement of lumber height is required.',
       'pattern': 'Measurement of lumber height should be a number.'
-    },
+    },*/
   };
 
   constructor(
@@ -148,19 +148,19 @@ export class PatientdetailComponent implements OnInit {
       type: [this.patientTypeOptions[0], Validators.required],
       risser: [this.risserOptions[0], Validators.required],
       
-      apexStart1: ['', Validators.required],
+      curveStart1: ['', Validators.required],
       cobbAng1: [null, [Validators.required, Validators.pattern]],
-      apexEnd1: ['', Validators.required],
+      curveEnd1: ['', Validators.required],
       direction1: ['', Validators.required],
       
-      apexStart2: null,
+      curveStart2: null,
       cobbAng2: [null, Validators.pattern],
-      apexEnd2: null,
+      curveEnd2: null,
       direction2: '',
       
-      apexStart3: null,
+      curveStart3: null,
       cobbAng3: [null, Validators.pattern],
-      apexEnd3: null,
+      curveEnd3: null,
       direction3: ''
     });
 
@@ -170,9 +170,10 @@ export class PatientdetailComponent implements OnInit {
       shoulder: [null, [Validators.required, Validators.pattern]],
       bust: [null, [Validators.required, Validators.pattern]],
       waist: [null, [Validators.required, Validators.pattern]],
-      hip: [null, [Validators.required, Validators.pattern]],
+      hip: [null, [Validators.required, Validators.pattern]]/*,
       lumber: [null, [Validators.required, Validators.pattern]],
       lumberHeight: [null, [Validators.required, Validators.pattern]]
+      */
     })
 
     this.spineDiagForm.valueChanges
@@ -240,19 +241,19 @@ export class PatientdetailComponent implements OnInit {
       type: this.patientTypeOptions[0],
       risser: this.risserOptions[0],
       
-      apexStart1: '',
+      curveStart1: '',
       cobbAng1: null,
-      apexEnd1: '',
+      curveEnd1: '',
       direction1: '',
       
-      apexStart2: null,
+      curveStart2: null,
       cobbAng2: null,
-      apexEnd2: null,
+      curveEnd2: null,
       direction2: '',
       
-      apexStart3: null,
+      curveStart3: null,
       cobbAng3: null,
-      apexEnd3: null,
+      curveEnd3: null,
       direction3: '',
     });
     this.spineDiagModal = this.modalService.open(content, { size: 'lg' });
@@ -265,9 +266,10 @@ export class PatientdetailComponent implements OnInit {
       shoulder: null,
       bust: null,
       waist: null,
-      hip: null,
+      hip: null/*,
       lumber: null,
       lumberHeight: null
+      */
     })
 
     this.bodyMeasureModal = this.modalService.open(content, { size: 'lg' });

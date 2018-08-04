@@ -65,9 +65,9 @@
           <div class="form-group row">
             <label class="col-12 col-sm-12 col-md-2 col-form-label">Curve1</label>
             <div class="col-4 col-sm-2 col-md-2">
-              <select class="form-control" id="apexStart1" name="apexStart1" formControlName="apexStart1">
+              <select class="form-control" id="curveStart1" name="curveStart1" formControlName="curveStart1">
                 <option value="" disabled>Above</option>
-                <option *ngFor="let apexStart1 of vertebralColumns" [ngValue]="apexStart1">{{apexStart1}}</option>
+                <option *ngFor="let curveStart1 of vertebralColumns" [ngValue]="curveStart1">{{curveStart1}}</option>
               </select>
               <!--<input type="text" class="form-control" id="registerSnL1" name="registerSnL1" placeholder="SN">-->
             </div>
@@ -77,9 +77,9 @@
               <div class="invalid-feedback">{{formErrors.cobbAng1}}</div>
             </div>
             <div class="col-4 col-sm-2 col-md-2">
-              <select class="form-control" id="apexEnd1" name="apexEnd1" formControlName="apexEnd1">
+              <select class="form-control" id="curveEnd1" name="curveEnd1" formControlName="curveEnd1">
                 <option value="" disabled>Below</option>
-                <option *ngFor="let apexEnd1 of vertebralColumns" [ngValue]="apexEnd1">{{apexEnd1}}</option>
+                <option *ngFor="let curveEnd1 of vertebralColumns" [ngValue]="curveEnd1">{{curveEnd1}}</option>
               </select>
               <!--<input type="text" class="form-control" id="registerSnR1" name="registerSnR1" placeholder="SN">-->
             </div>
@@ -95,9 +95,9 @@
           <div class="form-group row">
             <label class="col-12 col-sm-12 col-md-2 col-form-label">Curve2</label>
             <div class="col-4 col-sm-2 col-md-2">
-              <select class="form-control" id="apexStart2" name="apexStart2">
+              <select class="form-control" id="curveStart2" name="curveStart2">
                 <option value="">Above</option>
-                <option *ngFor="let apexStart2 of vertebralColumns" [ngValue]="apexStart2">{{apexStart2}}</option>            
+                <option *ngFor="let curveStart2 of vertebralColumns" [ngValue]="curveStart2">{{curveStart2}}</option>            
               </select>
               <!--<input type="text" class="form-control" id="registerSnL1" name="registerSnL1" placeholder="SN">-->
             </div>
@@ -106,9 +106,9 @@
                 placeholder="Cobb angle" formControlName="cobbAng2" pattern="[0-9]*">
             </div>
             <div class="col-4 col-sm-2 col-md-2">
-              <select class="form-control" id="apexEnd2" name="apexEnd2">
+              <select class="form-control" id="curveEnd2" name="curveEnd2">
                 <option value="">Below</option>
-                <option *ngFor="let apexEnd2 of vertebralColumns" [ngValue]="apexEnd2">{{apexEnd2}}</option>
+                <option *ngFor="let curveEnd2 of vertebralColumns" [ngValue]="curveEnd2">{{curveEnd2}}</option>
               </select>
               <!--<input type="text" class="form-control" id="registerSnR1" name="registerSnR1" placeholder="SN">-->
             </div>
@@ -124,9 +124,9 @@
           <div class="form-group row">
             <label class="col-12 col-sm-12 col-md-2 col-form-label">Curve3</label>
             <div class="col-4 col-sm-2 col-md-2">
-              <select class="form-control" id="apexStart3" name="apexStart3">
+              <select class="form-control" id="curveStart3" name="curveStart3">
                 <option value="">Above</option>
-                <option *ngFor="let apexStart3 of vertebralColumns" [ngValue]="apexStart3">{{apexStart3}}</option>            
+                <option *ngFor="let curveStart3 of vertebralColumns" [ngValue]="curveStart3">{{curveStart3}}</option>            
               </select>
               <!--<input type="text" class="form-control" id="registerSnL1" name="registerSnL1" placeholder="SN">-->
             </div>
@@ -135,9 +135,9 @@
                 placeholder="Cobb angle" formControlName="cobbAng3" pattern="[0-9]*">
             </div>
             <div class="col-4 col-sm-2 col-md-2">
-              <select class="form-control" id="apexEnd3" name="apexEnd3">
+              <select class="form-control" id="curveEnd3" name="curveEnd3">
                 <option value="">Below</option>
-                <option *ngFor="let apexEnd3 of vertebralColumns" [ngValue]="apexEnd3">{{apexEnd3}}</option>
+                <option *ngFor="let curveEnd3 of vertebralColumns" [ngValue]="curveEnd3">{{curveEnd3}}</option>
               </select>
               <!--<input type="text" class="form-control" id="registerSnR1" name="registerSnR1" placeholder="SN">-->
             </div>
@@ -281,14 +281,14 @@
       <p>Curve1 ends: {{newPatient.spineInfos[0].CurveEnd1}}</p>
       <p>Direction: {{newPatient.spineInfos[0].direction1}}</p>
 
-      <p>Curve1 starts: {{newPatient.spineInfos[0].apexStart2}}</p>
+      <p>Curve1 starts: {{newPatient.spineInfos[0].curveStart2}}</p>
       <p>Cobb angle: {{newPatient.spineInfos[0].cobbAng2}}</p>
-      <p>Curve2 ends: {{newPatient.spineInfos[0].apexEnd2}}</p>
+      <p>Curve2 ends: {{newPatient.spineInfos[0].curveEnd2}}</p>
       <p>Direction: {{newPatient.spineInfos[0].direction2}}</p>
         
-      <p>Curve1 starts: {{newPatient.spineInfos[0].apexStart3}}</p>
+      <p>Curve1 starts: {{newPatient.spineInfos[0].curveStart3}}</p>
       <p>Cobb angle: {{newPatient.spineInfos[0].cobbAng3}}</p>
-      <p>Curve3 ends: {{newPatient.spineInfos[0].apexEnd3}}</p>
+      <p>Curve3 ends: {{newPatient.spineInfos[0].curveEnd3}}</p>
       <p>Direction: {{newPatient.spineInfos[0].direction3}}</p>
         
       <p>Height: {{newPatient.bodyMeasurements[0].height}}</p>

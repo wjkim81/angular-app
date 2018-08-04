@@ -80,9 +80,9 @@ export class AdminHomeComponent implements OnInit {
     'type': 'Type',
     'risser': 'Risser',
     'stage': 'Stage',
-    'apexStart1': 'Apex1',
-    'apexStart2': 'Apex2',
-    'apexStart3': 'Apex3',
+    'curveStart1': 'Apex1',
+    'curveStart2': 'Apex2',
+    'curveStart3': 'Apex3',
     //'firstday': 'First Day',
     'updatedAt': 'Last Update'
   };
@@ -97,9 +97,9 @@ export class AdminHomeComponent implements OnInit {
     'type': false,
     'risser': false,
     'stage': false,
-    'apexStart1': false,
-    'apexStart2': false,
-    'apexStart3': false,
+    'curveStart1': false,
+    'curveStart2': false,
+    'curveStart3': false,
     'updateAt': false
   }
 

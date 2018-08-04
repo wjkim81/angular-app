@@ -35,8 +35,8 @@ export class RegisterPatientComponent implements OnInit {
 
   showPatientInfo: boolean;
 
-  apex2exist: boolean;
-  apex3exist: boolean;
+  curve2exist: boolean;
+  curve3exist: boolean;
 
   formErrors = {
     'firstname': '',
@@ -47,9 +47,9 @@ export class RegisterPatientComponent implements OnInit {
     'weight': '',
     'type': '',
     'risser': '',
-    'apexStart1': '',
+    'curveStart1': '',
     'cobbAng1': '',
-    'apexEnd1': '',
+    'curveEnd1': '',
     'direction1': '',
     'firstVisit': '',
     'shoulder': '',
@@ -87,15 +87,15 @@ export class RegisterPatientComponent implements OnInit {
     'risser': {
       'required': 'Risser is required.'
     },
-    'apexStart1': {
-      'required': 'Apex1 is required.'
+    'curveStart1': {
+      'required': 'Curve1 is required.'
     },
     'cobbAng1': {
       'required': 'Cobb angle is required.',
       'pattern': 'Cobb angle should be a number.'
     },
-    'apexEnd1': {
-      'required': 'End of apex1 is required.'
+    'curveEnd1': {
+      'required': 'End of curve1 is required.'
     },
     'direction1': {
       'required': 'Direction1 is required.'
@@ -182,19 +182,19 @@ export class RegisterPatientComponent implements OnInit {
       type: [this.types[0], Validators.required],
       risser: [this.rissers[0], Validators.required],
       
-      apexStart1: ['', Validators.required],
+      curveStart1: ['', Validators.required],
       cobbAng1: [null, [Validators.required, Validators.pattern]],
-      apexEnd1: ['', Validators.required],
+      curveEnd1: ['', Validators.required],
       direction1: ['', Validators.required],
       
-      apexStart2: null,
+      curveStart2: null,
       cobbAng2: [null, Validators.pattern],
-      apexEnd2: null,
+      curveEnd2: null,
       direction2: '',
       
-      apexStart3: null,
+      curveStart3: null,
       cobbAng3: [null, Validators.pattern],
-      apexEnd3: null,
+      curveEnd3: null,
       direction3: '',
       
       firstVisit: '',
@@ -269,17 +269,17 @@ export class RegisterPatientComponent implements OnInit {
       'type': patient.type,
       'risser': +patient.risser,
       'stage': patient.stage,
-      'apexStart1': patient.apexStart1,
+      'curveStart1': patient.curveStart1,
       'cobbAng1': +patient.cobbAng1,
-      'apexEnd1': patient.apexEnd1,
+      'curveEnd1': patient.curveEnd1,
       'direction1': patient.direction1,
-      'apexStart2': patient.apexStart2,
+      'curveStart2': patient.curveStart2,
       'cobbAng2': +patient.cobbAng2,
-      'apexEnd2': patient.apexEnd2,
+      'curveEnd2': patient.curveEnd2,
       'direction2': patient.direction2,
-      'apexStart3': patient.apexStart3,
+      'curveStart3': patient.curveStart3,
       'cobbAng3': +patient.cobbAng3,
-      'apexEnd3': patient.apexEnd3,
+      'curveEnd3': patient.curveEnd3,
       'direction3': patient.direction3
       //this.newPatient = patient.patientId;
     };
@@ -297,22 +297,22 @@ export class RegisterPatientComponent implements OnInit {
       'visitedDays': [today.toISOString()]
     }
 
-    if (patient.apexStart1) this.newPatient.spineInfos = [{
+    if (patient.curveStart1) this.newPatient.spineInfos = [{
       'updatedBy': '',
       'type': patient.type,
       'risser': +patient.risser,
       'stage': patient.stage,
-      'apexStart1': patient.apexStart1,
+      'curveStart1': patient.curveStart1,
       'cobbAng1': +patient.cobbAng1,
-      'apexEnd1': patient.apexEnd1,
+      'curveEnd1': patient.curveEnd1,
       'direction1': patient.direction1,
-      'apexStart2': patient.apexStart2,
+      'curveStart2': patient.curveStart2,
       'cobbAng2': +patient.cobbAng2,
-      'apexEnd2': patient.apexEnd2,
+      'curveEnd2': patient.curveEnd2,
       'direction2': patient.direction2,
-      'apexStart3': patient.apexStart3,
+      'curveStart3': patient.curveStart3,
       'cobbAng3': +patient.cobbAng3,
-      'apexEnd3': patient.apexEnd3,
+      'curveEnd3': patient.curveEnd3,
       'direction3': patient.direction3,
       //'timestamps': {
       //  'createdAt': today.toISOString(),
@@ -373,19 +373,19 @@ export class RegisterPatientComponent implements OnInit {
           type: this.types[0],
           risser: this.rissers[0],
           
-          apexStart1: '',
+          curveStart1: '',
           cobbAng1: null,
-          apexEnd1: '',
+          curveEnd1: '',
           direction1: '',
           
-          apexStart2: null,
+          curveStart2: null,
           cobbAng2: null,
-          apexEnd2: null,
+          curveEnd2: null,
           direction2: '',
           
-          apexStart3: null,
+          curveStart3: null,
           cobbAng3: null,
-          apexEnd3: null,
+          curveEnd3: null,
           direction3: '',
           
           firstVisit: '',

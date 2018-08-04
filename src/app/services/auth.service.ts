@@ -41,7 +41,7 @@ export class AuthService {
   }
   
   checkJWTtoken() {
-    this.http.get<JWTResponse>(baseURL + 'members/checkJWTtoken')
+    this.http.get<JWTResponse>(baseURL + 'auth/checkJWTtoken')
     .subscribe(res => {
       console.log("JWT Token Valid: ", res);
       this.sendUsername(res.member.username);
@@ -54,7 +54,7 @@ export class AuthService {
 
   validateJWTtoken(): Observable<JWTResponse> {
     console.log('validateJWTtoken');
-    return this.http.get<JWTResponse>(baseURL + 'members/checkJWTtoken')
+    return this.http.get<JWTResponse>(baseURL + 'auth/checkJWTtoken')
     .map(res => {
       console.log("JWT Token Valid: ", res);
       this.sendUsername(res.member.username);
@@ -130,9 +130,9 @@ export class AuthService {
   }
 
   logIn(member: any): Observable<any> {
-    console.log('POST ' + baseURL + 'members/login');
+    console.log('POST ' + baseURL + 'auth/login');
     console.log('username: ' + member.username + ', password: ', member.password);
-    return this.http.post<AuthResponse>(baseURL + 'members/login', 
+    return this.http.post<AuthResponse>(baseURL + 'auth/login', 
       {"username": member.username, "password": member.password})
       .map(res => {
         console.log(res)

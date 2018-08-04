@@ -87,17 +87,17 @@
               <!--<td>{{patient.firstname}} {{patient.lastname}}</td>-->
               <td>{{patient.birthday | date}}</td>
               <td>{{patient.sex}}</td>
-              <td>{{patient.spineInfos[numSpineInfos[i]-1].type}}</td>
-              <td>{{patient.spineInfos[numSpineInfos[i]-1].risser}}</td>
-              <td>{{patient.spineInfos[numSpineInfos[i]-1].stage}}</td>
-              <td>{{patient.spineInfos[numSpineInfos[i]-1].apexStart1}}-{{patient.spineInfos[numSpineInfos[i]-1].cobbAng1}}-{{patient.spineInfos[numSpineInfos[i]-1].apexEnd1}} {{patient.spineInfos[numSpineInfos[i]-1].direction1}}</td>
+              <td *ngIf="numSpineInfos[i] !== 0">{{patient.spineInfos[numSpineInfos[i]-1].type}}</td>
+              <td *ngIf="numSpineInfos[i] !== 0">{{patient.spineInfos[numSpineInfos[i]-1].risser}}</td>
+              <td *ngIf="numSpineInfos[i] !== 0">{{patient.spineInfos[numSpineInfos[i]-1].stage}}</td>
+              <td *ngIf="numSpineInfos[i] !== 0">{{patient.spineInfos[numSpineInfos[i]-1].curveStart1}}-{{patient.spineInfos[numSpineInfos[i]-1].cobbAng1}}-{{patient.spineInfos[numSpineInfos[i]-1].curveEnd1}} {{patient.spineInfos[numSpineInfos[i]-1].direction1}}</td>
               <!--
-              <td *ngIf="patient.spineInfos[numSpineInfos[i]-1].apexStart2">{{patient.spineInfos[numSpineInfos[i]-1].apexStart2}}-{{patient.spineInfos[numSpineInfos[i]-1].cobbAng2}}-{{patient.spineInfos[numSpineInfos[i]-1].apexEnd2}} {{patient.spineInfos[numSpineInfos[i]-1].direction3}}</td>
-              <td *ngIf="patient.spineInfos[numSpineInfos[i]-1].apexStart3">{{patient.spineInfos[numSpineInfos[i]-1].apexStart3}}-{{patient.spineInfos[numSpineInfos[i]-1].cobbAng3}}-{{patient.spineInfos[numSpineInfos[i]-1].apexEnd3}} {{patient.spineInfos[numSpineInfos[i]-1].direction3}}</td>
+              <td *ngIf="patient.spineInfos[numSpineInfos[i]-1].curveStart2">{{patient.spineInfos[numSpineInfos[i]-1].curveStart2}}-{{patient.spineInfos[numSpineInfos[i]-1].cobbAng2}}-{{patient.spineInfos[numSpineInfos[i]-1].curveEnd2}} {{patient.spineInfos[numSpineInfos[i]-1].direction3}}</td>
+              <td *ngIf="patient.spineInfos[numSpineInfos[i]-1].curveStart3">{{patient.spineInfos[numSpineInfos[i]-1].curveStart3}}-{{patient.spineInfos[numSpineInfos[i]-1].cobbAng3}}-{{patient.spineInfos[numSpineInfos[i]-1].curveEnd3}} {{patient.spineInfos[numSpineInfos[i]-1].direction3}}</td>
               -->
-              <td>{{patient.spineInfos[numSpineInfos[i]-1].apexStart2}}-{{patient.spineInfos[numSpineInfos[i]-1].cobbAng2}}-{{patient.spineInfos[numSpineInfos[i]-1].apexEnd2}} {{patient.spineInfos[numSpineInfos[i]-1].direction3}}</td>
-              <td>{{patient.spineInfos[numSpineInfos[i]-1].apexStart3}}-{{patient.spineInfos[numSpineInfos[i]-1].cobbAng3}}-{{patient.spineInfos[numSpineInfos[i]-1].apexEnd3}} {{patient.spineInfos[numSpineInfos[i]-1].direction3}}</td>
-              <td>{{patient.updatedAt | date}}</td>
+              <td *ngIf="numSpineInfos[i] !== 0">{{patient.spineInfos[numSpineInfos[i]-1].curveStart2}}-{{patient.spineInfos[numSpineInfos[i]-1].cobbAng2}}-{{patient.spineInfos[numSpineInfos[i]-1].curveEnd2}} {{patient.spineInfos[numSpineInfos[i]-1].direction3}}</td>
+              <td *ngIf="numSpineInfos[i] !== 0">{{patient.spineInfos[numSpineInfos[i]-1].curveStart3}}-{{patient.spineInfos[numSpineInfos[i]-1].cobbAng3}}-{{patient.spineInfos[numSpineInfos[i]-1].curveEnd3}} {{patient.spineInfos[numSpineInfos[i]-1].direction3}}</td>
+              <td *ngIf="numSpineInfos[i] !== 0">{{patient.updatedAt | date}}</td>
             </tr>
           </tbody>
         </table>

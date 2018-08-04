@@ -53,9 +53,9 @@
               <td>{{spInfo.type}}</td>
               <td>{{spInfo.risser}}</td>
               <td>{{spInfo.stage}}</td>
-              <td>{{spInfo.apexStart1}}-{{spInfo.cobbAng1}}-{{spInfo.apexEnd1}} {{spInfo.direction1}}</td>
-              <td>{{spInfo.apexStart2}}-{{spInfo.cobbAng2}}-{{spInfo.apexEnd2}} {{spInfo.direction2}}</td>
-              <td>{{spInfo.apexStart3}}-{{spInfo.cobbAng3}}-{{spInfo.apexEnd3}} {{spInfo.direction3}}</td>
+              <td>{{spInfo.curveStart1}}-{{spInfo.cobbAng1}}-{{spInfo.curveEnd1}} {{spInfo.direction1}}</td>
+              <td>{{spInfo.curveStart2}}-{{spInfo.cobbAng2}}-{{spInfo.curveEnd2}} {{spInfo.direction2}}</td>
+              <td>{{spInfo.curveStart3}}-{{spInfo.cobbAng3}}-{{spInfo.curveEnd3}} {{spInfo.direction3}}</td>
             </tr>
           </tbody>
         </table>
@@ -80,8 +80,10 @@
               <th>Bust</th>
               <th>Waist</th>
               <th>Hip</th>
+              <!--
               <th>Lumber</th>
               <th>Lumber Height</th>
+              -->
             </tr>
           </thead>
           <tbody>
@@ -94,8 +96,10 @@
               <td>{{bdSz.bust}}</td>
               <td>{{bdSz.waist}}</td>
               <td>{{bdSz.hip}}</td>
+              <!--
               <td>{{bdSz.lumber}}</td>
               <td>{{bdSz.lumberHeight}}</td>
+              -->
             </tr>
           </tbody>
         </table>
@@ -206,9 +210,9 @@
       <div class="form-group row">
         <label class="col-12 col-sm-12 col-md-2 col-form-label">Apex1</label>
         <div class="col-4 col-sm-2 col-md-2">
-          <select class="form-control" id="apexStart1" name="apexStart1" formControlName="apexStart1">
+          <select class="form-control" id="curveStart1" name="curveStart1" formControlName="curveStart1">
             <option value="" disabled>SN</option>
-            <option *ngFor="let apexStart1 of vertebralColumns" [ngValue]="apexStart1">{{apexStart1}}</option>
+            <option *ngFor="let curveStart1 of vertebralColumns" [ngValue]="curveStart1">{{curveStart1}}</option>
           </select>
         </div>
         <div class="col-8 col-sm-4 col-md-3">
@@ -217,9 +221,9 @@
           <div class="invalid-feedback">{{formErrors.cobbAng1}}</div>
         </div>
         <div class="col-4 col-sm-2 col-md-2">
-          <select class="form-control" id="apexEnd1" name="apexEnd1" formControlName="apexEnd1">
+          <select class="form-control" id="curveEnd1" name="curveEnd1" formControlName="curveEnd1">
             <option value="" disabled>SN</option>
-            <option *ngFor="let apexEnd1 of vertebralColumns" [ngValue]="apexEnd1">{{apexEnd1}}</option>
+            <option *ngFor="let curveEnd1 of vertebralColumns" [ngValue]="curveEnd1">{{curveEnd1}}</option>
           </select>
         </div>
         <div class="col-8 col-sm-4 col-md-3">
@@ -233,9 +237,9 @@
       <div class="form-group row">
         <label class="col-12 col-sm-12 col-md-2 col-form-label">Apex2</label>
         <div class="col-4 col-sm-2 col-md-2">
-          <select class="form-control" id="apexStart2" name="apexStart2">
+          <select class="form-control" id="curveStart2" name="curveStart2">
             <option value="">SN</option>
-            <option *ngFor="let apexStart2 of vertebralColumns" [ngValue]="apexStart2">{{apexStart2}}</option>            
+            <option *ngFor="let curveStart2 of vertebralColumns" [ngValue]="curveStart2">{{curveStart2}}</option>            
           </select>
         </div>
         <div class="col-8 col-sm-4 col-md-3">
@@ -243,9 +247,9 @@
             placeholder="Cobb angle" formControlName="cobbAng2" pattern="[0-9]*">
         </div>
         <div class="col-4 col-sm-2 col-md-2">
-          <select class="form-control" id="apexEnd2" name="apexEnd2">
+          <select class="form-control" id="curveEnd2" name="curveEnd2">
             <option value="">SN</option>
-            <option *ngFor="let apexEnd2 of vertebralColumns" [ngValue]="apexEnd2">{{apexEnd2}}</option>
+            <option *ngFor="let curveEnd2 of vertebralColumns" [ngValue]="curveEnd2">{{curveEnd2}}</option>
           </select>
         </div>
         <div class="col-8 col-sm-4 col-md-3">
@@ -259,9 +263,9 @@
       <div class="form-group row">
         <label class="col-12 col-sm-12 col-md-2 col-form-label">Apex3</label>
         <div class="col-4 col-sm-2 col-md-2">
-          <select class="form-control" id="apexStart3" name="apexStart3">
+          <select class="form-control" id="curveStart3" name="curveStart3">
             <option value="">SN</option>
-            <option *ngFor="let apexStart3 of vertebralColumns" [ngValue]="apexStart3">{{apexStart3}}</option>            
+            <option *ngFor="let curveStart3 of vertebralColumns" [ngValue]="curveStart3">{{curveStart3}}</option>            
           </select>
         </div>
         <div class="col-8 col-sm-4 col-md-3">
@@ -269,9 +273,9 @@
             placeholder="Cobb angle" formControlName="cobbAng3" pattern="[0-9]*">
         </div>
         <div class="col-4 col-sm-2 col-md-2">
-          <select class="form-control" id="apexEnd3" name="apexEnd3">
+          <select class="form-control" id="curveEnd3" name="curveEnd3">
             <option value="">SN</option>
-            <option *ngFor="let apexEnd3 of vertebralColumns" [ngValue]="apexEnd3">{{apexEnd3}}</option>
+            <option *ngFor="let curveEnd3 of vertebralColumns" [ngValue]="curveEnd3">{{curveEnd3}}</option>
           </select>
         </div>
         <div class="col-8 col-sm-4 col-md-3">
@@ -359,7 +363,7 @@
           <div class="invalid-feedback">{{formErrors.hip}}</div>
         </div>
       </div>
-
+<!--
       <div class="form-group row">
         <label for="lumber" class="col-12 col-sm-3 col-form-label">Lumber</label>
         <div class="col-12 col-sm-9">
@@ -377,13 +381,14 @@
           <div class="invalid-feedback">{{formErrors.lumberHeight}}</div>
         </div>
       </div>
+-->
     </form>
   </div><!-- modal body -->
 
   <div class="modal-footer text-center">
     <div class="col-md justify-content-center">
       <button type="button" class="btn {{bodyMeasureForm.valid ? 'btn-primary' : 'btn-secondary'}}"
-        [disabled]="bodyMeasureForm.invalid">
+        [disabled]="bodyMeasureForm.invalid" (click)="submitBodyMeasurement()">
         Submit
       </button>
       <button type="submit" class="btn btn-primary" (click)="c('Close click')">Cancel</button>
