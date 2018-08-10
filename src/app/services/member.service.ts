@@ -29,13 +29,13 @@ export class MemberService {
 
   getMember(id: string): Observable<Member> {
     console.log('id: ', id);
-    return  this.http.get(baseURL + 'members/member/' + id)
+    return  this.http.get(baseURL + 'members/' + id)
       .catch(error => { return this.processHTTPMsgService.handleError(error); });
   }
 
   registerMember(member: Member) {
     console.log(member);
-    return this.http.post(baseURL + 'members/signup', member)
+    return this.http.post(baseURL + 'auth/signup', member)
       .catch(error => { return this.processHTTPMsgService.handleError(error); }); 
   }
 }

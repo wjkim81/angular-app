@@ -247,7 +247,7 @@ export class RegisterPatientComponent implements OnInit {
     //console.log('patient.height: ', patient.height);
     var bodyMeasurement: BodyMeasurement;
     var spineInfo: SpineInfo;
-    var threeDFile: ThreeDFile;
+    //var threeDFile: ThreeDFile;
     var xRayFile: XRayFile;
     let today = new Date();
     //bodyMeasurement.updatedBy = 

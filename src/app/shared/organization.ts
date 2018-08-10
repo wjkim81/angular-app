@@ -5,6 +5,11 @@ export class Organization {
   name: string;
   country: string;
   type: string;
+  city: string;
+  address: string;
+  postCode: string;
+  managerName: string;
   //pateitns: Patient[];
   patients: string[];
+  members: string[];
 }

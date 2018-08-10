@@ -61,7 +61,7 @@ export class ListMembersComponent implements OnInit {
       'subject': {value: '', disabled: true}
       */
     });
-
+    console.log("initialize members");
     this.memberService.getMembers()
     .subscribe((members) => {
       console.log(members);
