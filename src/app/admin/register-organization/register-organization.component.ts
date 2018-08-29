@@ -37,7 +37,7 @@ export class RegisterOrganizationComponent implements OnInit {
   validationMessages = {
     'name': {
       'required': 'ID is required.',
-      'minlength': 'Name must be at leat 4 characters long.',
+      'minlength': 'Name must be at least 4 characters long.',
     },
     'country': {
       'required': 'Password is required.'
