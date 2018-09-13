@@ -24,10 +24,12 @@ import { UserModule } from './user/user.module';
 import { AuthService } from './services/auth.service';
 import { AuthInterceptor, UnauthorizedInterceptor } from './services/auth.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ModuleComponent } from './module/module.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    ModuleComponent,
   ],
   imports: [
     BrowserModule,

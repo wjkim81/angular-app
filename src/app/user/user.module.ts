@@ -26,6 +26,7 @@ import { baseURL } from '../shared/baseurl';
 import { ProcessHTTPMsgService } from '../services/process-httpmsg.service';
 
 import { PatientService } from '../services/patient.service';
+import { CobbAngleComponent } from './cobb-angle/cobb-angle.component';
 
 //import { AuthService } from '../services/auth.service';
 //import { AuthInterceptor, UnauthorizedInterceptor } from '../services/auth.interceptor';
@@ -48,7 +49,8 @@ import { PatientService } from '../services/patient.service';
     RegisterPatientComponent,
     UserInfoComponent,
     UserLoginComponent,
-    PatientdetailComponent
+    PatientdetailComponent,
+    CobbAngleComponent
   ],
   providers: [
     HttpClientModule,

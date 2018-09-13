@@ -7,6 +7,8 @@ import { UserInfoComponent } from '../user-info/user-info.component';
 import { UserLoginComponent } from '../user-login/user-login.component';
 import { PatientdetailComponent } from '../patientdetail/patientdetail.component';
 
+import { CobbAngleComponent } from '../cobb-angle/cobb-angle.component';
+
 export const userRoutes: Routes = [{
   path: '',
   component: UserComponent,
@@ -30,6 +32,10 @@ export const userRoutes: Routes = [{
     {
       path: 'patient/:id',
       component: PatientdetailComponent
+    },
+    {
+      path: 'cobb-angle',
+      component: CobbAngleComponent
     },
     {
       path: '', redirectTo: '/home', pathMatch: 'full'

@@ -140,24 +140,24 @@ export class RegisterPatientComponent implements OnInit {
     @Inject('BaseURL') private BaseURL
   ) { 
     console.log('register-patient');
-    this.authService.validateUserCredentials((res, err) => {
-      console.log('authService.validateUserCredentials');
-      console.log('res: ', res);
-      console.log('err: ', err);
-      if (err) {
-        this.errMess = err;
-      }
+    // this.authService.validateUserCredentials((res, err) => {
+    //   console.log('authService.validateUserCredentials');
+    //   console.log('res: ', res);
+    //   console.log('err: ', err);
+    //   if (err) {
+    //     this.errMess = err;
+    //   }
  
-      console.log('authenticated: ', this.authService.isAuthenticated);
-      if (!this.authService.isAuthenticated) {
+    //   console.log('authenticated: ', this.authService.isAuthenticated);
+    //   if (!this.authService.isAuthenticated) {
         
-        this.location.replaceState('/'); // clears browser history so they can't navigate with back button
-        this.router.navigate(['/user-login']);
-      } else {
-        console.log(res.member);
-        console.log('Logged in')
-      }
-    });
+    //     this.location.replaceState('/'); // clears browser history so they can't navigate with back button
+    //     this.router.navigate(['/user-login']);
+    //   } else {
+    //     console.log(res.member);
+    //     console.log('Logged in')
+    //   }
+    // });
   }
 
   ngOnInit() {

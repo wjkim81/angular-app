@@ -138,7 +138,6 @@ export class UserHomeComponent implements OnInit {
         console.log('Logged in')
       }
     });
-    
   }
 
   ngOnInit() {
