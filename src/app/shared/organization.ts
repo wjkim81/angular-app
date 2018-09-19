@@ -13,3 +13,4 @@ export class Organization {
   patients: string[];
   members: string[];
 }
+// Organazation Data has been connected with server, the data has requried when a employee want to get admin access.

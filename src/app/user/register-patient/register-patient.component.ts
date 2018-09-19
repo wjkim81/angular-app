@@ -60,6 +60,15 @@ export class RegisterPatientComponent implements OnInit {
     //'lumberHeight': ''
   };
 
+  // basicInfoFormErrors = {
+  //   // 'firstname': '',
+  //   'hashKey':'',
+  //   // HashKey has been 10 characters 
+  //   'lastname': '',
+  //   'birthday': '',
+  //   'sex': ''
+  // };
+
    validationMessages = {
     'firstname': {
       'required': "Patient's first name is required."

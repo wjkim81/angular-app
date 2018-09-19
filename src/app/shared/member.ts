@@ -17,3 +17,5 @@ export class Member {
   phoneNum: string;
   mobileNum: string;
 }
+
+// Synced Data with server, some modified required, and it will be feature change.

@@ -31,9 +31,6 @@ import { OrganizationService } from '../services/organization.service';
 import { MemberService } from '../services/member.service';
 import { PatientService } from '../services/patient.service';
 
-
-
-
 @NgModule({
   imports: [
     CommonModule,

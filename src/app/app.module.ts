@@ -41,6 +41,8 @@ import { ModuleComponent } from './module/module.component';
     AdminModule,
     UserModule
     //NgbModule.forRoot()
+
+    // Angular Modules Usage Lists
   ],
   providers: [
     /*
