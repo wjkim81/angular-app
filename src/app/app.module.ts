@@ -34,11 +34,12 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
     //FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule,
     CoreModule.forRoot(),
     AdminModule,
-    UserModule
-    //NgbModule.forRoot()
+    UserModule,
+    // This is important!!!
+    // AppRoutingModule should be the last
+    AppRoutingModule
   ],
   providers: [
     /*

@@ -38,6 +38,7 @@ import { PatientService } from '../services/patient.service';
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
+    // Routing should be the last
     UserRoutingModule
   ],
   declarations: [

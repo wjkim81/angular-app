@@ -66,7 +66,7 @@ export class UserInfoComponent implements OnInit {
 
     this.authService.validateUserCredentials((res, err) => {
       console.log('authService.validateUserCredentials');
-      console.log('res: ', res);
+      // console.log('res: ', res);
       console.log('err: ', err);
       if (err) {
         this.errMess = err;
