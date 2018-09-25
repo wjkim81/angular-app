@@ -6,7 +6,7 @@ import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-boo
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { BodyMeasurement, SpineInfo, XRayFile, ThreeDFile, Patient } from '../../shared/patient';
+import { BodyMeasurement, SpineInfo, XRayFile, Patient } from '../../shared/patient';
 import { PATIENTS } from '../../shared/patients';
 
 import { SEXES, PATIENT_TYPES, RISSERS, STAGES, VERTEBRAL_COLUMNS, DIRECTIONS} from '../../shared/patient-options';

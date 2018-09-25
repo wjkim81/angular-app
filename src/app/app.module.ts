@@ -36,13 +36,12 @@ import { ModuleComponent } from './module/module.component';
 
     //FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule,
     CoreModule.forRoot(),
     AdminModule,
-    UserModule
-    //NgbModule.forRoot()
-
-    // Angular Modules Usage Lists
+    UserModule,
+    // This is important!!!
+    // AppRoutingModule should be the last
+    AppRoutingModule
   ],
   providers: [
     /*

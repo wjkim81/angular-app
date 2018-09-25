@@ -39,6 +39,7 @@ import { CobbAngleComponent } from './cobb-angle/cobb-angle.component';
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
+    // Routing should be the last
     UserRoutingModule
   ],
   declarations: [

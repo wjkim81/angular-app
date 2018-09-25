@@ -64,13 +64,13 @@ export class UserInfoComponent implements OnInit {
     this.createForm();
     this.showContactInfo = false;
 
-    // this.authService.validateUserCredentials((res, err) => {
-    //   console.log('authService.validateUserCredentials');
-    //   console.log('res: ', res);
-    //   console.log('err: ', err);
-    //   if (err) {
-    //     this.errMess = err;
-    //   }
+    this.authService.validateUserCredentials((res, err) => {
+      console.log('authService.validateUserCredentials');
+      // console.log('res: ', res);
+      console.log('err: ', err);
+      if (err) {
+        this.errMess = err;
+      }
  
     //   console.log('authenticated: ', this.authService.isAuthenticated);
     //   if (!this.authService.isAuthenticated) {

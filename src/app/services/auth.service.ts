@@ -1,14 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable, Subject } from 'rxjs';
+import { catchError, retry, map } from 'rxjs/operators';
 
 import { baseURL } from '../shared/baseurl';
 import { ProcessHTTPMsgService } from './process-httpmsg.service';
-
-import 'rxjs/add/operator/delay';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
 
 import { AuthResponse, JWTResponse } from '../shared/response';
 
@@ -55,16 +51,24 @@ export class AuthService {
   validateJWTtoken(): Observable<JWTResponse> {
     console.log('validateJWTtoken');
     return this.http.get<JWTResponse>(baseURL + 'auth/checkJWTtoken')
-    .map(res => {
-      console.log("JWT Token Valid: ", res);
-      this.sendUsername(res.member.username);
-      return res;
-    })
-    .catch(err => {
-      console.log("JWT Token invalid: ", err);
-      this.destroyUserCredentials();
-      return this.processHTTPMsgService.handleError(err);
-    });
+    .pipe(
+      map(res => {
+        console.log("JWT Token Valid: ", res);
+        this.sendUsername(res.member.username);
+        return res;
+      }),
+      catchError(this.processHTTPMsgService.handleError)
+    );
+    // .map(res => {
+    //   console.log("JWT Token Valid: ", res);
+    //   this.sendUsername(res.member.username);
+    //   return res;
+    // })
+    // .catch(err => {
+    //   console.log("JWT Token invalid: ", err);
+    //   this.destroyUserCredentials();
+    //   return this.processHTTPMsgService.handleError(err);
+    // });
   }
  
   sendUsername(name: string) {
@@ -134,12 +138,20 @@ export class AuthService {
     console.log('username: ' + member.username + ', password: ', member.password);
     return this.http.post<AuthResponse>(baseURL + 'auth/login', 
       {"username": member.username, "password": member.password})
-      .map(res => {
-        console.log(res)
-          this.storeUserCredentials({username: member.username, token: res.token});
-          return {'success': true, 'username': member.username };
-      })
-      .catch(error => { return this.processHTTPMsgService.handleError(error); });
+      .pipe(
+        map(res => {
+          console.log(res)
+            this.storeUserCredentials({username: member.username, token: res.token});
+            return {'success': true, 'username': member.username };
+        }),
+        catchError(this.processHTTPMsgService.handleError)
+      // .map(res => {
+      //   console.log(res)
+      //     this.storeUserCredentials({username: member.username, token: res.token});
+      //     return {'success': true, 'username': member.username };
+      // })
+      // .catch(error => { return this.processHTTPMsgService.handleError(error); }
+      );
   }
 
   logOut() {
