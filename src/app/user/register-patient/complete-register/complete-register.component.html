@@ -1,0 +1,458 @@
+<div class="row">
+  <div class="col-12">
+    <span> 1. Patient Information  >  </span>
+    <span> 2. Spine Prescription  >  </span>
+    <span> 3. Comment  >  </span>
+    <span> 4. Body Measurement  >  </span>
+    <span> 5. Complete Register</span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <h3> 1. Patient Information</h3>
+  </div>
+</div>
+<form *ngIf="patientInfo">
+  <div class="form-grouprow">
+    <div class="col-3">
+      <label class="col-form-label" for="organization">Organization</label>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-3">
+      <input type="text" class="form-control" id="organization" placeholder="{{patientInfo.organization}}" disabled>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-3">
+      <label class="col-form-label" for="patientId">Patient ID</label>
+    </div>
+    <div class="col-3">
+      <label class="col-form-label" for="lastname">Last Name</label>
+    </div>
+    <div class="col-3">
+      <label class="col-form-label" for="birthday">Birthday</label>
+    </div>
+    <div class="col-3">
+      <label class="col-form-label" for="sex">sex</label>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-3">
+      <input type="text" class="form-control" id="paitentId" placeholder="{{patientInfo.hashKey}}">
+    </div>
+    <div class="col-3">
+      <input type="text" class="form-control" id="lastname" name="lastname" placeholder="lastname" [(ngModel)]="patientInfo.lastname">
+    </div>
+    <div class="col-3">
+      <input type="text" class="form-control" id="birthday" name="birthday" [(ngModel)]="patientInfo.birthday">
+    </div>
+    <div class="col-3">
+      <input type="text" class="form-control" id="sex" name="sex" [(ngModel)]="patientInfo.sex">
+    </div>
+  </div>
+</form>
+<div *ngIf="!patientInfo">
+  <p>Go through 1. Patient Information</p>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <h3> 2. Spine Prescription</h3>
+  </div>
+</div>
+<form *ngIf="spinePrescription && spinePrescription.valid">
+  <div class="row">
+    <div class="col-3"><h5>Lenke Classifications</h5></div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-3">
+      <p>Curve Type</p>
+      <div class="row">
+        <div class="col-6">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="curveType" id="curveTypeOption01"
+                [(ngModel)]="spinePrescription.curveType" value="1">
+              01
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="curveType" id="curveTypeOption02"
+                [(ngModel)]="spinePrescription.curveType" value="2">
+              02
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="curveType" id="curveTypeOption03"
+                [(ngModel)]="spinePrescription.curveType" value="3">
+              03
+            </label>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="curveType" id="curveTypeOption04"
+                [(ngModel)]="spinePrescription.curveType" value="4">
+              04
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="curveType" id="curveTypeOption05"
+                [(ngModel)]="spinePrescription.curveType" value="5">
+              05
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="curveType" id="curveTypeOption06"
+                [(ngModel)]="spinePrescription.curveType" value="6">
+              06
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-3">
+      <p>Lumbar Spine Modifier</p>
+      <div class="row">
+        <div class="col-6">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="lumbarSpine" id="lumbarSpinneOptionsA" 
+                [(ngModel)]="spinePrescription.lumbarSpine" value="A">
+              A
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="lumbarSpine" id="lumbarSpinneOptionsB" 
+                [(ngModel)]="spinePrescription.lumbarSpine" value="B">
+              B
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="lumbarSpine" id="lumbarSpinneOptionsC"
+                [(ngModel)]="spinePrescription.lumbarSpine" value="C">
+              C
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-3">
+      <p>Sagittal Alignment Modifier</p>
+      <div class="row">
+        <div class="col-6">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="sagittalAlignment"
+                [(ngModel)]="spinePrescription.sagittalAlignment" id="sagittalAlignmentOptions1" value="-">
+              -
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="sagittalAlignment"
+                [(ngModel)]="spinePrescription.sagittalAlignment" id="sagittalAlignmentOptions2" value="N">
+              N
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="sagittalAlignment"
+                [(ngModel)]="spinePrescription.sagittalAlignment" id="sagittalAlignmentOptions3" value="+">
+              +
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-3">
+      <p>Risser Sign</p>
+      <div class="row">
+        <div class="col-6">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="risser" id="risserOptions00"
+                [(ngModel)]="spinePrescription.risser" value="00">
+              Risser 00
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="risser" id="risserOptions01"
+                [(ngModel)]="spinePrescription.risser" value="01">
+              Risser 01
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="risser" id="risserOptions02"
+                [(ngModel)]="spinePrescription.risser" value="02">
+              Risser 02
+            </label>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="risser" id="risserOptions03"
+              [(ngModel)]="spinePrescription.risser"  value="03">
+              Risser 03
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="risser" id="risserOptions04"
+                [(ngModel)]="spinePrescription.risser" value="04">
+              Risser 04
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="risser" id="risserOptions05"
+                [(ngModel)]="spinePrescription.risser" value="05">
+              Risser 05
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group  row">
+    <div class="col-3">Curves</div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-4 col-sm-2 col-md-2">
+      <input type="text" class="form-control" id="curveStart1" name="curveStart1" [(ngModel)]="spinePrescription.curveStart1">
+    </div>
+    <div class="col-4 col-sm-2 col-md-2">
+      <input type="text" class="form-control" id="cobbAng1" name="cobbAng1" [(ngModel)]="spinePrescription.cobbAng1">
+    </div>
+    <div class="col-4 col-sm-2 col-md-2">
+      <input type="text" class="form-control" id="curveEnd1" name="curveEnd1" [(ngModel)]="spinePrescription.curveEnd1">
+    </div>
+    <div class="col-4 col-sm-2 col-md-2">
+      <input type="text" class="form-control" id="direction1" name="direction1" [(ngModel)]="spinePrescription.direction1">
+    </div>
+
+    <div class="col-4 col-sm-2 col-md-2">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <input type="radio" name="major1" [(ngModel)]="spinePrescription.major1" value="y">
+          </div>
+        </div>
+        <input type="text" class="form-control bg-light" placeholder="Major Curve" disabled>
+      </div>
+    </div>
+
+    <div class="col-4 col-sm-2 col-md-2">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <input type="radio" name="major1" [(ngModel)]="spinePrescription.major1" value="n">
+          </div>
+        </div>
+        <input type="text" class="form-control bg-light" placeholder="Minor Curve" disabled>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row" *ngIf="spinePrescription && spinePrescription.addCurve2">
+    <div class="col-4 col-sm-2 col-md-2">
+      <input type="text" class="form-control" id="curveStart2" name="curveStart2" [(ngModel)]="spinePrescription.curveStart2">
+    </div>
+    <div class="col-4 col-sm-2 col-md-2">
+      <input type="text" class="form-control" id="cobbAng2" name="cobbAng2" [(ngModel)]="spinePrescription.cobbAng2">
+    </div>
+    <div class="col-4 col-sm-2 col-md-2">
+      <input type="text" class="form-control" id="curveEnd2" name="curveEnd2" [(ngModel)]="spinePrescription.curveEnd2">
+    </div>
+    <div class="col-4 col-sm-2 col-md-2">
+      <input type="text" class="form-control" id="direction2" name="direction2" [(ngModel)]="spinePrescription.direction2">
+    </div>
+
+    <div class="col-4 col-sm-2 col-md-2">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <input type="radio" name="major2" [(ngModel)]="spinePrescription.major2" value="y">
+          </div>
+        </div>
+        <input type="text" class="form-control bg-light" placeholder="Major Curve" disabled>
+      </div>
+    </div>
+
+    <div class="col-4 col-sm-2 col-md-2">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <input type="radio" name="major2" [(ngModel)]="spinePrescription.major2" value="n">
+          </div>
+        </div>
+        <input type="text" class="form-control bg-light" placeholder="Minor Curve" disabled>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row" *ngIf="spinePrescription && spinePrescription.addCurve3">
+    <div class="col-4 col-sm-2 col-md-2">
+      <input type="text" class="form-control" id="curveStart3" name="curveStart3" [(ngModel)]="spinePrescription.curveStart3">
+    </div>
+    <div class="col-4 col-sm-2 col-md-2">
+      <input type="text" class="form-control" id="cobbAng3" name="cobbAng3" [(ngModel)]="spinePrescription.cobbAng3">
+    </div>
+    <div class="col-4 col-sm-2 col-md-2">
+      <input type="text" class="form-control" id="curveEnd3" name="curveEnd3" [(ngModel)]="spinePrescription.curveEnd3">
+    </div>
+    <div class="col-4 col-sm-2 col-md-2">
+      <input type="text" class="form-control" id="direction2" name="direction3" [(ngModel)]="spinePrescription.direction3">
+    </div>
+
+
+    <div class="col-4 col-sm-2 col-md-2">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <input type="radio" name="major3" [(ngModel)]="spinePrescription.major3" value="y">
+          </div>
+        </div>
+        <input type="text" class="form-control bg-light" placeholder="Major Curve" disabled>
+      </div>
+    </div>
+
+    <div class="col-4 col-sm-2 col-md-2">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <input type="radio" name="major3" [(ngModel)]="spinePrescription.major3" value="n">
+          </div>
+        </div>
+        <input type="text" class="form-control bg-light" placeholder="Major Curve" disabled>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-12">
+      <h5>X-Ray Image</h5>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="xRayFile" class="col-12 col-sm-12 col-form-label">X-ray file</label>
+    <div class="col-12 col-sm-12">
+      <input type="file" class="form-control-file" id="xRayFile" name="xRayFile">
+    </div>
+  </div>
+</form>
+<div *ngIf="spinePrescription && !spinePrescription.valid">
+  <p>Go through 2. Spine Prescription</p>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <h3> 3. Comment</h3>
+  </div>
+</div>
+<div class="row" *ngIf="diagnosis && diagnosis.valid">
+  <div class="col-12">
+    <div class="form-group">
+      <label for="comment">Diagnosis</label>
+      <textarea class="form-control" rows="10" id="comment" [(ngModel)]="diagnosis.comment" name="comment"></textarea>
+    </div>
+  </div>
+</div>
+<div *ngIf="diagnosis && !diagnosis.valid">
+  <p>Go through 3. Comment</p>
+</div>
+
+
+<div class="row">
+  <div class="col-12">
+    <h3> 4. Body Measurement</h3>
+  </div>
+</div>
+<form *ngIf="bodyMeasurement && bodyMeasurement.valid">
+  <div class="form-group row">
+    <div class="col-2">
+      <label class="col-form-label" for="height">Height</label>
+    </div>
+    <div class="col-2">
+      <label class="col-form-label" for="weight">Weight</label>
+    </div>
+    <div class="col-2">
+      <label class="col-form-label" for="bust">Bust</label>
+    </div>
+    <div class="col-2">
+      <label class="col-form-label" for="waist">Waist</label>
+    </div>
+    <div class="col-2">
+      <label class="col-form-label" for="shoulder">Shoulder</label>
+    </div>
+    <div class="col-2">
+      <label class="col-form-label" for="hip">Hip</label>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-2">
+      <input type="text" class="form-control" id="height" name="height" placeholder="cm" [(ngModel)]="bodyMeasurement.height">
+    </div>
+    <div class="col-2">
+      <input type="text" class="form-control" id="weight" name="weight" placeholder="kg" [(ngModel)]="bodyMeasurement.weight">
+    </div>
+    <div class="col-2">
+      <input type="text" class="form-control" id="bust" name="bust" placeholder="cm" [(ngModel)]="bodyMeasurement.bust">
+    </div>
+    <div class="col-2">
+      <input type="text" class="form-control" id="waist" name="waist" placeholder="cm" [(ngModel)]="bodyMeasurement.waist">
+    </div>
+    <div class="col-2">
+      <input type="text" class="form-control" id="shoulder" name="shoulder" placeholder="cm" [(ngModel)]="bodyMeasurement.shoulder">
+    </div>
+    <div class="col-2">
+      <input type="text" class="form-control" id="hip" name="hip" placeholder="cm" [(ngModel)]="bodyMeasurement.hip">
+    </div>
+  </div>
+</form>
+<div *ngIf="bodyMeasurement && !bodyMeasurement.valid">
+  <p>Go through 4. Body Measurement</p>
+</div>
+
+<div class="form-group row">
+  <div class="col-3">
+    <button type="submit" class="btn btn-primary btn-block" id="previous" (click)="goPrevious()">
+      Previous
+    </button>
+  </div>
+  <div class="col-6">
+
+  </div>
+
+  <div class="col-3">
+    <button type="submit" class="btn btn-primary btn-block" id="registerPatient" (click)="registerPatient()">
+      Register Patient
+    </button>
+  </div>
+</div>
+
+<div *ngIf="showResult">
+  {{ patient | json }}
+</div>
