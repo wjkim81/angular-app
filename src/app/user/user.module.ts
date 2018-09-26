@@ -18,15 +18,21 @@ import { FooterComponent } from './footer/footer.component';
 
 import { UserHomeComponent } from './user-home/user-home.component';
 import { RegisterPatientComponent } from './register-patient/register-patient.component';
+import { PatientInfoComponent } from './register-patient/patient-info/patient-info.component';
+import { SpinePrescriptionComponent } from './register-patient/spine-prescription/spine-prescription.component';
+import { CommentComponent } from './register-patient/comment/comment.component';
+import { BodyMeasurementComponent } from './register-patient/body-measurement/body-measurement.component';
+
 import { UserInfoComponent } from './user-info/user-info.component';
 import { UserLoginComponent } from './user-login/user-login.component';
 import { PatientdetailComponent } from './patientdetail/patientdetail.component';
+
+import { CobbAngleComponent } from './cobb-angle/cobb-angle.component';
 
 import { baseURL } from '../shared/baseurl';
 import { ProcessHTTPMsgService } from '../services/process-httpmsg.service';
 
 import { PatientService } from '../services/patient.service';
-import { CobbAngleComponent } from './cobb-angle/cobb-angle.component';
 
 //import { AuthService } from '../services/auth.service';
 //import { AuthInterceptor, UnauthorizedInterceptor } from '../services/auth.interceptor';
@@ -48,6 +54,10 @@ import { CobbAngleComponent } from './cobb-angle/cobb-angle.component';
     FooterComponent,
     UserHomeComponent,
     RegisterPatientComponent,
+    PatientInfoComponent,
+    SpinePrescriptionComponent,
+    CommentComponent,
+    BodyMeasurementComponent,
     UserInfoComponent,
     UserLoginComponent,
     PatientdetailComponent,

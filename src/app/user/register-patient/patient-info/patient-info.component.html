@@ -1,0 +1,75 @@
+<div class="row">
+  <div class="col-12">
+    <span> 1. Patient Information  >  </span>
+    <span> 2. Spine Prescription  >  </span>
+    <span> 3. Comment  >  </span>
+    <span> 4. Body Measurement  >  </span>
+    <span> 5. Complete Register</span>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <h3> 1. Patient Information</h3>
+  </div>
+</div>
+
+<p>patientInfoForm.value: {{patientInfoForm.value | json}}</p>
+<p>patientInfoFormErrors: {{patientInfoFormErrors | json}}</p>
+<p>patientInfoForm.valid: {{patientInfoForm.valid}}</p>
+
+<form novalidate [formGroup]="patientInfoForm">
+  <div class="row">
+    <div class="col-3">
+      <label class="col-form-label" for="organization">Organization</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3">
+      <input type="text" class="form-control" id="organization"  placeholder="organization" disabled>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-3">
+      <label class="col-form-label" for="patientId">Patient ID</label>
+    </div>
+    <div class="col-3">
+      <label class="col-form-label" for="lastname">Last Name</label>
+    </div>
+    <div class="col-3">
+      <label class="col-form-label" for="birthday">Birthday</label>
+    </div>
+    <div class="col-3">
+      <label class="col-form-label" for="sex">sex</label>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-3">
+      <input type="text" class="form-control" id="paitentId"  placeholder="patient ID">
+    </div>
+    <div class="col-3">
+      <input type="text" class="form-control {{(patientInfoFormErrors.lastname) ? 'is-invalid' : ''}}"
+        id="lastname"  placeholder="lastname" formControlName="lastname">
+      <div class="invalid-feedback">{{patientInfoFormErrors.lastname}}</div>
+    </div>
+    <div class="col-3">
+      <input type="date" class="form-control {{(patientInfoFormErrors.birthday) ? 'is-invalid' : ''}}"
+      id="birthday" name="birthday" formControlName="birthday">
+    <div class="invalid-feedback">{{patientInfoFormErrors.birthday}}</div>
+    </div>
+    <div class="col-3">
+      <select class="form-control {{(patientInfoFormErrors.sex) ? 'is-invalid' : ''}}" id="sex" name="sex" formControlName="sex">
+        <option *ngFor="let sex of sexOptions" [ngValue]="sex">{{sex}}</option>
+      </select>
+    </div>
+  </div>
+</form>
+
+<div class="row">
+  <div class="offset-9 col-3">
+    <button type="submit" class="btn btn-primary btn-block" id="next" (click)="goNext()">
+      Next
+    </button>
+  </div>
+</div>

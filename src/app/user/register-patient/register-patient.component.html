@@ -1,9 +1,33 @@
-<div class="container ict-register-container">
+<div class="container">
+  <p>page: {{ page }}</p>
+  <p>patientInfo: {{ patientInfo | json }}</p>
+  <p>spineDescripton: {{ spineDescription | json }}</p>
+
+  <div class="row register-bottom-line">
+    <div class="col-12 col-sm-6">
+      <h2>Register Patient</h2>
+    </div>
+    <div class="col-12 col-sm-6 align-self-end">
+      <div class="d-flex justify-content-end">
+        <span>Date of visit: </span>
+        <span>{{ today | date }}</span>
+      </div>
+    </div>
+  </div>
+  <app-patient-info *ngIf="page == 1"></app-patient-info>
+  <app-spine-prescription *ngIf="page == 2"></app-spine-prescription>
+  <app-comment *ngIf="page == 3"></app-comment>
+  <app-body-measurement *ngIf="page == 4"></app-body-measurement>
+</div>
+
   <!--
   <p>patientForm.value: {{patientForm.value | json}}</p>
   <p>formErrors: {{formErrors | json}}</p>
   <p>patientForm.valid: {{patientForm.valid}}</p>
   -->
+<!-- 
+<div class="container ict-register-container">
+
   <div class="row">
     <form class="col-12" novalidate [formGroup]="patientForm" (ngSubmit)="submitPatient()" *ngIf=!(showPatientInfo)>
       <div class="row">
@@ -27,7 +51,6 @@
 
           <div class="ict-register-1">
               <div class="form-group row">
-                <!--<div class="input-group col-9">-->
                 <div class="col-12 col-sm-6">
                   <label for="firstname" class="col-12 col-sm-6 col-form-label">ID</label>
                   <input type="text" class="form-control {{(formErrors.firstname) ? 'is-invalid' : ''}}" id="fistrname" name="fistrname" formControlName="firstname">
@@ -41,7 +64,6 @@
               </div>
       
               <div class="form-group row">
-                <!--<div class="input-group col-9">-->
                 <div class="col-12 col-sm-6">
                   <label for="birthday" class="col-12 col-sm-2 col-form-label">Birthday</label>
                   <input type="date" class="form-control {{(formErrors.birthday) ? 'is-invalid' : ''}}" id="birthday" name="birthday" formControlName="birthday">
@@ -57,24 +79,6 @@
                 </div>
               </div>
           </div>
-          
-          <!--
-          <div class="form-group row">
-            <label for="firstVisit" class="col-12 col-sm-2 col-form-label">First day of visit</label>
-            <div class="col-12 col-sm-4">
-              <input type="date" class="form-control" id="firstVisit" name="firstVisit" formControlName="firstVisit">
-            </div>
-          </div>
-          -->
-
-          <!--
-          <div class="form-group row">
-            <label for="3dScanFile" class="col-12 col-sm-2 col-form-label">3D scan file</label>
-            <div class="col-12 col-sm-6">
-              <input type="file" class="form-control-file" id="3dScanFile" name="3dScanFile" formControlName="threeDScanFile">
-            </div>
-          </div>
-          -->
         </div>
         
 
@@ -140,26 +144,6 @@
                 </div>
             </div>
           </div>
-
-          <!--
-          <div class="form-group row">
-            <label for="lumber" class="col-12 col-sm-3 col-form-label">Lumber</label>
-            <div class="col-12 col-sm-9">
-              <input type="text" class="form-control {{(formErrors.lumber) ? 'is-invalid' : ''}}" id="lumber" name="lumber"
-                placeholder="cm" formControlName="lumber" pattern="[0-9]*">
-              <div class="invalid-feedback">{{formErrors.lumber}}</div>
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <label for="lumberHeight" class="col-12 col-sm-3 col-form-label">Lumber height</label>
-            <div class="col-12 col-sm-9">
-              <input type="text" class="form-control {{(formErrors.lumberHeight) ? 'is-invalid' : ''}}" id="lumberHeight" name="lumberHeight"
-                placeholder="cm" formControlName="lumberHeight" pattern="[0-9]*">
-              <div class="invalid-feedback">{{formErrors.lumberHeight}}</div>
-            </div>
-          </div>
-          -->
         </div>
 
         <div class="col-12 ict-register-3">
@@ -171,7 +155,6 @@
               <select class="form-control" id="type" name="type" formControlName="type">
                 <option *ngFor="let type of types" [ngValue]="type">{{type}}</option>            
               </select>
-              <!--<input type="text" class="form-control" id="registerType" name="registerType" placeholder="Type">-->
             </div>
             
             <div class="col-12 col-sm-2">
@@ -179,7 +162,6 @@
               <select class="form-control" id="risser" name="risser" formControlName="risser">
                 <option *ngFor="let risser of rissers" [ngValue]="risser">{{risser}}</option>            
               </select>
-              <!--<input type="text" class="form-control" id="registerLisser" name="registerLisser" placeholder="Lisser">-->
             </div>
 
             <div class="col-12 col-sm-3">
@@ -187,7 +169,6 @@
               <select class="form-control" id="risser" name="risser" formControlName="risser">
                 <option *ngFor="let risser of rissers" [ngValue]="risser">{{risser}}</option>            
               </select>
-              <!--<input type="text" class="form-control" id="registerLisser" name="registerLisser" placeholder="Lisser">-->
             </div>
 
             <div class="col-12 col-sm-3">
@@ -195,7 +176,6 @@
               <select class="form-control" id="risser" name="risser" formControlName="risser">
                 <option *ngFor="let risser of rissers" [ngValue]="risser">{{risser}}</option>            
               </select>
-              <!--<input type="text" class="form-control" id="registerLisser" name="registerLisser" placeholder="Lisser">-->
             </div>
 
           </div>
@@ -207,7 +187,6 @@
                 <option value="" disabled>Above</option>
                 <option *ngFor="let curveStart1 of vertebralColumns" [ngValue]="curveStart1">{{curveStart1}}</option>
               </select>
-              <!--<input type="text" class="form-control" id="registerSnL1" name="registerSnL1" placeholder="SN">-->
             </div>
             <div class="col-8 col-sm-4 col-md-3">
               <input type="text" class="form-control {{(formErrors.cobbAng1) ? 'is-invalid' : ''}}" id="cobbAngle1" name="cobbAngle1"
@@ -219,14 +198,12 @@
                 <option value="" disabled>Below</option>
                 <option *ngFor="let curveEnd1 of vertebralColumns" [ngValue]="curveEnd1">{{curveEnd1}}</option>
               </select>
-              <!--<input type="text" class="form-control" id="registerSnR1" name="registerSnR1" placeholder="SN">-->
             </div>
             <div class="col-8 col-sm-4 col-md-3">
               <select class="form-control" id="direction1" name="direction1" formControlName="direction1">
                 <option value="" disabled>Direction</option>
                 <option *ngFor="let direction1 of directions" [ngValue]="direction1">{{direction1}}</option>
               </select>
-              <!--<input type="text" class="form-control" id="registerDirection1" name="registerDirection1" placeholder="Direction">-->
             </div>
           </div>
 
@@ -237,7 +214,6 @@
                 <option value="">Above</option>
                 <option *ngFor="let curveStart2 of vertebralColumns" [ngValue]="curveStart2">{{curveStart2}}</option>            
               </select>
-              <!--<input type="text" class="form-control" id="registerSnL1" name="registerSnL1" placeholder="SN">-->
             </div>
             <div class="col-8 col-sm-4 col-md-3">
               <input type="text" class="form-control" id="cobbAng2"  name="cobbAng2"
@@ -248,14 +224,12 @@
                 <option value="">Below</option>
                 <option *ngFor="let curveEnd2 of vertebralColumns" [ngValue]="curveEnd2">{{curveEnd2}}</option>
               </select>
-              <!--<input type="text" class="form-control" id="registerSnR1" name="registerSnR1" placeholder="SN">-->
             </div>
             <div class="col-8 col-sm-4 col-md-3">
               <select class="form-control" id="direction2" name="direction2" formControlName="direction2">
                 <option value="">Direction</option>
                 <option *ngFor="let direction2 of directions" [ngValue]="direction2">{{direction2}}</option>
               </select>
-              <!--<input type="text" class="form-control" id="registerDirection1" name="registerDirection1" placeholder="Direction">-->
             </div>
           </div>
 
@@ -266,7 +240,6 @@
                 <option value="">Above</option>
                 <option *ngFor="let curveStart3 of vertebralColumns" [ngValue]="curveStart3">{{curveStart3}}</option>            
               </select>
-              <!--<input type="text" class="form-control" id="registerSnL1" name="registerSnL1" placeholder="SN">-->
             </div>
             <div class="col-8 col-sm-4 col-md-3">
               <input type="text" class="form-control" id="cobbAng3" name="cobbAng3"
@@ -277,14 +250,12 @@
                 <option value="">Below</option>
                 <option *ngFor="let curveEnd3 of vertebralColumns" [ngValue]="curveEnd3">{{curveEnd3}}</option>
               </select>
-              <!--<input type="text" class="form-control" id="registerSnR1" name="registerSnR1" placeholder="SN">-->
             </div>
             <div class="col-8 col-sm-4 col-md-3">
               <select class="form-control" id="direction3" name="direction3" formControlName="direction3">
                 <option value="">Direction</option>
                 <option *ngFor="let direction3 of directions" [ngValue]="direction3">{{direction3}}</option>
               </select>
-              <!--<input type="text" class="form-control" id="registerDirection1" name="registerDirection1" placeholder="Direction">-->
             </div>
           </div>
         </div>
@@ -349,17 +320,13 @@
       <p>Bust: {{newPatient.bodyMeasurements[0].bust}}</p>
       <p>Waitst: {{newPatient.bodyMeasurements[0].waist}}</p>
       <p>Hip: {{newPatient.bodyMeasurements[0].hip}}</p>
-      <!--
-      <p>Lumber: {{newPatient.bodyMeasurements[0].lumber}}</p>
-      <p>Lumber height: {{newPatient.bodyMeasurements[0].lumberHeight}}</p>
-      -->
       
       <p>X-ray file: {{newPatient.xRayFiles}}</p>
-      <!--<p>3D Scand file: {{newPatient.threeDScanFiles}}</p>-->
       <p>First day of visiting: {{newPatient.visitedDays}}</p>
 
 
     </div>
 
   </div>
-</div><!-- container -->
+</div> -->
+<!-- container -->

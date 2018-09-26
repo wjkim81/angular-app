@@ -24,12 +24,15 @@ import { UserModule } from './user/user.module';
 import { AuthService } from './services/auth.service';
 import { AuthInterceptor, UnauthorizedInterceptor } from './services/auth.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
 import { ModuleComponent } from './module/module.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ModuleComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

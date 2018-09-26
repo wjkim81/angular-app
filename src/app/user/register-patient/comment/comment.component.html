@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-12">
+    <span> 1. Patient Information  >  </span>
+    <span> 2. Spine Prescription  >  </span>
+    <span> 3. Comment  >  </span>
+    <span> 4. Body Measurement  >  </span>
+    <span> 5. Complete Register</span>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <h3> 3. Comment <span>optional</span></h3>
+  </div>
+</div>
+
+<p>comment: {{comment}}</p>
+
+<div class="row">
+  <div class="col-12">
+    <div class="form-group">
+      <label for="comment">Diagnosis</label>
+      <textarea class="form-control" rows="10" id="comment" [(ngModel)]="comment" name="comment"></textarea>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-3">
+    <button type="submit" class="btn btn-primary btn-block" id="previous">
+      Previous
+    </button>
+  </div>
+  <div class="col-3">
+
+  </div>
+
+  <div class="col-3">
+    <button type="submit" class="btn btn-primary btn-block" id="skip">
+      Skip
+    </button>
+  </div>
+
+  <div class="col-3">
+    <button type="submit" class="btn btn-primary btn-block" id="next">
+      Next
+    </button>
+  </div>
+</div>

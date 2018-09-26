@@ -1,41 +1,36 @@
-<div class="container ict-login-container">
+<div class="container">
   <div class="row">
     <!--
     <div class="col-12">
       <img src="/assets/images/mail_logo1.jpg" style="width:45%">
     </div>
     -->
-    <div class="col-12 ict-login-module">
+    <div class="col-12">
       <form novalidate #loginForm="ngForm" (ngSubmit)="doLogin()">
         <div class="form-group row">
           <div class="col-12 offset-sm-3 col-sm-6 {{username.invalid && !username.pristine ? 'warn' : 'primary'}}">
-            <div><span>Username</span></div>
             <div class="input-group">
-              <!-- <span class="input-group-addon"><i class="fa fa-user aden_add" aria-hidden="true"></i></span> -->
-              <input type="text" class="form-control ict-login-input" [(ngModel)]="member.username" name="username" #username="ngModel"
+              <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+              <input type="text" class="form-control" [(ngModel)]="member.username" name="username" #username="ngModel"
                 placeholder="username" required>
             </div>
           </div>
         </div>
         <div class="form-group row">
           <div class="col-12 offset-sm-3 col-sm-6 {{password.invalid && !password.pristine ? 'warn' : 'primary'}}">
-            <div><span>Password</span></div>
             <div class="input-group">
-              <!-- <span class="input-group-prepend"><i class="fa fa-lock" aria-hidden="true"></i></span> -->
-              <input type="password" class="form-control ict-login-input" [(ngModel)]="member.password" name="password" #password="ngModel"
+              <span class="input-group-prepend"><i class="fa fa-lock" aria-hidden="true"></i></span>
+              <input type="password" class="form-control" [(ngModel)]="member.password" name="password" #password="ngModel"
                 placeholder="Password" required>
             </div>
           </div>
         </div>
-        <div class="form-group row ict-login-find"><a href="https://www.google.com">Forgot password</a></div>
-        <div class="col-12 offset-sm-3 col-sm-6 ict-login-btn">
+        <div class="col-12 offset-sm-3 col-sm-6">
           <button class="btn btn-primary btn-block">Log In</button> 
         </div>
       </form>
-      <div class="row text-center ict-login-contact">
-          <!-- <i class="fa fa-phone fa-lg"></i> 
-          <i class="fa fa-envelope fa-lg"></i> -->
-        <div class="col-12 offset-sm-3 col-sm-6 mt-5"><span>VNTC</span> | <span>+82.2.6447.9124</span> |<a href="mailto:contact@vntc.me">contect@vntc.me</a>
+      <div class="row text-center">
+        <div class="col-12 offset-sm-3 col-sm-6 mt-5">VNTC | <i class="fa fa-phone fa-lg"></i> +82.2.6447.9124 | <i class="fa fa-envelope fa-lg"></i><a href="mailto:contact@vntc.me"> contact@vntc.me</a>
         </div>
       </div>
     </div>
