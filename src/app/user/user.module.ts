@@ -22,6 +22,7 @@ import { PatientInfoComponent } from './register-patient/patient-info/patient-in
 import { SpinePrescriptionComponent } from './register-patient/spine-prescription/spine-prescription.component';
 import { CommentComponent } from './register-patient/comment/comment.component';
 import { BodyMeasurementComponent } from './register-patient/body-measurement/body-measurement.component';
+import { CompleteRegisterComponent } from './register-patient/complete-register/complete-register.component';
 
 import { UserInfoComponent } from './user-info/user-info.component';
 import { UserLoginComponent } from './user-login/user-login.component';
@@ -34,6 +35,7 @@ import { ProcessHTTPMsgService } from '../services/process-httpmsg.service';
 
 import { PatientService } from '../services/patient.service';
 
+import { HighlightDirective } from '../directives/highlight.directive';
 //import { AuthService } from '../services/auth.service';
 //import { AuthInterceptor, UnauthorizedInterceptor } from '../services/auth.interceptor';
 
@@ -58,10 +60,12 @@ import { PatientService } from '../services/patient.service';
     SpinePrescriptionComponent,
     CommentComponent,
     BodyMeasurementComponent,
+    CompleteRegisterComponent,
     UserInfoComponent,
     UserLoginComponent,
     PatientdetailComponent,
-    CobbAngleComponent
+    CobbAngleComponent,
+    HighlightDirective,
   ],
   providers: [
     HttpClientModule,

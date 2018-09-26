@@ -13,23 +13,25 @@
   </div>
 </div>
 
-<p>patientInfoForm.value: {{patientInfoForm.value | json}}</p>
-<p>patientInfoFormErrors: {{patientInfoFormErrors | json}}</p>
-<p>patientInfoForm.valid: {{patientInfoForm.valid}}</p>
+<div *ngIf="patientInfoForm">
+  <p>patientInfoForm.value: {{patientInfoForm.value | json}}</p>
+  <p>patientInfoFormErrors: {{patientInfoFormErrors | json}}</p>
+  <p>patientInfoForm.valid: {{patientInfoForm.valid}}</p>
+</div>
 
-<form novalidate [formGroup]="patientInfoForm">
-  <div class="row">
+<form novalidate [formGroup]="patientInfoForm" *ngIf="patientInfoForm">
+  <div class="form-grouprow">
     <div class="col-3">
       <label class="col-form-label" for="organization">Organization</label>
     </div>
   </div>
-  <div class="row">
+  <div class="form-group row">
     <div class="col-3">
-      <input type="text" class="form-control" id="organization"  placeholder="organization" disabled>
+      <input *ngIf="member" type="text" class="form-control" id="organization" placeholder="{{member.organization.name}}" disabled>
     </div>
   </div>
 
-  <div class="row">
+  <div class="form-group row">
     <div class="col-3">
       <label class="col-form-label" for="patientId">Patient ID</label>
     </div>
@@ -46,11 +48,11 @@
 
   <div class="form-group row">
     <div class="col-3">
-      <input type="text" class="form-control" id="paitentId"  placeholder="patient ID">
+      <input type="text" class="form-control" id="paitentId" placeholder="{{hashKey}}" disabled>
     </div>
     <div class="col-3">
       <input type="text" class="form-control {{(patientInfoFormErrors.lastname) ? 'is-invalid' : ''}}"
-        id="lastname"  placeholder="lastname" formControlName="lastname">
+        id="lastname" name="lastname" placeholder="lastname" formControlName="lastname">
       <div class="invalid-feedback">{{patientInfoFormErrors.lastname}}</div>
     </div>
     <div class="col-3">

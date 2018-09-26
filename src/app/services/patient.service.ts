@@ -90,4 +90,14 @@ export class PatientService {
       );
       // .catch(error => { return this.processHTTPMsgService.handleError(error); }); 
   }
+
+  getHashKey(): Observable<any> {
+    console.log(baseURL);
+    return this.http.get<any>(baseURL + 'hashkey/getHashKey')
+      .pipe(
+        catchError(this.processHTTPMsgService.handleError)
+      );
+    // .catch(error => { console.log('error: '); console.log(error); return this.processHTTPMsgService.handleError(error); });
+  }
+
 }

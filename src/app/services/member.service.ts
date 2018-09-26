@@ -44,4 +44,11 @@ export class MemberService {
       );
       // .catch(error => { return this.processHTTPMsgService.handleError(error); }); 
   }
+
+  getMemberInfo(): Observable<Member> {
+    return this.http.get<Member>(baseURL + 'member')
+      .pipe(
+        catchError(this.processHTTPMsgService.handleError)
+      );
+  }
 }

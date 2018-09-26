@@ -12,12 +12,25 @@
     <h3> 2. Spine Prescription <span>optional</span></h3>
   </div>
 </div>
-
+<!-- 
 <p>spinePrescriptionForm.value: {{spinePrescriptionForm.value | json}}</p>
 <p>spinePrescriptionformErrors: {{spinePrescriptionformErrors | json}}</p>
 <p>spinePrescriptionForm.valid: {{spinePrescriptionForm.valid}}</p>
+
+<div *ngIf="curve2Form">
+  <p>curve2Form.value: {{curve2Form.value | json}}</p>
+  <p>curve2FormErrors: {{curve2FormErrors | json}}</p>
+  <p>curve2Form.valid: {{curve2Form.valid}}</p>
+</div>
+<div *ngIf="curve3Form">
+  <p>curve3Form.value: {{curve3Form.value | json}}</p>
+  <p>curve3FormErrors: {{curve3FormErrors | json}}</p>
+  <p>curve3Form.valid: {{curve3Form.valid}}</p>
+</div>
+
 <p>showDeleteCurveBtn: {{showDeleteCurveBtn}}</p>
-<p>showAddCurveBtn: {{showAddCurveBtn}}</p>
+<p>showAddCurveBtn: {{showAddCurveBtn}}</p> -->
+
 
 <form novalidate [formGroup]="spinePrescriptionForm">
   <div class="row">
@@ -200,8 +213,9 @@
       </select>
     </div>
     <div class="col-4 col-sm-2 col-md-2">
-      <input type="text" class="form-control" id="cobbAngle1" name="cobbAngle1"
+      <input type="text" class="form-control {{(spinePrescriptionformErrors.cobbAng1) ? 'is-invalid' : ''}}" id="cobbAng1" name="cobbAng1"
         placeholder="Cobb angle" formControlName="cobbAng1" pattern="[0-9]*">
+      <div class="invalid-feedback">{{spinePrescriptionformErrors.cobbAng1}}</div>
     </div>
     <div class="col-4 col-sm-2 col-md-2">
       <select class="form-control" id="curveEnd1" name="curveEnd1" formControlName="curveEnd1">
@@ -240,9 +254,6 @@
   </div>
 
   <form novalidate [formGroup]="curve2Form"  *ngIf="addCurve2">
-    <p>curve2Form.value: {{curve2Form.value | json}}</p>
-    <p>spinePrescriptionformErrors: {{spinePrescriptionformErrors | json}}</p>
-    <p>curve2Form.valid: {{curve2Form.valid}}</p>
     <div class="form-group row">
       <div class="col-4 col-sm-2 col-md-2">
         <select class="form-control" id="curveStart2" name="curveStart2" formControlName="curveStart2">
@@ -251,8 +262,9 @@
         </select>
       </div>
       <div class="col-4 col-sm-2 col-md-2">
-        <input type="text" class="form-control" id="cobbAngle2" name="cobbAngle2"
+        <input type="text" class="form-control {{(curve2FormErrors.cobbAng2) ? 'is-invalid' : ''}}" id="cobbAng2" name="cobbAng2"
           placeholder="Cobb angle" formControlName="cobbAng2" pattern="[0-9]*">
+        <div class="invalid-feedback">{{curve2FormErrors.cobbAng2}}</div>
       </div>
       <div class="col-4 col-sm-2 col-md-2">
         <select class="form-control" id="curveEnd1" name="curveEnd2" formControlName="curveEnd2">
@@ -292,11 +304,6 @@
   </form>
 
   <form novalidate [formGroup]="curve3Form"  *ngIf="addCurve3">
-
-  <p>curve3Form.value: {{curve3Form.value | json}}</p>
-  <p>spinePrescriptionformErrors: {{spinePrescriptionformErrors | json}}</p>
-  <p>curve3Form.valid: {{curve3Form.valid}}</p>
-
     <div class="form-group row" *ngIf="addCurve3">
       <div class="col-4 col-sm-2 col-md-2">
         <select class="form-control" id="curveStart3" name="curveStart3" formControlName="curveStart3">
@@ -305,8 +312,9 @@
         </select>
       </div>
       <div class="col-4 col-sm-2 col-md-2">
-        <input type="text" class="form-control" id="cobbAngle3" name="cobbAngle3"
+        <input type="text" class="form-control {{(curve3FormErrors.cobbAng3) ? 'is-invalid' : ''}}" id="cobbAng3" name="cobbAng3"
           placeholder="Cobb angle" formControlName="cobbAng3" pattern="[0-9]*">
+        <div class="invalid-feedback">{{curve3FormErrors.cobbAng3}}</div>
       </div>
       <div class="col-4 col-sm-2 col-md-2">
         <select class="form-control" id="curveEnd1" name="curveEnd3" formControlName="curveEnd3">

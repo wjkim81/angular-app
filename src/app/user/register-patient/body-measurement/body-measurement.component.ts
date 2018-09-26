@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { BodyMeasurement } from '../../../shared/patient';
+import { RegisterPatientService } from '../service/register-patient.service';
 
 @Component({
   selector: 'app-body-measurement',
@@ -51,6 +51,7 @@ export class BodyMeasurementComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private registerPatientService: RegisterPatientService,
   ) { }
 
   ngOnInit() {
@@ -98,5 +99,31 @@ export class BodyMeasurementComponent implements OnInit {
     }
   }
 
+  goPrevious() {
+    this.registerPatientService.setPageNum(3);
+    // this.registerPatientService.setSpinePrescription(this.spinePrescriptionForm.value);
+  }
 
+  skip() {
+    console.log('skip()');
+    this.registerPatientService.setPageNum(5);
+
+    var bodyMeasurement = this.bodyMeasurementForm.value;
+    bodyMeasurement.valid = false;
+    this.registerPatientService.setBodyMeasurement(bodyMeasurement);
+  }
+
+  goNext() {
+    console.log('goNext()');
+
+    if (this.bodyMeasurementForm.status === 'VALID') {
+      this.registerPatientService.setPageNum(5);
+
+      var bodyMeasurement  = this.bodyMeasurementForm.value;
+      bodyMeasurement.valid = true;
+      this.registerPatientService.setBodyMeasurement(bodyMeasurement);
+    } else {
+      console.log('Form is invalid')
+    }
+  }
 }

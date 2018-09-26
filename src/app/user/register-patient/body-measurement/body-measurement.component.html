@@ -71,7 +71,7 @@
 
 <div class="row">
   <div class="col-3">
-    <button type="submit" class="btn btn-primary btn-block" id="previous">
+    <button type="submit" class="btn btn-primary btn-block" id="previous" (click)="goPrevious()">
       Previous
     </button>
   </div>
@@ -80,13 +80,13 @@
   </div>
 
   <div class="col-3">
-    <button type="submit" class="btn btn-primary btn-block" id="skip">
+    <button type="submit" class="btn btn-primary btn-block" id="skip" (click)="skip()">
       Skip
     </button>
   </div>
 
   <div class="col-3">
-    <button type="submit" class="btn btn-primary btn-block" id="next">
+    <button type="submit" class="btn btn-primary btn-block" id="next" (click)="goNext()">
       Next
     </button>
   </div>

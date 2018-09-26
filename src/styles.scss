@@ -6,6 +6,19 @@
 // Set footer at the bottom all the time
 // https://codepen.io/cbracco/pen/zekgx
 
+$lt-gray: #ddd;
+$background-dark: #512DA8;
+$background-light: #9575CD;
+$background-pale: #D1C4E9;
+$primary-color-dark:   #512DA8;
+$primary-color:        #673AB7;
+$primary-color-light:  #D1C4E9;
+$primary-color-text:   #FFFFFF;
+$accent-color:         #FFC107;
+$primary-text-color:   #212121;
+$secondary-text-color: #757575;
+$divider-color:        #BDBDBD;
+
 html {
   height: 100%;
   box-sizing: border-box;
@@ -30,3 +43,10 @@ body {
 }
 
 .fixed-top{background-color: #FFFFFF;}
+
+.highlight {
+  background-color: $background-pale;
+  border: 1px solid $primary-color-dark;
+  z-index: 1;
+  transform: scale(1.01);
+}

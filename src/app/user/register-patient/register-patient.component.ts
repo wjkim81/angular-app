@@ -1,18 +1,13 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
 
-// import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-import { Router } from '@angular/router';
-import { Location } from '@angular/common';
-
 // import { SUBJECTS, TYPES, COUNTRIES } from '../../shared/member-options';
 // import { SEXES, PATIENT_TYPES, RISSERS, STAGES, VERTEBRAL_COLUMNS, DIRECTIONS} from '../../shared/patient-options';
 import { Member } from '../../shared/member';
 // import { BodyMeasurement, SpineInfo, XRayFile, Patient } from '../../shared/patient';
-import { PatientInfoForm, SpineDescriptionForm }  from '../../shared/register-form-interfaces';
+import { PatientInfoForm, SpinePrescriptionForm, DiagnosisForm, BodyMeasurementForm }  from '../../shared/register-form-interfaces';
 
 import { AuthService } from '../../services/auth.service';
-import { PatientService } from '../../services/patient.service';
+
 
 import { RegisterPatientService } from './service/register-patient.service';
 
@@ -27,16 +22,18 @@ export class RegisterPatientComponent implements OnInit {
   loggedUser: Member;
 
   page: Number;
+
+  // patientInfoForm: FormGroup;
+
   patientInfo: PatientInfoForm;
-  spineDescription: SpineDescriptionForm;
+  spinePrescription: SpinePrescriptionForm;
+  diagnosis: DiagnosisForm;
+  bodyMeasurement: BodyMeasurementForm;
 
   errMess: string;
   
   constructor(
     // private fb: FormBuilder,
-    private router: Router,
-    private location: Location,
-    private patientservice: PatientService,
     private authService: AuthService,
     private registerPatientService: RegisterPatientService,
     @Inject('BaseURL') private BaseURL
@@ -48,6 +45,18 @@ export class RegisterPatientComponent implements OnInit {
     registerPatientService.patientInfo$.subscribe((patientInfo) => {
       this.patientInfo = patientInfo;
     });
+
+    registerPatientService.spineDescription$.subscribe((SpinePrescription) => {
+      this.spinePrescription = SpinePrescription;
+    });
+
+    registerPatientService.diagnosis$.subscribe((diagnosis) => {
+      this.diagnosis = diagnosis;
+    });
+
+    registerPatientService.bodyMeasurement$.subscribe((bodyMeasurement) => {
+      this.bodyMeasurement = bodyMeasurement;
+    });
   }
 
   ngOnInit() {
@@ -56,25 +65,25 @@ export class RegisterPatientComponent implements OnInit {
     this.today = new Date();
     this.registerPatientService.setPageNum(1);
 
-    this.authService.validateUserCredentials((res, err) => {
-      console.log('authService.validateUserCredentials');
-      // console.log('res: ', res);
-      console.log('err: ', err);
-      if (err) {
-        this.errMess = err;
-      }
+    // this.authService.validateUserCredentials((res, err) => {
+    //   console.log('authService.validateUserCredentials');
+    //   // console.log('res: ', res);
+    //   console.log('err: ', err);
+    //   if (err) {
+    //     this.errMess = err;
+    //   }
  
-      console.log('authenticated: ', this.authService.isAuthenticated);
-      if (!this.authService.isAuthenticated) {
+    //   console.log('authenticated: ', this.authService.isAuthenticated);
+    //   if (!this.authService.isAuthenticated) {
         
-        this.location.replaceState('/'); // clears browser history so they can't navigate with back button
-        this.router.navigate(['/user-login']);
-      } else {
-        console.log(res.member);
-        this.loggedUser = res.member;
-        console.log(this.loggedUser.organization.name);
-        console.log('Logged in')
-      }
-    });
+    //     this.location.replaceState('/'); // clears browser history so they can't navigate with back button
+    //     this.router.navigate(['/user-login']);
+    //   } else {
+    //     // console.log(res.member);
+    //     // this.loggedUser = res.member;
+    //     // console.log(this.loggedUser.organization.name);
+    //     console.log('Logged in')
+    //   }
+    // });
   }
 }

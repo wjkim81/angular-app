@@ -5,9 +5,9 @@ export class Member {
   username: string;
   password: string;
   usertype: string;
+  admin: boolean;
   firstname: string;
   lastname: string;
-  //admin: boolean;
   organization: Organization;
   subject: string;
   //city: string;
@@ -16,6 +16,7 @@ export class Member {
   managerName: string;
   phoneNum: string;
   mobileNum: string;
+  email: string;
 }
 
 // Synced Data with server, some modified required, and it will be feature change.

@@ -10,6 +10,10 @@ export class Organization {
   postCode: string;
   managerName: string;
   //pateitns: Patient[];
+
+  /**
+   * If we need Patient and Member information, use API to get more information
+   */
   patients: string[];
   members: string[];
 }
