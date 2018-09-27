@@ -9,12 +9,52 @@ export const PATIENT_TYPES: string[] = [
   'DT'
 ];
 
+export const CURVE_TYPES: string[] = [
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+];
+
+
+export const LUMBAR_SPINE_TYPES: string[] = [
+  'A',
+  'B',
+  'C'
+];
+
+
+export const SAGITTAL_ALIGNMENT_TYPES: string[] = [
+  '-',
+  'N',
+  '+'
+];
+
+
 export const RISSERS: number[] = [
+  // '00',
+  // '01',
+  // '02',
+  // '03',
+  // '04',
+  // '05'
+  0,
   1,
   2,
   3,
   4,
   5
+];
+
+export const RISSERS_OPTIONS: string[] = [
+  '00',
+  '01',
+  '02',
+  '03',
+  '04',
+  '05'
 ];
 
 export const STAGES: string[] = [

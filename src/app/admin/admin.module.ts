@@ -30,9 +30,7 @@ import { ProcessHTTPMsgService } from '../services/process-httpmsg.service';
 import { OrganizationService } from '../services/organization.service';
 import { MemberService } from '../services/member.service';
 import { PatientService } from '../services/patient.service';
-
-
-
+import { AdminTestComponent } from './admin-test/admin-test.component';
 
 @NgModule({
   imports: [
@@ -41,6 +39,7 @@ import { PatientService } from '../services/patient.service';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    // Routing should be the last
     AdminRoutingModule
   ],
   declarations: [
@@ -52,7 +51,8 @@ import { PatientService } from '../services/patient.service';
     RegisterMemberComponent,
     ListMembersComponent,
     PatientdetailComponent,
-    MemberdetailComponent
+    MemberdetailComponent,
+    AdminTestComponent
   ],
   providers: [
     HttpClientModule,

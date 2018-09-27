@@ -1,0 +1,408 @@
+<div class="row">
+  <div class="col-12">
+    <span> 1. Patient Information  >  </span>
+    <span> 2. Spine Prescription  >  </span>
+    <span> 3. Comment  >  </span>
+    <span> 4. Body Measurement  >  </span>
+    <span> 5. Complete Register</span>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <h3> 2. Spine Prescription <span>optional</span></h3>
+  </div>
+</div>
+<!-- 
+<p>spinePrescriptionForm.value: {{spinePrescriptionForm.value | json}}</p>
+<p>spinePrescriptionformErrors: {{spinePrescriptionformErrors | json}}</p>
+<p>spinePrescriptionForm.valid: {{spinePrescriptionForm.valid}}</p>
+
+<div *ngIf="curve2Form">
+  <p>curve2Form.value: {{curve2Form.value | json}}</p>
+  <p>curve2FormErrors: {{curve2FormErrors | json}}</p>
+  <p>curve2Form.valid: {{curve2Form.valid}}</p>
+</div>
+<div *ngIf="curve3Form">
+  <p>curve3Form.value: {{curve3Form.value | json}}</p>
+  <p>curve3FormErrors: {{curve3FormErrors | json}}</p>
+  <p>curve3Form.valid: {{curve3Form.valid}}</p>
+</div>
+
+<p>showDeleteCurveBtn: {{showDeleteCurveBtn}}</p>
+<p>showAddCurveBtn: {{showAddCurveBtn}}</p> -->
+
+
+<form novalidate [formGroup]="spinePrescriptionForm">
+  <div class="row">
+    <div class="col-3"><h5>Lenke Classifications</h5></div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-3">
+      <p>Curve Type</p>
+      <div class="row">
+        <div class="col-6">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="curveType" id="curveTypeOption01"
+                formControlName="curveType" value="1">
+              01
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="curveType" id="curveTypeOption02"
+                formControlName="curveType" value="2">
+              02
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="curveType" id="curveTypeOption03"
+                formControlName="curveType" value="3">
+              03
+            </label>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="curveType" id="curveTypeOption04"
+                formControlName="curveType" value="4">
+              04
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="curveType" id="curveTypeOption05"
+                formControlName="curveType" value="5">
+              05
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="curveType" id="curveTypeOption06"
+                formControlName="curveType" value="6">
+              06
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-3">
+      <p>Lumbar Spine Modifier</p>
+      <div class="row">
+        <div class="col-6">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="lumbarSpine" id="lumbarSpinneOptionsA" 
+                formControlName="lumbarSpine" value="A">
+              A
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="lumbarSpine" id="lumbarSpinneOptionsB" 
+                formControlName="lumbarSpine" value="B">
+              B
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="lumbarSpine" id="lumbarSpinneOptionsC"
+                formControlName="lumbarSpine" value="C">
+              C
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-3">
+      <p>Sagittal Alignment Modifier</p>
+      <div class="row">
+        <div class="col-6">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="sagittalAlignment"
+                formControlName="sagittalAlignment" id="sagittalAlignmentOptions1" value="-">
+              -
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="sagittalAlignment"
+                formControlName="sagittalAlignment" id="sagittalAlignmentOptions2" value="N">
+              N
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="sagittalAlignment"
+                formControlName="sagittalAlignment" id="sagittalAlignmentOptions3" value="+">
+              +
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-3">
+      <p>Risser Sign</p>
+      <div class="row">
+        <div class="col-6">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="risser" id="risserOptions00"
+                formControlName="risser" value="00">
+              Risser 00
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="risser" id="risserOptions01"
+                formControlName="risser" value="01">
+              Risser 01
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="risser" id="risserOptions02"
+                formControlName="risser" value="02">
+              Risser 02
+            </label>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="risser" id="risserOptions03"
+              formControlName="risser"  value="03">
+              Risser 03
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="risser" id="risserOptions04"
+                formControlName="risser" value="04">
+              Risser 04
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="risser" id="risserOptions05"
+                formControlName="risser" value="05">
+              Risser 05
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group  row">
+    <div class="col-3">Curves</div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-4 col-sm-2 col-md-2">
+      <select class="form-control" id="curveStart1" name="curveStart1" formControlName="curveStart1">
+        <option value="" disabled>Above</option>
+        <option *ngFor="let curveStart1 of vertebralColumnOptions" [ngValue]="curveStart1">{{curveStart1}}</option>
+      </select>
+    </div>
+    <div class="col-4 col-sm-2 col-md-2">
+      <input type="text" class="form-control {{(spinePrescriptionformErrors.cobbAng1) ? 'is-invalid' : ''}}" id="cobbAng1" name="cobbAng1"
+        placeholder="Cobb angle" formControlName="cobbAng1" pattern="[0-9]*">
+      <div class="invalid-feedback">{{spinePrescriptionformErrors.cobbAng1}}</div>
+    </div>
+    <div class="col-4 col-sm-2 col-md-2">
+      <select class="form-control" id="curveEnd1" name="curveEnd1" formControlName="curveEnd1">
+        <option value="" disabled>Below</option>
+        <option *ngFor="let curveEnd1 of vertebralColumnOptions" [ngValue]="curveEnd1">{{curveEnd1}}</option>
+      </select>
+    </div>
+    <div class="col-4 col-sm-2 col-md-2">
+      <select class="form-control" id="direction1" name="direction1" formControlName="direction1">
+        <option value="" disabled>Direction</option>
+        <option *ngFor="let direction1 of directionOptions" [ngValue]="direction1">{{direction1}}</option>
+      </select>
+    </div>
+
+    <div class="col-4 col-sm-2 col-md-2">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <input type="radio" name="major1" formControlName="major1" value="y">
+          </div>
+        </div>
+        <input type="text" class="form-control bg-light" placeholder="Major Curve" disabled>
+      </div>
+    </div>
+
+    <div class="col-4 col-sm-2 col-md-2">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <input type="radio" name="major1" formControlName="major1" value="n">
+          </div>
+        </div>
+        <input type="text" class="form-control bg-light" placeholder="Minor Curve" disabled>
+      </div>
+    </div>
+  </div>
+
+  <form novalidate [formGroup]="curve2Form"  *ngIf="addCurve2">
+    <div class="form-group row">
+      <div class="col-4 col-sm-2 col-md-2">
+        <select class="form-control" id="curveStart2" name="curveStart2" formControlName="curveStart2">
+          <option value="" disabled>Above</option>
+          <option *ngFor="let curveStart2 of vertebralColumnOptions" [ngValue]="curveStart2">{{curveStart2}}</option>
+        </select>
+      </div>
+      <div class="col-4 col-sm-2 col-md-2">
+        <input type="text" class="form-control {{(curve2FormErrors.cobbAng2) ? 'is-invalid' : ''}}" id="cobbAng2" name="cobbAng2"
+          placeholder="Cobb angle" formControlName="cobbAng2" pattern="[0-9]*">
+        <div class="invalid-feedback">{{curve2FormErrors.cobbAng2}}</div>
+      </div>
+      <div class="col-4 col-sm-2 col-md-2">
+        <select class="form-control" id="curveEnd1" name="curveEnd2" formControlName="curveEnd2">
+          <option value="" disabled>Below</option>
+          <option *ngFor="let curveEnd2 of vertebralColumnOptions" [ngValue]="curveEnd2">{{curveEnd2}}</option>
+        </select>
+      </div>
+      <div class="col-4 col-sm-2 col-md-2">
+        <select class="form-control" id="direction1" name="direction2" formControlName="direction2">
+          <option value="" disabled>Direction</option>
+          <option *ngFor="let direction2 of directionOptions" [ngValue]="direction2">{{direction2}}</option>
+        </select>
+      </div>
+
+      <div class="col-4 col-sm-2 col-md-2">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <input type="radio" name="major2" formControlName="major2" value="y">
+            </div>
+          </div>
+          <input type="text" class="form-control bg-light" placeholder="Major Curve" disabled>
+        </div>
+      </div>
+
+      <div class="col-4 col-sm-2 col-md-2">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <input type="radio" name="major2" formControlName="major2" value="n">
+            </div>
+          </div>
+          <input type="text" class="form-control bg-light" placeholder="Minor Curve" disabled>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <form novalidate [formGroup]="curve3Form"  *ngIf="addCurve3">
+    <div class="form-group row" *ngIf="addCurve3">
+      <div class="col-4 col-sm-2 col-md-2">
+        <select class="form-control" id="curveStart3" name="curveStart3" formControlName="curveStart3">
+          <option value="" disabled>Above</option>
+          <option *ngFor="let curveStart3 of vertebralColumnOptions" [ngValue]="curveStart3">{{curveStart3}}</option>
+        </select>
+      </div>
+      <div class="col-4 col-sm-2 col-md-2">
+        <input type="text" class="form-control {{(curve3FormErrors.cobbAng3) ? 'is-invalid' : ''}}" id="cobbAng3" name="cobbAng3"
+          placeholder="Cobb angle" formControlName="cobbAng3" pattern="[0-9]*">
+        <div class="invalid-feedback">{{curve3FormErrors.cobbAng3}}</div>
+      </div>
+      <div class="col-4 col-sm-2 col-md-2">
+        <select class="form-control" id="curveEnd1" name="curveEnd3" formControlName="curveEnd3">
+          <option value="" disabled>Below</option>
+          <option *ngFor="let curveEnd3 of vertebralColumnOptions" [ngValue]="curveEnd3">{{curveEnd3}}</option>
+        </select>
+      </div>
+      <div class="col-4 col-sm-2 col-md-2">
+        <select class="form-control" id="direction3" name="direction3" formControlName="direction3">
+          <option value="" disabled>Direction</option>
+          <option *ngFor="let direction3 of directionOptions" [ngValue]="direction3">{{direction3}}</option>
+        </select>
+      </div>
+
+      <div class="col-4 col-sm-2 col-md-2">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <input type="radio" name="major3" formControlName="major3" value="y">
+            </div>
+          </div>
+          <input type="text" class="form-control bg-light" placeholder="Major Curve" disabled>
+        </div>
+      </div>
+
+      <div class="col-4 col-sm-2 col-md-2">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <input type="radio" name="major3" formControlName="major3" value="n">
+            </div>
+          </div>
+          <input type="text" class="form-control bg-light" placeholder="Major Curve" disabled>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="form-group row">
+    <div class="offset-8 col-2">
+      <div *ngIf="showDeleteCurveBtn">
+        <button type="submit" class="btn btn-primary btn-block" id="deleteCurve" (click)="deleteCurve()">
+          Delete Curve
+        </button>
+      </div>
+    </div>
+    <div class="col-2">
+      <div *ngIf="showAddCurveBtn">
+        <button type="submit" class="btn btn-primary btn-block" id="addCurve"(click)="addCurve()">
+          Add Curve
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-12">
+      <h5>X-Ray Image</h5>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="xRayFile" class="col-12 col-sm-12 col-form-label">X-ray file</label>
+    <div class="col-12 col-sm-12">
+      <input type="file" class="form-control-file" id="xRayFile" name="xRayFile">
+    </div>
+  </div>
+</form>
+
+<div class="row">
+  <div class="col-3">
+    <button type="submit" class="btn btn-primary btn-block" id="previous" (click)="goPrevious()">
+      Previous
+    </button>
+  </div>
+  <div class="col-3">
+
+  </div>
+
+  <div class="col-3">
+    <button type="submit" class="btn btn-primary btn-block" id="skip" (click)="skip()">
+      Skip
+    </button>
+  </div>
+
+  <div class="col-3">
+    <button type="submit" class="btn btn-primary btn-block" id="next" (click)="goNext()">
+      Next
+    </button>
+  </div>
+</div>

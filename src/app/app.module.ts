@@ -25,20 +25,26 @@ import { AuthService } from './services/auth.service';
 import { AuthInterceptor, UnauthorizedInterceptor } from './services/auth.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { ModuleComponent } from './module/module.component';
+import { LoginComponent } from './login/login.component';
+
 @NgModule({
   declarations: [
     AppComponent,
+    ModuleComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
 
     //FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule,
     CoreModule.forRoot(),
     AdminModule,
-    UserModule
-    //NgbModule.forRoot()
+    UserModule,
+    // This is important!!!
+    // AppRoutingModule should be the last
+    AppRoutingModule
   ],
   providers: [
     /*

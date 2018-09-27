@@ -1,0 +1,93 @@
+<div class="row">
+  <div class="col-12">
+    <span> 1. Patient Information  >  </span>
+    <span> 2. Spine Prescription  >  </span>
+    <span> 3. Comment  >  </span>
+    <span> 4. Body Measurement  >  </span>
+    <span> 5. Complete Register</span>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <h3>4. Body Measurement <span>optional</span></h3>
+  </div>
+</div>
+
+<form novalidate [formGroup]="bodyMeasurementForm">
+  <div class="form-group row">
+    <div class="col-2">
+      <label class="col-form-label" for="height">Height</label>
+    </div>
+    <div class="col-2">
+      <label class="col-form-label" for="weight">Weight</label>
+    </div>
+    <div class="col-2">
+      <label class="col-form-label" for="bust">Bust</label>
+    </div>
+    <div class="col-2">
+      <label class="col-form-label" for="waist">Waist</label>
+    </div>
+    <div class="col-2">
+      <label class="col-form-label" for="shoulder">Shoulder</label>
+    </div>
+    <div class="col-2">
+      <label class="col-form-label" for="hip">Hip</label>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-2">
+      <input type="text" class="form-control {{(bodyMeasurementFormErrors.height) ? 'is-invalid' : ''}}" id="height" name="height"
+        placeholder="cm" formControlName="height" pattern="[0-9]*">
+      <div class="invalid-feedback">{{bodyMeasurementFormErrors.height}}</div>
+    </div>
+    <div class="col-2">
+      <input type="text" class="form-control {{(bodyMeasurementFormErrors.weight) ? 'is-invalid' : ''}}" id="weight" name="weight"
+        placeholder="kg" formControlName="weight" pattern="[0-9]*">
+      <div class="invalid-feedback">{{bodyMeasurementFormErrors.weight}}</div>
+    </div>
+    <div class="col-2">
+      <input type="text" class="form-control {{(bodyMeasurementFormErrors.bust) ? 'is-invalid' : ''}}" id="bust" name="bust"
+        placeholder="cm" formControlName="bust" pattern="[0-9]*">
+      <div class="invalid-feedback">{{bodyMeasurementFormErrors.bust}}</div>
+    </div>
+    <div class="col-2">
+      <input type="text" class="form-control {{(bodyMeasurementFormErrors.waist) ? 'is-invalid' : ''}}" id="waist" name="waist"
+        placeholder="cm" formControlName="waist" pattern="[0-9]*">
+      <div class="invalid-feedback">{{bodyMeasurementFormErrors.waist}}</div>
+    </div>
+    <div class="col-2">
+      <input type="text" class="form-control {{(bodyMeasurementFormErrors.shoulder) ? 'is-invalid' : ''}}" id="shoulder" name="shoulder"
+        placeholder="cm" formControlName="shoulder" pattern="[0-9]*">
+      <div class="invalid-feedback">{{bodyMeasurementFormErrors.shoulder}}</div>
+    </div>
+    <div class="col-2">
+      <input type="text" class="form-control {{(bodyMeasurementFormErrors.hip) ? 'is-invalid' : ''}}" id="hip" name="hip" 
+        placeholder="cm" formControlName="hip" pattern="[0-9]*">
+      <div class="invalid-feedback">{{bodyMeasurementFormErrors.hip}}</div>
+    </div>
+  </div>
+</form>
+
+<div class="row">
+  <div class="col-3">
+    <button type="submit" class="btn btn-primary btn-block" id="previous" (click)="goPrevious()">
+      Previous
+    </button>
+  </div>
+  <div class="col-3">
+
+  </div>
+
+  <div class="col-3">
+    <button type="submit" class="btn btn-primary btn-block" id="skip" (click)="skip()">
+      Skip
+    </button>
+  </div>
+
+  <div class="col-3">
+    <button type="submit" class="btn btn-primary btn-block" id="next" (click)="goNext()">
+      Next
+    </button>
+  </div>
+</div>

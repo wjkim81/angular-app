@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/delay';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
 
 @Injectable()
 export class ProcessHTTPMsgService {
@@ -22,7 +18,7 @@ export class ProcessHTTPMsgService {
       errMsg = `${error.status} - ${error.statusText || ''} ${error.error}`;
     }
 
-    return Observable.throw(errMsg);
+    return throwError(errMsg);
   }
 
 }

@@ -1,9 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'variables';
 @import '../node_modules/bootstrap/scss/bootstrap';
+@import '../node_modules/font-awesome/css/font-awesome.css';
 
 // Set footer at the bottom all the time
 // https://codepen.io/cbracco/pen/zekgx
+
+$lt-gray: #ddd;
+$background-dark: #512DA8;
+$background-light: #9575CD;
+$background-pale: #D1C4E9;
+$primary-color-dark:   #512DA8;
+$primary-color:        #673AB7;
+$primary-color-light:  #D1C4E9;
+$primary-color-text:   #FFFFFF;
+$accent-color:         #FFC107;
+$primary-text-color:   #212121;
+$secondary-text-color: #757575;
+$divider-color:        #BDBDBD;
 
 html {
   height: 100%;
@@ -26,4 +40,13 @@ body {
 
 .table-font {
   font-size: 12px;
+}
+
+.fixed-top{background-color: #FFFFFF;}
+
+.highlight {
+  background-color: $background-pale;
+  border: 1px solid $primary-color-dark;
+  z-index: 1;
+  transform: scale(1.01);
 }

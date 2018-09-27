@@ -18,15 +18,24 @@ import { FooterComponent } from './footer/footer.component';
 
 import { UserHomeComponent } from './user-home/user-home.component';
 import { RegisterPatientComponent } from './register-patient/register-patient.component';
+import { PatientInfoComponent } from './register-patient/patient-info/patient-info.component';
+import { SpinePrescriptionComponent } from './register-patient/spine-prescription/spine-prescription.component';
+import { CommentComponent } from './register-patient/comment/comment.component';
+import { BodyMeasurementComponent } from './register-patient/body-measurement/body-measurement.component';
+import { CompleteRegisterComponent } from './register-patient/complete-register/complete-register.component';
+
 import { UserInfoComponent } from './user-info/user-info.component';
 import { UserLoginComponent } from './user-login/user-login.component';
 import { PatientdetailComponent } from './patientdetail/patientdetail.component';
+
+import { CobbAngleComponent } from './cobb-angle/cobb-angle.component';
 
 import { baseURL } from '../shared/baseurl';
 import { ProcessHTTPMsgService } from '../services/process-httpmsg.service';
 
 import { PatientService } from '../services/patient.service';
 
+import { HighlightDirective } from '../directives/highlight.directive';
 //import { AuthService } from '../services/auth.service';
 //import { AuthInterceptor, UnauthorizedInterceptor } from '../services/auth.interceptor';
 
@@ -38,6 +47,7 @@ import { PatientService } from '../services/patient.service';
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
+    // Routing should be the last
     UserRoutingModule
   ],
   declarations: [
@@ -46,9 +56,16 @@ import { PatientService } from '../services/patient.service';
     FooterComponent,
     UserHomeComponent,
     RegisterPatientComponent,
+    PatientInfoComponent,
+    SpinePrescriptionComponent,
+    CommentComponent,
+    BodyMeasurementComponent,
+    CompleteRegisterComponent,
     UserInfoComponent,
     UserLoginComponent,
-    PatientdetailComponent
+    PatientdetailComponent,
+    CobbAngleComponent,
+    HighlightDirective,
   ],
   providers: [
     HttpClientModule,

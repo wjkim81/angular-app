@@ -9,7 +9,7 @@ import { PatientdetailComponent } from '../patientdetail/patientdetail.component
 import { MemberdetailComponent } from '../memberdetail/memberdetail.component';
 
 export const adminRoutes: Routes = [{
-  path: '',
+  path: 'admin',
   component: AdminComponent,
   children: [
     {
@@ -20,7 +20,7 @@ export const adminRoutes: Routes = [{
       path: 'admin/list-members',
       component: ListMembersComponent
     },
-        {
+    {
       path: 'admin/register-organization',
       component: RegisterOrganizationComponent
     },
@@ -37,7 +37,7 @@ export const adminRoutes: Routes = [{
       component: MemberdetailComponent
     },
     {
-      path: '', redirectTo: '/admin/home', pathMatch: 'full'
+      path: 'admin', redirectTo: '/admin/home', pathMatch: 'full'
     }
   ]
 }];

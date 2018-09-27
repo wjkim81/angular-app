@@ -5,9 +5,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Params, Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { Patient } from '../../shared/patient';
+import { Patient, SpineInfo } from '../../shared/patient';
 
-import { PATIENTS } from '../../shared/patients';
+// import { PATIENTS } from '../../shared/patients';
 import { PatientService } from '../../services/patient.service';
 
 import { AuthService } from '../../services/auth.service';
@@ -33,9 +33,10 @@ export class UserHomeComponent implements OnInit {
   stages: string[];
 
   patients: Patient[];
+  patientSummary: any[];
   numSpineInfos: number[];
-  numBodyMeasurements: number[];
-  numVisited: number[];
+  // numBodyMeasurements: number[];
+  // numVisited: number[];
 
   patientsInTable: Patient[];
   selectedPatients: Patient[];
@@ -92,7 +93,7 @@ export class UserHomeComponent implements OnInit {
   currentOrderCol: string;
   ascend: boolean;
 
-  columnKeys: string[];
+  // columnKeys: string[];
   columnNames: string[];
 
   searchDateStart: Date;
@@ -138,7 +139,6 @@ export class UserHomeComponent implements OnInit {
         console.log('Logged in')
       }
     });
-    
   }
 
   ngOnInit() {
@@ -154,7 +154,7 @@ export class UserHomeComponent implements OnInit {
     this.stages = STAGES;
 
     
-    this.columnKeys = Object.keys(this.columns);
+    // this.columnKeys = Object.keys(this.columns);
     this.columnNames = Object.values(this.columns);
     
     this.currentOrderCol = 'updatedAt';
@@ -182,16 +182,52 @@ export class UserHomeComponent implements OnInit {
     this.patientService.getPatientsBetween(this.searchDateStart.toISOString(), this.searchDateEnd.toISOString())
     .subscribe((patients) => {
       this.patients = patients;
-      this.patientsInTable = this.patients;
+      
       this.numAllPatients = this.patients.length;
       this.numPatientsInTable = this.patients.length;
 
-      this.numSpineInfos = this.patients.map((patient) => patient.spineInfos.length);
-      this.numBodyMeasurements = this.patients.map((patient) => patient.bodyMeasurements.length);
-      this.numVisited = this.patients.map((patient) => patient.visitedDays.length);
-      console.log(this.numSpineInfos);
-      console.log(this.numBodyMeasurements);
-      console.log(this.numVisited);
+      // this.numSpineInfos = this.patients.map((patient) => patient.spineInfos.length);
+      this.patientSummary = [];
+
+      for (var i = 0; i < this.patients.length; i++) {
+        var patient: any = {};
+        patient._id = this.patients[i]._id;
+        patient.hashKey = this.patients[i].hashKey;
+        patient.firstname = this.patients[i].firstname;
+        patient.lastname = this.patients[i].lastname;
+        patient.birthday = this.patients[i].birthday;
+        patient.sex = this.patients[i].sex;
+        
+        if (this.patients[i].spineInfos.length > 0) {
+          let numSpineInfos = this.patients[i].spineInfos.length;
+          patient.type = this.patients[i].spineInfos[numSpineInfos - 1].type;
+          patient.risser = this.patients[i].spineInfos[numSpineInfos - 1].risser;
+          patient.curve1 = `${this.patients[i].spineInfos[numSpineInfos - 1].curveStart1}-${this.patients[i].spineInfos[numSpineInfos - 1].cobbAng1}-${this.patients[i].spineInfos[numSpineInfos - 1].curveEnd1} ${this.patients[i].spineInfos[numSpineInfos - 1].direction1} ${this.patients[i].spineInfos[numSpineInfos - 1].major1 ? 'M' : 'm'}`;
+          if (this.patients[i].spineInfos[numSpineInfos - 1].curveStart2) {
+            patient.curve2 = `${this.patients[i].spineInfos[numSpineInfos - 1].curveStart2}-${this.patients[i].spineInfos[numSpineInfos - 1].cobbAng2}-${this.patients[i].spineInfos[numSpineInfos - 1].curveEnd2} ${this.patients[i].spineInfos[numSpineInfos - 1].direction2} ${this.patients[i].spineInfos[numSpineInfos - 1].major2 ? 'M' : 'm'}`;
+          } else {
+            patient.curve2 = '';
+          }
+
+          if (this.patients[i].spineInfos[numSpineInfos - 1].curveStart3) {
+            patient.curve3 = `${this.patients[i].spineInfos[numSpineInfos - 1].curveStart3}-${this.patients[i].spineInfos[numSpineInfos - 1].cobbAng3}-${this.patients[i].spineInfos[numSpineInfos - 1].curveEnd3} ${this.patients[i].spineInfos[numSpineInfos - 1].direction3} ${this.patients[i].spineInfos[numSpineInfos - 1].major3 ? 'M' : 'm'}`;
+          } else {
+            patient.curve3 = '';
+          }
+          
+        }
+
+        patient.updatedAt = this.patients[i].updatedAt;
+        this.patientSummary.push(patient);
+      }
+
+      this.patientsInTable = this.patientSummary;
+
+      // this.numBodyMeasurements = this.patients.map((patient) => patient.bodyMeasurements.length);
+      // this.numVisited = this.patients.map((patient) => patient.visitedDays.length);
+      // console.log(this.numSpineInfos);
+      // console.log(this.numBodyMeasurements);
+      // console.log(this.numVisited);
     }, (errMess) => {
       this.errMess = <any>errMess;
     })

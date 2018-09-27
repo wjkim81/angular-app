@@ -10,8 +10,6 @@ import { MEMBERS } from '../../shared/members';
 
 import { SUBJECTS, TYPES, COUNTRIES } from '../../shared/member-options';
 
-import { SubjectSubscriber } from 'rxjs/Subject';
-
 @Component({
   selector: 'app-list-members',
   templateUrl: './list-members.component.html',
