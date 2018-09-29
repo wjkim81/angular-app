@@ -89,7 +89,6 @@ export class PatientService {
         catchError(this.processHTTPMsgService.handleError)
       );
   }
-  
 
   getHashKey(): Observable<any> {
     console.log(baseURL);

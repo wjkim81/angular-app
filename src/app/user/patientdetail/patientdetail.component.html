@@ -243,9 +243,9 @@
   <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
   </div>
 -->
-<div *ngIf="patientErrMess">
+<div *ngIf="patientErrMsg">
   <h2>Error</h2>
-  <h4>{{patientErrMess}}</h4>
+  <h4>{{patientErrMsg}}</h4>
 </div>
 
 <app-add-bodymeasurement-modal [patient]="patient"

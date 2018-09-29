@@ -124,8 +124,6 @@ export class AddBodymeasurementModalComponent implements OnInit {
   }
 
   openBodyMeasureModal(content) {
-    console.log('openBodyMeasureModal');
-    console.log(content);
     this.bodyMeasureForm.reset({
       height: null,
       weight: null,

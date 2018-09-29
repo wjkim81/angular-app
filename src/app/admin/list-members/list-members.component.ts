@@ -1,14 +1,9 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { Patient } from '../../shared/patient';
 import { Member } from '../../shared/member';
 import { MemberService } from '../../services/member.service';
-import { PATIENTS } from '../../shared/patients';
-import { MEMBERS } from '../../shared/members';
-
-import { SUBJECTS, TYPES, COUNTRIES } from '../../shared/member-options';
 
 @Component({
   selector: 'app-list-members',
@@ -30,13 +25,9 @@ export class ListMembersComponent implements OnInit {
   numMembersInTable: number;
   numAllMembers: number;
 
-  checkedAll: boolean;
-  checkedMembers: boolean[];
-  numCheckedMembers: number;
-
   removeBtnDisabled: boolean;
 
-  errMess: string;
+  membersErrMsg: string;
 
   constructor(
     private fb: FormBuilder,
@@ -45,8 +36,6 @@ export class ListMembersComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.checkedMembers = [];
-
     this.memberFilterForm = this.fb.group({
       'country': '',
       'type': '',
@@ -77,7 +66,6 @@ export class ListMembersComponent implements OnInit {
         types.push(members[i].organization.type);
         organizations.push(members[i].organization.name);
         subjects.push(members[i].subject);
-        this.checkedMembers.push(false);
       }
 
       this.countryOptions = Array.from(new Set(countries));
@@ -85,11 +73,9 @@ export class ListMembersComponent implements OnInit {
       this.orgOptions = Array.from(new Set(organizations));
       this.subjectOptions = Array.from(new Set(subjects));
 
-      this.checkedAll = false;
-      this.numCheckedMembers = 0;
       this.removeBtnDisabled = true;
-    }, (errMess) => {
-      this.errMess = <any>errMess;
+    }, (membersErrMsg) => {
+      this.membersErrMsg = <any>membersErrMsg;
     });
   }
 
@@ -115,45 +101,5 @@ export class ListMembersComponent implements OnInit {
       return included;
     });
     this.numMembersInTable = this.membersInTable.length;
-    
-    this.checkedMembers = [];
-    for (var i = 0; i < this.numMembersInTable; i++)
-      this.checkedMembers.push(false)
-    //console.log(this.membersInTable);
-  }
-  
-  checkAllMember() {
-    this.checkedAll = !this.checkedAll;
-    for(var i = 0; i < this.numMembersInTable; i++) {
-      this.checkedMembers[i] = this.checkedAll;
-    }
-
-    this.numCheckedMembers = this.getNumCheckedMembers();
-    if (this.numCheckedMembers != 0) 
-      this.removeBtnDisabled = false;
-    else
-      this.removeBtnDisabled = true;
-  }
-
-  changeCheckedMembers(i) {
-    //console.log(i, ' is changed');
-    if (this.checkedMembers) {
-      this.checkedMembers[i] = !this.checkedMembers[i];
-    }
-    //console.log(this.checkedMembers);
-    this.numCheckedMembers = this.getNumCheckedMembers();
-    if (this.numCheckedMembers != 0) 
-      this.removeBtnDisabled = false;
-    else 
-      this.removeBtnDisabled = true
-  }
-
-  getNumCheckedMembers(): number {
-    return this.checkedMembers.filter(checked => checked).length;
-  }
-
-  removeMembers() {
-    console.log('removeMembers');
-    console.log(this.checkedMembers);
   }
 }

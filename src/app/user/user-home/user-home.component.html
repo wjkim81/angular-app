@@ -14,7 +14,7 @@
         <input type="date" class="form-control" id="searchDateEnd" name="searchDateEnd" max="today | date:'yyyy-MM-dd'"
           [ngModel]="searchDateEnd | date:'yyyy-MM-dd'" (ngModelChange)="searchDateEnd = $event">
         <div class="input-group-append">
-          <button class="btn btn-primary">Search</button>
+          <button class="btn btn-primary" (click)="submitDateCondition()">Search</button>
         </div>
       </div>
     </div>
@@ -65,8 +65,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let patient of patientsInTable; let i = index; let even = even; let odd = odd"
-              [routerLink]="['/patient', patient._id]" appHighlight>
+            <tr *ngFor="let patient of patientsInTable; let i = index" [routerLink]="['/patients', patient._id]" appHighlight>
               <td>{{patient.hashKey}}</td>
               <td>{{patient.firstname}} {{patient.lastname}}</td>
               <td>{{patient.birthday | date}}</td>
@@ -87,19 +86,12 @@
   <!-- <div [hidden]="pateints">
     <md-spinner></md-spinner><h4>Loading . . . Please Wait</h4>
   </div> -->
-  <div *ngIf="patientErrMsg">
+  <div *ngIf="patientsErrMsg">
     <h4>Error</h4>
-    <p>patientErrMsg</p>
+    <p>{{patientsErrMsg}}</p>
   </div>
+  
   <div class="row after-table-margin">
-    <!--
-    <div class="col-12 col-sm-6 col-md-2">
-      <a role="button" class="btn btn-primary btn-block" href="javascript:v_edit();">EDIT</a>
-    </div>
-    <div class="col-12 col-sm-6 col-md-2">
-      <a role="button" class="btn btn-primary btn-block" href="javascript:v_on();">REMOVE</a>
-    </div>
-    -->
     <div class="col-md">
     </div>
     <div class="col-12 col-sm-12 col-md-2 float-right">

@@ -1,10 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-
-import { Params, Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { Organization } from '../../shared/organization';
@@ -12,10 +10,6 @@ import { OrganizationService } from '../../services/organization.service';
 
 import { Patient } from '../../shared/patient';
 import { PatientService } from '../../services/patient.service';
-
-import { Member } from '../../shared/member';
-import { PATIENTS } from '../../shared/patients';
-import { MEMBERS } from '../../shared/members';
 
 import { AuthService } from '../../services/auth.service';
 import { JWTResponse } from '../../shared/response';
@@ -40,97 +34,42 @@ export class AdminHomeComponent implements OnInit {
   stageOptions: string[];
 
   patients: Patient[];
-  numSpineInfos: number[];
-  numBodyMeasurements: number[];
+  patientsSummary: any[];
+  // numSpineInfos: number[];
+  // numBodyMeasurements: number[];
 
   patientsInOrgs: Patient[];
   patientsInTable: Patient[];
   selectedPatients: Patient[];
 
   organizations: Organization[];
-  //members: Member[];
 
   numAllPatients: number;
   numPatientsInTable: number;
 
-  orgsErrMess: string;
-  patientsErrMess: string;
+  orgsErrMsg: string;
+  patientsErrMsg: string;
 
   checkedOrgs: any;
 
-  /**
-   * Filter option form
-   */
-  //dateFilterForm: FormGroup;
   optionFilterForm: FormGroup;
-
-  /**
-   * columns {key: value}
-   * key is a propterty of Patient object
-   * value is its column name in a table
-   */
-  columns = {
-    'organization': 'Organization',
-    'patientId': 'Patient ID',
-    'firstname': 'First Name',
-    'lastname': 'Last Name',
-    'birthday': 'Birthday',
-    'sex': 'Sex',
-    'type': 'Type',
-    'risser': 'Risser',
-    'stage': 'Stage',
-    'curveStart1': 'Apex1',
-    'curveStart2': 'Apex2',
-    'curveStart3': 'Apex3',
-    //'firstday': 'First Day',
-    'updatedAt': 'Last Update'
-  };
-
-  orderColumns = {
-    'organization': false,
-    'patientId': false,
-    'firstname': false,
-    'lastname': false,
-    'birthday': false,
-    'sex': false,
-    'type': false,
-    'risser': false,
-    'stage': false,
-    'curveStart1': false,
-    'curveStart2': false,
-    'curveStart3': false,
-    'updateAt': false
-  }
-
-  currentOrderCol: string;
-  ascend: boolean;
-
-  columnKeys: string[];
-  columnNames: string[];
 
   dateStart: Date;
   dateEnd: Date;
-  today: Date;
+
   searchDateStart: Date;
   searchDateEnd: Date;
   status: JWTResponse;
 
-
   constructor(
-    private modalService: NgbModal,
     private fb: FormBuilder,
-    private router: Router,
-    private location:Location,
     private organizationService: OrganizationService,
     private patientService: PatientService,
-    private authService: AuthService,
     @Inject('BaseURL') private BaseURL
   ) { }
 
   ngOnInit() {
-    //this.patients = PATIENTS;
-    //this.members = MEMBERS;
-
+    console.log('admin-home');
     this.subjects = SUBJECTS;
     this.types = TYPES;
     this.countries = COUNTRIES;
@@ -138,39 +77,23 @@ export class AdminHomeComponent implements OnInit {
     this.sexOptions = SEXES;
     this.patientTypeOptions = PATIENT_TYPES;
     this.risserOptions = RISSERS;
-    
-    this.columnKeys = Object.keys(this.columns);
-    this.columnNames = Object.values(this.columns);
-    
-    this.currentOrderCol = 'updatedAt';
-    this.ascend = false;
-
-    console.log(this.orderColumns);
-    //console.log(this.columnKeys);
 
     let dayDiff = (24*60*60*1000) * 7; // 7days difference
-    //this.dateStart = new Date();
+
     this.dateEnd = new Date();
     this.dateStart = new Date();
+
     this.searchDateEnd = this.dateEnd;
     this.searchDateStart = this.dateStart;
-    this.today = new Date();
+
     this.dateStart.setTime(this.dateEnd.getTime() - dayDiff);
 
-    /*
-    this.dateFilterForm = this.fb.group({
-      'dateStart': this.dateStart,
-      'dateEnd': this.dateEnd
-    });
-    */
     this.optionFilterForm = this.fb.group({
       'sex': '',
       'patientType': '',
       'risser': '',
       'stage': ''
-    })
-
-    console.log(this.dateStart.toISOString());
+    });
 
     this.organizationService.getOrganizations()
     .subscribe((orgs) => {
@@ -178,103 +101,102 @@ export class AdminHomeComponent implements OnInit {
 
       this.checkedOrgs = {
         "checked": [],
-        "orgsId": [],
+        "orgsIds": [],
         "checkedAll": true,
         "numChecked": orgs.length
       }
 
       for (var i = 0; i < orgs.length; i++) {
         this.checkedOrgs.checked.push(true);
-        this.checkedOrgs.orgsId.push(orgs[i]._id);
+        this.checkedOrgs.orgsIds.push(orgs[i]._id);
       }
       
-    }, (errMess) => {
-      this.orgsErrMess = <any>errMess;
-    })
+    }, (orgsErrMsg) => {
+      this.orgsErrMsg = <any>orgsErrMsg;
+    });
 
-    this.patientService.getPatientsBetweenForAdmin(this.dateStart.toISOString(), this.dateEnd.toISOString())
+    // this.patientService.getPatientsBetweenForAdmin(this.dateStart.toISOString(), this.dateEnd.toISOString())
+    this.patientService.getPatients()
     .subscribe((patients) => {
-      this.patients = patients;
-
-      this.patientsInOrgs = this.patients;
-      this.patientsInTable = this.patients;
-      this.numAllPatients = this.patients.length;
-      this.numPatientsInTable = this.patients.length;
-
-      this.numSpineInfos = this.patients.map((patient) => patient.spineInfos.length);
-      this.numBodyMeasurements = this.patients.map((patient) => patient.bodyMeasurements.length);
-      console.log(this.numSpineInfos);
-      console.log(this.numBodyMeasurements);
-    }, (errMess) => {
-      this.patientsErrMess = <any>errMess;
+      this.summarizePatients(patients);
+    }, (patientsErrMsg) => {
+      this.patientsErrMsg = <any>patientsErrMsg;
     });
   }
 
-  open(content) {
-    this.modalService.open(content, { size: 'lg' });
-  }
-
-  setOrder(column: string) {
+  summarizePatients(patients: Patient[]) {
+    this.patients = patients;
     
-    if (this.orderColumns[column]) {
-      this.ascend = !(this.ascend);
-    } else {
-      this.orderColumns[this.currentOrderCol] = false;
-      this.orderColumns[column] = true;
-      this.ascend = true;
-      this.currentOrderCol = column;
+    this.numAllPatients = this.patients.length;
+    this.numPatientsInTable = this.patients.length;
+
+    this.patientsSummary = [];
+
+    for (var i = 0; i < this.patients.length; i++) {
+      var patient: any = {};
+      patient._id = this.patients[i]._id;
+      patient.hashKey = this.patients[i].hashKey;
+      patient.firstname = this.patients[i].firstname;
+      patient.lastname = this.patients[i].lastname;
+      patient.birthday = this.patients[i].birthday;
+      patient.sex = this.patients[i].sex;
+      
+      if (this.patients[i].spineInfos.length > 0) {
+        let numSpineInfos = this.patients[i].spineInfos.length;
+        patient.type = this.patients[i].spineInfos[numSpineInfos - 1].type;
+        patient.risser = this.patients[i].spineInfos[numSpineInfos - 1].risser;
+        patient.curve1 = `${this.patients[i].spineInfos[numSpineInfos - 1].curveStart1}-${this.patients[i].spineInfos[numSpineInfos - 1].cobbAng1}-${this.patients[i].spineInfos[numSpineInfos - 1].curveEnd1} ${this.patients[i].spineInfos[numSpineInfos - 1].direction1} ${this.patients[i].spineInfos[numSpineInfos - 1].major1 ? 'M' : 'm'}`;
+        if (this.patients[i].spineInfos[numSpineInfos - 1].curveStart2) {
+          patient.curve2 = `${this.patients[i].spineInfos[numSpineInfos - 1].curveStart2}-${this.patients[i].spineInfos[numSpineInfos - 1].cobbAng2}-${this.patients[i].spineInfos[numSpineInfos - 1].curveEnd2} ${this.patients[i].spineInfos[numSpineInfos - 1].direction2} ${this.patients[i].spineInfos[numSpineInfos - 1].major2 ? 'M' : 'm'}`;
+        } else {
+          patient.curve2 = '';
+        }
+
+        if (this.patients[i].spineInfos[numSpineInfos - 1].curveStart3) {
+          patient.curve3 = `${this.patients[i].spineInfos[numSpineInfos - 1].curveStart3}-${this.patients[i].spineInfos[numSpineInfos - 1].cobbAng3}-${this.patients[i].spineInfos[numSpineInfos - 1].curveEnd3} ${this.patients[i].spineInfos[numSpineInfos - 1].direction3} ${this.patients[i].spineInfos[numSpineInfos - 1].major3 ? 'M' : 'm'}`;
+        } else {
+          patient.curve3 = '';
+        }
+      }
+
+      patient.updatedAt = this.patients[i].updatedAt;
+      this.patientsSummary.push(patient);
     }
-    //console.log(column);
-    //console.log(this.orderColumns);
-    //console.log(this.ascend);
+
+    this.patientsInTable = this.patientsSummary;
   }
   
   submitDateCondition() {
     this.dateStart = new Date(this.searchDateStart);
     this.dateEnd = new Date(this.searchDateEnd);
-    console.log(`submitDateCondition between ${this.dateStart} and ${this.dateEnd}`);
+    // console.log(`submitDateCondition between ${this.dateStart} and ${this.dateEnd}`);
     this.patientService.getPatientsBetweenForAdmin(this.dateStart.toISOString(), this.dateEnd.toISOString())
     .subscribe((patients) => {
-      this.patients = patients;
-      this.patientsInTable = this.patients;
-      this.numAllPatients = this.patients.length;
-      this.numPatientsInTable = this.patients.length;
-
-      this.numSpineInfos = this.patients.map((patient) => patient.spineInfos.length);
-      this.numBodyMeasurements = this.patients.map((patient) => patient.bodyMeasurements.length);
-      console.log(this.numSpineInfos);
-      console.log(this.numBodyMeasurements);
-    }, (errMess) => {
-      this.patientsErrMess = <any>errMess;
+      this.summarizePatients(patients);
+    }, (patientsErrMsg) => {
+      this.patientsErrMsg = <any>patientsErrMsg;
     });
   }
   
   submitOptionFilter() {
-    //this.patientsInTable = this.patients.filter((patient) => {
-    this.patientsInTable = this.patientsInOrgs.filter((patient) => {
-      var numSpineInfos = patient.spineInfos.length;
+    this.patientsInTable = this.patientsSummary.filter((patient) => {
+
       var included = true;
       if (this.optionFilterForm.value.sex !== '') {
         if (patient.sex != this.optionFilterForm.value.sex) included = false;
       }
       
       if (this.optionFilterForm.value.patientType !== '') {
-        if (patient.spineInfos[numSpineInfos-1].type != this.optionFilterForm.value.patientType) included = false;
+        if (patient.type != this.optionFilterForm.value.patientType) included = false;
       }
       
       if (this.optionFilterForm.value.risser !== '') {
-        if (patient.spineInfos[numSpineInfos-1].risser != this.optionFilterForm.value.risser) included = false;
+        if (patient.risser != this.optionFilterForm.value.risser) included = false;
       }
-/*
-      if (this.optionFilterForm.value.stage !== '') {
-        if (patient.stage != this.optionFilterForm.value.stage) included = false;
-      }
-*/
-      //console.log(member);
+
       return included;
     });
     this.numPatientsInTable = this.patientsInTable.length;
-    //console.log(this.membersInTable);
   }
 
   checkAllOrgs() {
@@ -316,14 +238,13 @@ export class AdminHomeComponent implements OnInit {
       var included = false;
       for (var i = 0; i < this.checkedOrgs.checked.length; i++ ) {
         if (this.checkedOrgs.checked[i]) {
-          //console.log('checkedOrg: ', this.checkedOrgs.orgsId[i])
-          if (patient.organization["_id"] === this.checkedOrgs.orgsId[i]) {
+          //console.log('checkedOrg: ', this.checkedOrgs.orgsIds[i])
+          if (patient.organization["_id"] === this.checkedOrgs.orgsIds[i]) {
             included = true;
             break;
           }
         }
       }
-        
       return included;
     });
     

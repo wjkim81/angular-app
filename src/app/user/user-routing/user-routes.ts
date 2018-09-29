@@ -30,7 +30,7 @@ export const userRoutes: Routes = [{
       component: UserLoginComponent
     },
     {
-      path: 'patient/:id',
+      path: 'patients/:id',
       component: PatientdetailComponent
     },
     // {

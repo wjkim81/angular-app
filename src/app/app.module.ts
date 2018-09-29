@@ -18,12 +18,13 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
 import { AppComponent } from './app.component';
 
 import { CoreModule } from './core-module/core-module.module';
+import { SharedModule } from './shared-module/shared-module.module';
 import { AdminModule } from './admin/admin.module';
 import { UserModule } from './user/user.module';
 
-import { AuthService } from './services/auth.service';
-import { AuthInterceptor, UnauthorizedInterceptor } from './services/auth.interceptor';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+// import { AuthService } from './services/auth.service';
+// import { AuthInterceptor, UnauthorizedInterceptor } from './services/auth.interceptor';
+// import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { ModuleComponent } from './module/module.component';
 import { LoginComponent } from './login/login.component';
@@ -39,9 +40,10 @@ import { LoginComponent } from './login/login.component';
 
     //FormsModule,
     ReactiveFormsModule,
-    CoreModule.forRoot(),
-    AdminModule,
     UserModule,
+    AdminModule,
+    CoreModule.forRoot(),
+    SharedModule,
     // This is important!!!
     // AppRoutingModule should be the last
     AppRoutingModule

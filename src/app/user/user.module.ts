@@ -11,17 +11,21 @@ import { ReactiveFormsModule } from '@angular/forms';
  */
 import { UserRoutingModule } from './user-routing/user-routing.module';
 
-
 /**
  * Import ng-bootstrap module
  */
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { UserComponent } from './user.component';
+/**
+ * Import shared module
+ */
+
+import { SharedModule } from '../shared-module/shared-module.module';
 
 /**
  * UserNavbarComponent and FooterComponent are header and footer in all user pages.
  */
+import { UserComponent } from './user.component';
 import { UserNavbarComponent } from './user-navbar/user-navbar.component';
 import { FooterComponent } from './footer/footer.component';
 
@@ -61,9 +65,7 @@ import { BodyMeasurementComponent } from './register-patient/body-measurement/bo
 import { CompleteRegisterComponent } from './register-patient/complete-register/complete-register.component';
 import { CobbAngleComponent } from './cobb-angle/cobb-angle.component';
 
-
 import { UserInfoComponent } from './user-info/user-info.component';
-
 
 /**
  * This should be reviewed to handle auth and login properly
@@ -78,22 +80,23 @@ import { baseURL } from '../shared/baseurl';
  */
 //import { AuthService } from '../services/auth.service';
 //import { AuthInterceptor, UnauthorizedInterceptor } from '../services/auth.interceptor';
-import { ProcessHTTPMsgService } from '../services/process-httpmsg.service';
-import { PatientService } from '../services/patient.service';
+// import { ProcessHTTPMsgService } from '../services/process-httpmsg.service';
+// import { PatientService } from '../services/patient.service';
 
 /** 
  * Import directives here
  */
-import { HighlightDirective } from '../directives/highlight.directive';
+// import { HighlightDirective } from '../directives/highlight.directive';
 
 @NgModule({
   imports: [
-    CommonModule,
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
+    CommonModule,
+    SharedModule,
     // Routing should be the last
-    UserRoutingModule
+    UserRoutingModule,
   ],
   declarations: [
     UserComponent,
@@ -113,26 +116,12 @@ import { HighlightDirective } from '../directives/highlight.directive';
     CompleteRegisterComponent,
     UserInfoComponent,
     UserLoginComponent,
-    HighlightDirective,
+    // HighlightDirective,
   ],
   providers: [
     HttpClientModule,
     { provide: 'BaseURL', useValue: baseURL },
-    ProcessHTTPMsgService,
-    PatientService,
-    //AuthService,
-    /*
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: UnauthorizedInterceptor,
-      multi: true
-    }
-    */
+    // ProcessHTTPMsgService,
   ]
 })
 export class UserModule { }
