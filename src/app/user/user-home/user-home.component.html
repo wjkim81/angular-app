@@ -38,10 +38,6 @@
             <option *ngFor="let risser of rissers" [ngValue]="risser">{{risser}}</option>
           </select>
 
-          <select class="form-control" formControlName="stage">
-            <option value="">All stages</option>
-            <option *ngFor="let stage of stages" [ngValue]="stage">{{stage}}</option>
-          </select>
           <div class="input-group-append">
             <button class="btn btn-primary">Filter</button>
           </div>
@@ -70,7 +66,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let patient of patientsInTable; let i = index; let even = even; let odd = odd"
-              [ngClass]="{ odd: odd, even: even }" [routerLink]="['/patient', patient._id]" appHighlight>
+              [routerLink]="['/patient', patient._id]" appHighlight>
               <td>{{patient.hashKey}}</td>
               <td>{{patient.firstname}} {{patient.lastname}}</td>
               <td>{{patient.birthday | date}}</td>
@@ -86,6 +82,14 @@
         </table>
       </div>
     </div>
+  </div>
+  <!-- This is loading animation part. Should be updated later!!!-->
+  <!-- <div [hidden]="pateints">
+    <md-spinner></md-spinner><h4>Loading . . . Please Wait</h4>
+  </div> -->
+  <div *ngIf="patientErrMsg">
+    <h4>Error</h4>
+    <p>patientErrMsg</p>
   </div>
   <div class="row after-table-margin">
     <!--

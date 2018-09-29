@@ -21,7 +21,7 @@ import { AuthService } from '../../services/auth.service';
 import { JWTResponse } from '../../shared/response';
 
 import { SUBJECTS, TYPES, COUNTRIES } from '../../shared/member-options';
-import { SEXES, PATIENT_TYPES, RISSERS, STAGES } from '../../shared/patient-options';
+import { SEXES, PATIENT_TYPES, RISSERS } from '../../shared/patient-options';
 
 @Component({
   selector: 'app-admin-home',
@@ -42,7 +42,6 @@ export class AdminHomeComponent implements OnInit {
   patients: Patient[];
   numSpineInfos: number[];
   numBodyMeasurements: number[];
-  numVisited: number[];
 
   patientsInOrgs: Patient[];
   patientsInTable: Patient[];
@@ -139,8 +138,6 @@ export class AdminHomeComponent implements OnInit {
     this.sexOptions = SEXES;
     this.patientTypeOptions = PATIENT_TYPES;
     this.risserOptions = RISSERS;
-    this.stageOptions = STAGES;
-
     
     this.columnKeys = Object.keys(this.columns);
     this.columnNames = Object.values(this.columns);
@@ -206,10 +203,8 @@ export class AdminHomeComponent implements OnInit {
 
       this.numSpineInfos = this.patients.map((patient) => patient.spineInfos.length);
       this.numBodyMeasurements = this.patients.map((patient) => patient.bodyMeasurements.length);
-      this.numVisited = this.patients.map((patient) => patient.visitedDays.length);
       console.log(this.numSpineInfos);
       console.log(this.numBodyMeasurements);
-      console.log(this.numVisited);
     }, (errMess) => {
       this.patientsErrMess = <any>errMess;
     });
@@ -247,10 +242,8 @@ export class AdminHomeComponent implements OnInit {
 
       this.numSpineInfos = this.patients.map((patient) => patient.spineInfos.length);
       this.numBodyMeasurements = this.patients.map((patient) => patient.bodyMeasurements.length);
-      this.numVisited = this.patients.map((patient) => patient.visitedDays.length);
       console.log(this.numSpineInfos);
       console.log(this.numBodyMeasurements);
-      console.log(this.numVisited);
     }, (errMess) => {
       this.patientsErrMess = <any>errMess;
     });

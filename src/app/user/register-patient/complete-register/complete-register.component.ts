@@ -52,7 +52,7 @@ export class CompleteRegisterComponent implements OnInit {
     if (this.spinePrescription.valid) {
       var spineInfo: any = {};
       var type = this.spinePrescription.curveType + this.spinePrescription.lumbarSpine + this.spinePrescription.sagittalAlignment;
-      console.log(type);
+      // console.log(type);
 
       spineInfo.type = type;
       spineInfo.risser = +this.spinePrescription.risser;

@@ -1,7 +1,5 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
 
-// import { SUBJECTS, TYPES, COUNTRIES } from '../../shared/member-options';
-// import { SEXES, PATIENT_TYPES, RISSERS, STAGES, VERTEBRAL_COLUMNS, DIRECTIONS} from '../../shared/patient-options';
 import { Member } from '../../shared/member';
 // import { BodyMeasurement, SpineInfo, XRayFile, Patient } from '../../shared/patient';
 import { PatientInfoForm, SpinePrescriptionForm, DiagnosisForm, BodyMeasurementForm }  from '../../shared/register-form-interfaces';

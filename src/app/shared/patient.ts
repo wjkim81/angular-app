@@ -74,7 +74,6 @@ export class Patient {
   spineInfos: [SpineInfo];
   xRayFiles: [XRayFile];
   comments: [Comment];
-  visitedDays: [string];
   createdAt: string;
   updatedAt: string;
 }

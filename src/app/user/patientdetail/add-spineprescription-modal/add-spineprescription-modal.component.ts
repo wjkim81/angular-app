@@ -1,18 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
+
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { CURVE_TYPES, LUMBAR_SPINE_TYPES, SAGITTAL_ALIGNMENT_TYPES, RISSERS_OPTIONS, VERTEBRAL_COLUMNS, DIRECTIONS} from '../../../shared/patient-options';
-// import { SpinePrescriptionForm } from '../../../shared/register-form-interfaces';
+import { Patient } from '../../../shared/patient';
 
-import { RegisterPatientService } from '../service/register-patient.service';
+import { PatientService } from '../../../services/patient.service';
+import { ControlModalService } from '../service/control-modal.service';
 
 @Component({
-  selector: 'app-spine-prescription',
-  templateUrl: './spine-prescription.component.html',
-  styleUrls: ['./spine-prescription.component.scss']
+  selector: 'app-add-spineprescription-modal',
+  templateUrl: './add-spineprescription-modal.component.html',
+  styleUrls: ['./add-spineprescription-modal.component.scss']
 })
-export class SpinePrescriptionComponent implements OnInit {
+export class AddSpineprescriptionModalComponent implements OnInit {
+
+  @Input() patient: Patient;
+
+  @Output() updatedPatient = new EventEmitter<Patient>();
+
+  @ViewChild('addNewSpineDiagModal')
+  private modalRef: TemplateRef<any>;
+  spineDiagModal: NgbModalRef;
+
+  errMsg: string;
 
   curveTypeOptions: string[];
   lumbarSpineOptions: string[];
@@ -33,7 +46,7 @@ export class SpinePrescriptionComponent implements OnInit {
   showDeleteCurveBtn: boolean;
   showAddCurveBtn: boolean;
 
-  spinePrescriptionformErrors = {
+  spinePrescriptionFormErrors = {
     'curveType': '',
     'lumbarSpine': '',
     'sagittalAlignment': '',
@@ -123,10 +136,22 @@ export class SpinePrescriptionComponent implements OnInit {
     }
   };
 
+
   constructor(
+    private modalService: NgbModal,
+    private controlModalService: ControlModalService,
+    private patientservice: PatientService,
     private fb: FormBuilder,
-    private registerPatientService: RegisterPatientService,
-  ) { }
+  ) {
+    this.controlModalService.modal$.subscribe((modalMsg)=>{
+      if (modalMsg === 'openSpinePrescriptionModal') {
+        console.log(modalMsg);
+        this.openSpineDiagModal(this.modalRef);
+      } else if (modalMsg === 'closeSpinePrescriptionModal') {
+        // this.bodyMeasureModal.close();
+      }
+    });
+  }
 
   ngOnInit() {
     this.curveTypeOptions = CURVE_TYPES;
@@ -158,8 +183,6 @@ export class SpinePrescriptionComponent implements OnInit {
       curveEnd1: ['', Validators.required],
       direction1: ['', Validators.required],
       major1: ['y', Validators.required],
-      
-      xRayFile: '',
     });
 
     this.spinePrescriptionForm.valueChanges
@@ -200,10 +223,10 @@ export class SpinePrescriptionComponent implements OnInit {
     const form = this.spinePrescriptionForm;
     //console.log('confirmPassword: '+ this.formErrors['confirmPassword']);
     
-    for (const field in this.spinePrescriptionformErrors) {
+    for (const field in this.spinePrescriptionFormErrors) {
       // clear previous error message (if any)
       //console.log(`field: ${field}`);
-      this.spinePrescriptionformErrors[field] = '';
+      this.spinePrescriptionFormErrors[field] = '';
       const control = form.get(field);
       if (control && control.dirty && !control.valid) {
         //console.log(`${field} - dirty: ${control.dirty}, valid: ${control.valid}`);
@@ -213,7 +236,7 @@ export class SpinePrescriptionComponent implements OnInit {
         //console.log(control.errors);
         for (const key in control.errors) {
           //console.log(`key: ${key}`);
-          this.spinePrescriptionformErrors[field] += messages[key] + ' ';
+          this.spinePrescriptionFormErrors[field] += messages[key] + ' ';
           //console.log(this.formErrors[field]);
         }
       }
@@ -312,90 +335,99 @@ export class SpinePrescriptionComponent implements OnInit {
     }
   }
 
-  goPrevious() {
-    this.registerPatientService.setPageNum(1);
-    // this.registerPatientService.setSpinePrescription(this.spinePrescriptionForm.value);
-  }
+  openSpineDiagModal(content) {
+    // console.log('openSpineDiagModal');
+    // console.log(content);
+    this.spinePrescriptionForm.reset({
+      curveType: this.curveTypeOptions[0],
+      lumbarSpine: this.lumbarSpineOptions[0],
+      sagittalAlignment: this.sagittalAlignmentOptions[1],
+      risser: this.risserOptions[0],
+      
+      curveStart1: '',
+      cobbAng1: null,
+      curveEnd1: '',
+      direction1: '',
+      major1: 'y',
+    });
 
-  skip() {
-    console.log('skip()');
-    this.registerPatientService.setPageNum(3);
-
-    // let spForm = this.spinePrescriptionForm.value;
-
-    var spinePrescription = this.spinePrescriptionForm.value;
-    spinePrescription.valid = false;
-    this.registerPatientService.setSpinePrescription(spinePrescription);
-  }
-
-  goNext() {
-    console.log('goNext()');
-    let status = this.spinePrescriptionForm.status;
-    let curve2status = this.curve2Form.status;
-    let curve3status = this.curve3Form.status;
-    let spForm = this.spinePrescriptionForm.value;
-
-    var spinePrescription = spForm;
+    this.curve2Form.reset({
+      curveStart2: '',
+      cobbAng2: null,
+      curveEnd2: '',
+      direction2: '',
+      major2: 'n',
+    });
     
-    spinePrescription.curveType = spForm.curveType;
-    spinePrescription.lumbarSpine = spForm.lumbarSpine;
-    spinePrescription.sagittalAlignment = spForm.sagittalAlignment;
-    spinePrescription.risser = spForm.risser;
-    spinePrescription.curveStart1 = spForm.curveStart1;
-    spinePrescription.cobbAng1 = spForm.cobbAng1;
-    spinePrescription.curveEnd1 = spForm.curveEnd1;
-    spinePrescription.direction1 = spForm.direction1;
-    spinePrescription.major1 = spForm.major1;
-    spinePrescription.addCurve2 = false;
-    spinePrescription.addCurve3 = false;
+    this.curve3Form.reset({
+      curveStart3: '',
+      cobbAng3: null,
+      curveEnd3: '',
+      direction3: '',
+      major3: 'n',
+    });
 
-    if (status === 'VALID' && !this.addCurve2 && !this.addCurve3) {
-      console.log('main goNext()');
+    this.spineDiagModal = this.modalService.open(content, { size: 'lg' });
+  }
 
-      spinePrescription.valid = true;
-      this.registerPatientService.setPageNum(3);
-      this.registerPatientService.setSpinePrescription(spinePrescription);
-    } else if (status === 'INVALID' && !this.addCurve2 && !this.addCurve3) {
-      console.log('Main form is invalid');
-      return;
-    } else if (status === 'VALID' && this.addCurve2 && curve2status ==='VALID' && !this.addCurve3) {
-      console.log('cureve2 goNext()');
+  submitSpinePrescription() {
+    console.log('Submit new body measurement');
 
-      let curve2 = this.curve2Form.value;
-      spinePrescription.addCurve2 = true;
-      spinePrescription.curveStart2 = curve2.curveStart2;
-      spinePrescription.cobbAng2 = curve2.cobbAng2;
-      spinePrescription.curveEnd2 = curve2.curveEnd2;
-      spinePrescription.direction2 = curve2.direction2;
-      spinePrescription.major2 = curve2.major2;
+    var spineInfo: any = {};
 
-      spinePrescription.valid = true;
-      this.registerPatientService.setPageNum(3);
-      this.registerPatientService.setSpinePrescription(spinePrescription);
-    } else if (status === 'VALID' && this.addCurve2 && curve2status ==='INVALID' && !this.addCurve3) {
-      console.log('curve2Form is invalid');
-      return;
-    } else if (status === 'VALID' && 
-              this.addCurve2 && curve2status ==='VALID' &&
-              this.addCurve3 && curve3status ==='VALID') {
+    let spInfo = this.spinePrescriptionForm.value;
+    var type = spInfo.curveType + spInfo.lumbarSpine + spInfo.sagittalAlignment;
 
-      console.log('curve3 goNext()');
-      let curve3 = this.curve3Form.value;
-      spinePrescription.addCurve3 = true;
-      spinePrescription.curveStart3 = curve3.curveStart3;
-      spinePrescription.cobbAng3 = curve3.cobbAng3;
-      spinePrescription.curveEnd3 = curve3.curveEnd3;
-      spinePrescription.direction3 = curve3.direction3;
-      spinePrescription.major3 = curve3.major3;
+    spineInfo.type = type;
+    spineInfo.risser = +spInfo.risser;
 
-      spinePrescription.valid = true;
-      this.registerPatientService.setPageNum(3);
-      this.registerPatientService.setSpinePrescription(spinePrescription);
-    } else if (status === 'VALID' && 
-              this.addCurve2 && curve2status ==='VALID' &&
-              this.addCurve3 && curve3status ==='INVALID') {
-      console.log('curve3Form is invalid');
-      return;
+    spineInfo.curveStart1 = spInfo.curveStart1;
+    spineInfo.cobbAng1 = +spInfo.cobbAng1;
+    spineInfo.curveEnd1 = spInfo.curveEnd1;
+    spineInfo.direction1 = spInfo.direction1;
+    spineInfo.major1 = (spInfo.major1 === 'y') ? true : false;
+
+    // console.log(`addCurve2: ${this.addCurve2}`);
+    // console.log(this.curve2Form.value);
+    
+    // console.log(`addCurve3: ${this.addCurve3}`);
+    // console.log(this.curve3Form.value);
+    
+    if (this.addCurve2) {
+      let curve2Info = this.curve2Form.value;
+      spineInfo.curveStart2 = curve2Info.curveStart2;
+      spineInfo.cobbAng2 = +curve2Info.cobbAng2;
+      spineInfo.curveEnd2 = curve2Info.curveEnd2;
+      spineInfo.direction2 = curve2Info.direction2;
+      spineInfo.major2 = (curve2Info.major2 === 'y') ? true : false;
     }
+
+    if (this.addCurve3) {
+      let curve3Info = this.curve3Form.value;
+      spineInfo.curveStart3 = curve3Info.curveStart3;
+      spineInfo.cobbAng3 = +curve3Info.cobbAng3;
+      spineInfo.curveEnd3 = curve3Info.curveEnd3;
+      spineInfo.direction3 = curve3Info.direction3;
+      spineInfo.major3 = (curve3Info.major3 === 'y') ? true : false;
+    }
+
+    console.log(spineInfo);
+
+    this.spineDiagModal.close();
+
+    this.patientservice.postSpineDiag(this.patient._id, spineInfo)
+    .subscribe((patient) => {
+      // console.log('new body measurement');
+
+      //this.patient = undefined;
+      this.updatedPatient.emit(patient);
+
+      // console.log(patient);
+      
+      this.spineDiagModal.close();
+    }, (errMsg) => {
+      this.errMsg = <any>errMsg;
+      console.log(errMsg);
+    });
   }
 }

@@ -14,7 +14,7 @@ import { AuthService } from '../../services/auth.service';
 import { JWTResponse } from '../../shared/response';
 
 import { SUBJECTS, TYPES, COUNTRIES } from '../../shared/member-options';
-import { SEXES, PATIENT_TYPES, RISSERS, STAGES } from '../../shared/patient-options';
+import { SEXES, PATIENT_TYPES, RISSERS } from '../../shared/patient-options';
 
 @Component({
   selector: 'app-user-home',
@@ -33,7 +33,7 @@ export class UserHomeComponent implements OnInit {
   stages: string[];
 
   patients: Patient[];
-  patientSummary: any[];
+  patientsSummary: any[];
   numSpineInfos: number[];
   // numBodyMeasurements: number[];
   // numVisited: number[];
@@ -44,7 +44,7 @@ export class UserHomeComponent implements OnInit {
   numAllPatients: number;
   numPatientsInTable: number;
 
-  errMess: string;
+  patientErrMsg: string;
 
   /**
    * Filter option form
@@ -126,7 +126,7 @@ export class UserHomeComponent implements OnInit {
       console.log('res: ', res);
       console.log('err: ', err);
       if (err) {
-        this.errMess = err;
+        this.patientErrMsg = err;
       }
  
       console.log('authenticated: ', this.authService.isAuthenticated);
@@ -151,8 +151,6 @@ export class UserHomeComponent implements OnInit {
     this.sexes = SEXES;
     this.patientTypes = PATIENT_TYPES;
     this.rissers = RISSERS;
-    this.stages = STAGES;
-
     
     // this.columnKeys = Object.keys(this.columns);
     this.columnNames = Object.values(this.columns);
@@ -187,7 +185,7 @@ export class UserHomeComponent implements OnInit {
       this.numPatientsInTable = this.patients.length;
 
       // this.numSpineInfos = this.patients.map((patient) => patient.spineInfos.length);
-      this.patientSummary = [];
+      this.patientsSummary = [];
 
       for (var i = 0; i < this.patients.length; i++) {
         var patient: any = {};
@@ -218,42 +216,42 @@ export class UserHomeComponent implements OnInit {
         }
 
         patient.updatedAt = this.patients[i].updatedAt;
-        this.patientSummary.push(patient);
+        this.patientsSummary.push(patient);
       }
 
-      this.patientsInTable = this.patientSummary;
+      this.patientsInTable = this.patientsSummary;
 
       // this.numBodyMeasurements = this.patients.map((patient) => patient.bodyMeasurements.length);
       // this.numVisited = this.patients.map((patient) => patient.visitedDays.length);
       // console.log(this.numSpineInfos);
       // console.log(this.numBodyMeasurements);
       // console.log(this.numVisited);
-    }, (errMess) => {
-      this.errMess = <any>errMess;
+    }, (patientErrMsg) => {
+      this.patientErrMsg = <any>patientErrMsg;
     })
   }
 
   submitOptionFilter() {
-    this.patientsInTable = this.patients.filter((patient) => {
-      var numSpineInfos = patient.spineInfos.length;
+    this.patientsInTable = this.patientsSummary.filter((patient) => {
+      // console.log(patient);
+      // var numSpineInfos = patient.spineInfos.length;
       var included = true;
       if (this.optionFilterForm.value.sex !== '') {
         if (patient.sex != this.optionFilterForm.value.sex) included = false;
       }
       
       if (this.optionFilterForm.value.patientType !== '') {
-        if (patient.spineInfos[numSpineInfos-1].type != this.optionFilterForm.value.patientType) included = false;
+        if (patient.type != this.optionFilterForm.value.patientType) included = false;
       }
       
       if (this.optionFilterForm.value.risser !== '') {
-        if (patient.spineInfos[numSpineInfos-1].risser != this.optionFilterForm.value.risser) included = false;
+        if (patient.risser != this.optionFilterForm.value.risser) included = false;
       }
 /*
       if (this.optionFilterForm.value.stage !== '') {
         if (patient.stage != this.optionFilterForm.value.stage) included = false;
       }
 */
-      //console.log(member);
       return included;
     });
     this.numPatientsInTable = this.patientsInTable.length;

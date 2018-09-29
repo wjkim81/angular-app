@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BodyMeasurement, SpineInfo, XRayFile, Patient } from '../../shared/patient';
 import { PATIENTS } from '../../shared/patients';
 
-import { SEXES, PATIENT_TYPES, RISSERS, STAGES, VERTEBRAL_COLUMNS, DIRECTIONS} from '../../shared/patient-options';
+import { SEXES, PATIENT_TYPES, RISSERS, VERTEBRAL_COLUMNS, DIRECTIONS} from '../../shared/patient-options';
 import { Member } from '../../shared/member';
 
 
@@ -131,7 +131,6 @@ export class PatientdetailComponent implements OnInit {
     this.sexOptions = SEXES;
     this.patientTypeOptions = PATIENT_TYPES;
     this.risserOptions = RISSERS;
-    this.stageOptions = STAGES;
     this.vertebralColumns = VERTEBRAL_COLUMNS;
     this.directionOptions = DIRECTIONS;
 

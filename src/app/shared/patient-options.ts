@@ -18,7 +18,6 @@ export const CURVE_TYPES: string[] = [
   '6',
 ];
 
-
 export const LUMBAR_SPINE_TYPES: string[] = [
   'A',
   'B',
@@ -55,12 +54,6 @@ export const RISSERS_OPTIONS: string[] = [
   '03',
   '04',
   '05'
-];
-
-export const STAGES: string[] = [
-  'Mild',
-  'Moderate',
-  'Severe'
 ];
 
 export const VERTEBRAL_COLUMNS: string[] = [

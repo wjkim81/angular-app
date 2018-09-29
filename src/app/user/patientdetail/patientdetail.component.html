@@ -1,27 +1,48 @@
 <div class="container-fluid" *ngIf="patient">
-  <div class="row">
+  <div class="row mb-4 align-items-center">
+    <div class="col-12 col-sm-3">
+      <h2>Patient Information</h2>
+    </div>
+    <div class="col-12 col-sm-7">
+      <div>
+        <span>Last update: {{ patient.updatedAt | date}}</span>
+      </div>
+    </div>
+    <div class="col-12 col-sm-2">
+      <button type="button" class="btn btn-primary btn-block btn-sm" (click)="orderBrace()">
+        Order Braces
+      </button>
+    </div>
+  </div>
+  <!-- <div class="row">
     <div class="col-12">
       <h4>Profile</h4>
     </div>
-  </div>
-  <div class="row">
+  </div> -->
+  <div class="row mb-4">
     <div class="col-12">
       <div class="table-responsive">
         <table class="table table-stripped table-font">
           <thead class="thead-inverse">
             <tr>
               <th>Organization</th>
+              <th>Patient Id</th>
               <th>Name</th>
               <th>Birthday</th>
               <th>Sex</th>
+              <th>Curve Progression</th>
+              <th>Wering Status</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>{{patient.organization.name}}</td>
+              <td>{{patient.hashKey}}</td>
               <td>{{patient.lastname}} {{patient.firstname}}</td>
               <td>{{patient.birthday | date}}</td>
               <td>{{patient.sex}}</td>
+              <td></td>
+              <td></td>
             </tr>
           </tbody>
         </table>
@@ -29,51 +50,24 @@
     </div>
   </div><!-- profile table size -->
 
-  <div class="row">
-    <div class="col-12">
-      <h4>Spine Diagnosis</h4>
-      <div class="table-responsive">
-        <table class="table table-stripped table-font">
-          <thead class="thead-inverse">
-            <tr>
-              <th>Updated By</th>
-              <th>Day</th>
-              <th>Type</th>
-              <th>Risser</th>
-              <th>Stage</th>
-              <th>Apex1</th>
-              <th>Apex2</th>
-              <th>Apex3</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let spInfo of patient.spineInfos">
-              <td>{{spInfo.updatedBy.firstname}} {{spInfo.updatedBy.lastname}}</td>
-              <td>{{spInfo.createdAt | date}}</td>
-              <td>{{spInfo.type}}</td>
-              <td>{{spInfo.risser}}</td>
-              <td>{{spInfo.stage}}</td>
-              <td>{{spInfo.curveStart1}}-{{spInfo.cobbAng1}}-{{spInfo.curveEnd1}} {{spInfo.direction1}}</td>
-              <td>{{spInfo.curveStart2}}-{{spInfo.cobbAng2}}-{{spInfo.curveEnd2}} {{spInfo.direction2}}</td>
-              <td>{{spInfo.curveStart3}}-{{spInfo.cobbAng3}}-{{spInfo.curveEnd3}} {{spInfo.direction3}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-12">
+  <div class="row align-items-center">
+    <div class="col-10">
       <h4>Body Size</h4>
     </div>
+    <div class="col-2">
+      <button class="btn btn-primary btn-block btn-sm" (click)="openBodyMeasureModal()">
+        Add new
+      </button>
+    </div>
+  </div>
+  <div class="row  mb-4">
     <div class="col-12">
       <div class="table-responsive">
         <table class="table table-stripped table-font">
           <thead class="thead-inverse">
             <tr>
               <th>Updated By</th>
-              <th>Day</th>
+              <th>Date</th>
               <th>Height</th>
               <th>Weight</th>
               <th>Shoulder</th>
@@ -106,6 +100,83 @@
       </div>
     </div>
   </div><!-- body size table -->
+
+  <div class="row align-items-center">
+    <div class="col-10">
+      <h4>Spine Prescription</h4>
+    </div>
+    <div class="col-2">
+      <button class="btn btn-primary btn-block btn-sm" (click)="openSpineDiagModal()">
+        Add new
+      </button>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-stripped table-font">
+          <thead class="thead-inverse">
+            <tr>
+              <th>Updated By</th>
+              <th>Date</th>
+              <th>Type</th>
+              <th>Risser</th>
+              <th>Apex1</th>
+              <th>Apex2</th>
+              <th>Apex3</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let spInfo of patient.spineInfos">
+              <td>{{spInfo.updatedBy.firstname}} {{spInfo.updatedBy.lastname}}</td>
+              <td>{{spInfo.createdAt | date}}</td>
+              <td>{{spInfo.type}}</td>
+              <td>{{spInfo.risser}}</td>
+              <td>{{spInfo.curveStart1}}-{{spInfo.cobbAng1}}-{{spInfo.curveEnd1}} {{spInfo.direction1}} {{spInfo.major1 ? 'M' : ''}}</td>
+              <td>{{spInfo.curveStart2}}-{{spInfo.cobbAng2}}-{{spInfo.curveEnd2}} {{spInfo.direction2}} {{spInfo.major2 ? 'M' : ''}}</td>
+              <td>{{spInfo.curveStart3}}-{{spInfo.cobbAng3}}-{{spInfo.curveEnd3}} {{spInfo.direction3}} {{spInfo.major3 ? 'M' : ''}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="row align-items-center">
+    <div class="col-10">
+      <h4>Diagnosis</h4>
+    </div>
+    <div class="col-2">
+      <button class="btn btn-primary btn-block btn-sm" (click)="openDiagnosisModal(addNewDiagnosis)">
+        Add new
+      </button>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-stripped table-font">
+          <thead class="thead-inverse">
+            <tr>
+              <th>Updated By</th>
+              <th>Date</th>
+              <th>Dignosis</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let comment of patient.comments">
+              <td>{{comment.updatedBy.firstname}} {{comment.updatedBy.lastname}}</td>
+              <td>{{comment.createdAt | date}}</td>
+              <td>{{comment.comment}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
 
   <div class="row">
     <div class="col-12 col-sm-6">
@@ -165,241 +236,26 @@
         </div>
       </div>
     </div>
-  </div>
-  <!--3D image table -->
-
-  <div class="row">
-    <div class="col-12 text-center">
-      <!--<div class="btn-group" role="group">-->
-        <button class="btn btn-primary" (click)="openSpineDiagModal(addNewSpineDiagModal)">Add New Spine Diagnosis</button>
-        <button class="btn btn-primary" (click)="openBodyMeasureModal(addNewBodyMeasurementModal)">Add New Body Measurement</button>
-        
-        <button class="btn btn-primary">Order a product</button>
-      <!--</div>-->
-    </div>
-  </div>
+  </div><!--3D image table -->
 </div><!-- container -->
-<div *ngIf="errMess">
-  <h2>Error</h2>
-  <h4>{{errMess}}</h4>
-</div>
 <!--
-<div [hidden]="patient || errMess">
+<div [hidden]="patient || patientErrMess">
   <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
   </div>
 -->
-<ng-template #addNewSpineDiagModal let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title">Add New Spine Diagnosis</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div><!-- modal header -->
+<div *ngIf="patientErrMess">
+  <h2>Error</h2>
+  <h4>{{patientErrMess}}</h4>
+</div>
 
-  <div class="modal-body">
-    <form  novalidate [formGroup]="spineDiagForm" (ngSubmit)="submitSpineDiag()">
-      <div class="form-group row">
-        <label for="type" class="col-12 col-sm-2 col-form-label">Type</label>
-        <div class="col-12 col-sm-4">
-          <select class="form-control" id="type" name="type" formControlName="type">
-            <option *ngFor="let type of patientTypeOptions" [ngValue]="type">{{type}}</option>
-          </select>
-          <!--<input type="text" class="form-control" id="registerType" name="registerType" placeholder="Type">-->
-        </div>
-        <label for="risser" class="col-12 col-sm-2 col-form-label">Risser sign</label>
-        <div class="col-12 col-sm-4">
-          <select class="form-control" id="risser" name="risser" formControlName="risser">
-            <option *ngFor="let risser of risserOptions" [ngValue]="risser">{{risser}}</option>
-          </select>
-          <!--<input type="text" class="form-control" id="registerLisser" name="registerLisser" placeholder="Lisser">-->
-        </div>
-      </div>
-      
-      <div class="form-group row">
-        <label class="col-12 col-sm-12 col-md-2 col-form-label">Apex1</label>
-        <div class="col-4 col-sm-2 col-md-2">
-          <select class="form-control" id="curveStart1" name="curveStart1" formControlName="curveStart1">
-            <option value="" disabled>SN</option>
-            <option *ngFor="let curveStart1 of vertebralColumns" [ngValue]="curveStart1">{{curveStart1}}</option>
-          </select>
-        </div>
-        <div class="col-8 col-sm-4 col-md-3">
-          <input type="text" class="form-control {{(formErrors.cobbAng1) ? 'is-invalid' : ''}}" id="cobbAngle1" name="cobbAngle1"
-            placeholder="Cobb angle" formControlName="cobbAng1" pattern="[0-9]*">
-          <div class="invalid-feedback">{{formErrors.cobbAng1}}</div>
-        </div>
-        <div class="col-4 col-sm-2 col-md-2">
-          <select class="form-control" id="curveEnd1" name="curveEnd1" formControlName="curveEnd1">
-            <option value="" disabled>SN</option>
-            <option *ngFor="let curveEnd1 of vertebralColumns" [ngValue]="curveEnd1">{{curveEnd1}}</option>
-          </select>
-        </div>
-        <div class="col-8 col-sm-4 col-md-3">
-          <select class="form-control" id="direction1" name="direction1" formControlName="direction1">
-            <option value="" disabled>Direction</option>
-            <option *ngFor="let direction1 of directionOptions" [ngValue]="direction1">{{direction1}}</option>
-          </select>
-        </div>
-      </div>
+<app-add-bodymeasurement-modal [patient]="patient"
+                               (updatedPatient)="updatePatient($event)">
+</app-add-bodymeasurement-modal>
 
-      <div class="form-group row">
-        <label class="col-12 col-sm-12 col-md-2 col-form-label">Apex2</label>
-        <div class="col-4 col-sm-2 col-md-2">
-          <select class="form-control" id="curveStart2" name="curveStart2">
-            <option value="">SN</option>
-            <option *ngFor="let curveStart2 of vertebralColumns" [ngValue]="curveStart2">{{curveStart2}}</option>            
-          </select>
-        </div>
-        <div class="col-8 col-sm-4 col-md-3">
-          <input type="text" class="form-control" id="cobbAng2"  name="cobbAng2"
-            placeholder="Cobb angle" formControlName="cobbAng2" pattern="[0-9]*">
-        </div>
-        <div class="col-4 col-sm-2 col-md-2">
-          <select class="form-control" id="curveEnd2" name="curveEnd2">
-            <option value="">SN</option>
-            <option *ngFor="let curveEnd2 of vertebralColumns" [ngValue]="curveEnd2">{{curveEnd2}}</option>
-          </select>
-        </div>
-        <div class="col-8 col-sm-4 col-md-3">
-          <select class="form-control" id="direction2" name="direction2" formControlName="direction2">
-            <option value="">Direction</option>
-            <option *ngFor="let direction2 of directionOptions" [ngValue]="direction2">{{direction2}}</option>
-          </select>
-        </div>
-      </div>
+<app-add-spineprescription-modal [patient]="patient"
+                                 (updatedPatient)="updatePatient($event)">
+</app-add-spineprescription-modal>
 
-      <div class="form-group row">
-        <label class="col-12 col-sm-12 col-md-2 col-form-label">Apex3</label>
-        <div class="col-4 col-sm-2 col-md-2">
-          <select class="form-control" id="curveStart3" name="curveStart3">
-            <option value="">SN</option>
-            <option *ngFor="let curveStart3 of vertebralColumns" [ngValue]="curveStart3">{{curveStart3}}</option>            
-          </select>
-        </div>
-        <div class="col-8 col-sm-4 col-md-3">
-          <input type="text" class="form-control" id="cobbAng3" name="cobbAng3"
-            placeholder="Cobb angle" formControlName="cobbAng3" pattern="[0-9]*">
-        </div>
-        <div class="col-4 col-sm-2 col-md-2">
-          <select class="form-control" id="curveEnd3" name="curveEnd3">
-            <option value="">SN</option>
-            <option *ngFor="let curveEnd3 of vertebralColumns" [ngValue]="curveEnd3">{{curveEnd3}}</option>
-          </select>
-        </div>
-        <div class="col-8 col-sm-4 col-md-3">
-          <select class="form-control" id="direction3" name="direction3" formControlName="direction3">
-            <option value="">Direction</option>
-            <option *ngFor="let direction3 of directionOptions" [ngValue]="direction3">{{direction3}}</option>
-          </select>
-        </div>
-      </div>
-    </form>
-  </div><!-- modal body -->
-
-  <div class="modal-footer text-center">
-    <div class="col-md justify-content-center">
-      <button type="button" class="btn {{spineDiagForm.valid ? 'btn-primary' : 'btn-secondary'}}"
-        [disabled]="spineDiagForm.invalid" (click)="submitSpineDiag()">
-        Submit
-      </button>
-      <button type="submit" class="btn btn-primary" (click)="c('Close click')">Cancel</button>
-    </div>
-  </div><!-- modal footer -->
- </ng-template><!-- addNewSpineDiagModal -->
-
-
-
-<ng-template #addNewBodyMeasurementModal let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title">Add New Body Measurement</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div><!-- modal header -->
-
-  <div class="modal-body">
-    <form  novalidate [formGroup]="bodyMeasureForm" (ngSubmit)="submitBodyMeasurement()">
-      <div class="form-group row">
-        <label for="height" class="col-12 col-sm-3 col-form-label">Height</label>
-        <div class="col-12 col-sm-9">
-          <input type="text" class="form-control {{(formErrors.height) ? 'is-invalid' : ''}}" id="height" name="height"
-            placeholder="cm" formControlName="height" pattern="[0-9]*">
-          <div class="invalid-feedback">{{formErrors.height}}</div>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="weight" class="col-12 col-sm-3 col-form-label">Weight</label>
-        <div class="col-12 col-sm-9">
-          <input type="text" class="form-control {{(formErrors.weight) ? 'is-invalid' : ''}}" id="weight" name="weight"
-            placeholder="kg" formControlName="weight" pattern="[0-9]*">
-            <div class="invalid-feedback">{{formErrors.weight}}</div>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label for="shoulder" class="col-12 col-sm-3 col-form-label">Shoulder</label>
-        <div class="col-12 col-sm-9">
-          <input type="text" class="form-control {{(formErrors.shoulder) ? 'is-invalid' : ''}}" id="shoulder" name="shoulder"
-            placeholder="cm" formControlName="shoulder" pattern="[0-9]*">
-          <div class="invalid-feedback">{{formErrors.shoulder}}</div>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label for="bust" class="col-12 col-sm-3 col-form-label">Bust</label>
-        <div class="col-12 col-sm-9">
-          <input type="text" class="form-control {{(formErrors.bust) ? 'is-invalid' : ''}}" id="bust" name="bust"
-            placeholder="cm" formControlName="bust" pattern="[0-9]*">
-          <div class="invalid-feedback">{{formErrors.bust}}</div>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label for="waist" class="col-12 col-sm-3 col-form-label">Waist</label>
-        <div class="col-12 col-sm-9">
-          <input type="text" class="form-control {{(formErrors.waist) ? 'is-invalid' : ''}}" id="waist" name="waist"
-            placeholder="cm" formControlName="waist" pattern="[0-9]*">
-          <div class="invalid-feedback">{{formErrors.waist}}</div>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label for="hip" class="col-12 col-sm-3 col-form-label">Hip</label>
-        <div class="col-12 col-sm-9">
-          <input type="text" class="form-control {{(formErrors.hip) ? 'is-invalid' : ''}}" id="hip" name="hip" 
-            placeholder="cm" formControlName="hip" pattern="[0-9]*">
-          <div class="invalid-feedback">{{formErrors.hip}}</div>
-        </div>
-      </div>
-<!--
-      <div class="form-group row">
-        <label for="lumber" class="col-12 col-sm-3 col-form-label">Lumber</label>
-        <div class="col-12 col-sm-9">
-          <input type="text" class="form-control {{(formErrors.lumber) ? 'is-invalid' : ''}}" id="lumber" name="lumber"
-            placeholder="cm" formControlName="lumber" pattern="[0-9]*">
-          <div class="invalid-feedback">{{formErrors.lumber}}</div>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label for="lumberHeight" class="col-12 col-sm-3 col-form-label">Lumber height</label>
-        <div class="col-12 col-sm-9">
-          <input type="text" class="form-control {{(formErrors.lumberHeight) ? 'is-invalid' : ''}}" id="lumberHeight" name="lumberHeight"
-            placeholder="cm" formControlName="lumberHeight" pattern="[0-9]*">
-          <div class="invalid-feedback">{{formErrors.lumberHeight}}</div>
-        </div>
-      </div>
--->
-    </form>
-  </div><!-- modal body -->
-
-  <div class="modal-footer text-center">
-    <div class="col-md justify-content-center">
-      <button type="button" class="btn {{bodyMeasureForm.valid ? 'btn-primary' : 'btn-secondary'}}"
-        [disabled]="bodyMeasureForm.invalid" (click)="submitBodyMeasurement()">
-        Submit
-      </button>
-      <button type="submit" class="btn btn-primary" (click)="c('Close click')">Cancel</button>
-    </div>
-  </div><!-- modal footer -->
- </ng-template><!-- addNewSpineDiagModal -->
+<app-add-diagnosis-modal [patient]="patient"
+                         (updatedPatient)="updatePatient($event)">
+</app-add-diagnosis-modal>

@@ -1,0 +1,32 @@
+<ng-template #diagnosisModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Add New Diagnosis</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div><!-- modal header -->
+
+  <div class="modal-body">
+    <form novalidate [formGroup]="diagnosisForm">
+      <div class="form-group row">
+        <label for="comment" class="col-12 col-form-label">Diagnosis</label>
+      </div>
+      <div class="form-group row">
+        <div class="col-12">
+          <textarea class="form-control" rows="10" id="comment" formControlName="comment" name="comment"></textarea>
+          <div class="invalid-feedback">{{diagnosisFormErrors.height}}</div>
+        </div>
+      </div>
+    </form>
+  </div><!-- modal body -->
+
+  <div class="modal-footer text-center">
+    <div class="col-md justify-content-center">
+      <button type="button" class="btn {{diagnosisForm.valid ? 'btn-primary' : 'btn-secondary'}}"
+        [disabled]="diagnosisFormErrors.invalid" (click)="submitDiagnosis()">
+        Submit
+      </button>
+      <button type="submit" class="btn btn-primary" (click)="c('Close click')">Cancel</button>
+    </div>
+  </div><!-- modal footer -->
+</ng-template>

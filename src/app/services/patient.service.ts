@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
-import { BodyMeasurement, SpineInfo, XRayFile, Patient } from '../shared/patient';
+import { BodyMeasurement, SpineInfo, Comment, XRayFile, Patient } from '../shared/patient';
 import { PATIENTS } from '../shared/patients';
 
 import { baseURL } from '../shared/baseurl';
@@ -23,7 +23,6 @@ export class PatientService {
       .pipe(
         catchError(this.processHTTPMsgService.handleError)
       );
-    // .catch(error => { console.log('error: '); console.log(error); return this.processHTTPMsgService.handleError(error); });
   }
 
   getPatientsBetween(startDate: String, endDate: String): Observable<Patient[]> {
@@ -32,8 +31,6 @@ export class PatientService {
       .pipe(
         catchError(this.processHTTPMsgService.handleError)
       );
-
-    // .catch(error => { console.log('error: '); console.log(error); return this.processHTTPMsgService.handleError(error); });
   }
 
   getPatient(id: string): Observable<Patient> {
@@ -42,7 +39,6 @@ export class PatientService {
       .pipe(
         catchError(this.processHTTPMsgService.handleError)
       );
-                    // .catch(error => { return this.processHTTPMsgService.handleError(error); });
   }
 
   postPatient(patient: Patient): Observable<Patient> {
@@ -51,7 +47,6 @@ export class PatientService {
       .pipe(
         catchError(this.processHTTPMsgService.handleError)
       );
-      // .catch(error => { return this.processHTTPMsgService.handleError(error); }); 
   }
 
   getPatientForAdmin(): Observable<Patient[]> {
@@ -60,7 +55,6 @@ export class PatientService {
       .pipe(
         catchError(this.processHTTPMsgService.handleError)
       );
-    // .catch(error => { console.log('error: '); console.log(error); return this.processHTTPMsgService.handleError(error); });
   }
 
   getPatientsBetweenForAdmin(startDate: String, endDate: String): Observable<Patient[]> {
@@ -70,7 +64,6 @@ export class PatientService {
       .pipe(
         catchError(this.processHTTPMsgService.handleError)
       );
-    // .catch(error => { console.log('error: '); console.log(error); return this.processHTTPMsgService.handleError(error); });
   }
 
   postSpineDiag(patientId: string, spineInfo: SpineInfo): Observable<Patient> {
@@ -79,7 +72,6 @@ export class PatientService {
       .pipe(
         catchError(this.processHTTPMsgService.handleError)
       );
-      // .catch(error => { return this.processHTTPMsgService.handleError(error); }); 
   }
 
   postBodyMeasurement(patientId: string, bdInfo: BodyMeasurement): Observable<Patient> {
@@ -88,8 +80,16 @@ export class PatientService {
       .pipe(
         catchError(this.processHTTPMsgService.handleError)
       );
-      // .catch(error => { return this.processHTTPMsgService.handleError(error); }); 
   }
+
+  postComment(patientId: string, comment: Comment): Observable<Patient> {
+    //console.log(patient);
+    return this.http.post<Patient>(baseURL + 'patients/' + patientId + '/comments', comment)
+      .pipe(
+        catchError(this.processHTTPMsgService.handleError)
+      );
+  }
+  
 
   getHashKey(): Observable<any> {
     console.log(baseURL);
@@ -97,7 +97,6 @@ export class PatientService {
       .pipe(
         catchError(this.processHTTPMsgService.handleError)
       );
-    // .catch(error => { console.log('error: '); console.log(error); return this.processHTTPMsgService.handleError(error); });
   }
 
 }
