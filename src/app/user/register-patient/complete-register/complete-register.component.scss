@@ -1,0 +1,112 @@
+.row{
+    .col-12{
+        padding: 0px;
+    }
+    &:nth-child(1){
+        padding-top:40px;
+        padding-bottom: 45px;
+
+        .col-12{
+            display: flex;
+            padding-top: 20px;
+
+            i{
+                color: #bcbcbc;
+            }
+            span{
+                font-size: 20px;
+                color: #bcbcbc;
+            }
+
+            i{
+                margin:0px 25px;
+                font-size: 18px;
+            }
+            
+            div:nth-child(n){
+                span{
+                    color: #000000;
+                }
+                i{
+                    color: #000000;
+                }
+            }
+            
+            div:nth-child(5){
+                span{
+                    color: #0275d8;
+                }
+                i{
+                    color: #0275d8;
+                }
+            }
+        }
+    }
+}
+
+
+form{
+    .form-group.row{
+        padding: 0px;
+        .col-3:first-child{
+            padding-left: 0px;
+        }    
+        .col-2:first-child{
+            padding-left: 0px;
+        }
+        .col-2:last-child{
+            padding-right: 0px;
+        }
+    }
+
+}
+.vntc-register-form{
+    .row{
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+    .form-group.row{
+        padding: 0px;
+
+        &:nth-child(n){
+            .col-4{
+                &:first-child{
+                    padding-left: 0px;
+                }
+                &::last-child{
+                    padding-right:0px;
+                }    
+            }
+
+        }
+    }
+    .row{
+        .col-3{
+            padding-left: 0px;
+        }
+    }
+    .col-2{
+        &:first-child{
+            padding-left: 0px;
+        }
+        &:last-child{
+            padding-right: 0px;
+        }
+    }
+}
+
+.form-group.row:nth-child(10){
+    button{
+        text-transform: uppercase;
+    }
+    margin-bottom: 40px;
+    
+    .col-3{
+        &:first-child{
+            padding-left: 0px;
+        }
+        &:last-child{
+            padding-right: 0px;
+        }
+    }
+}

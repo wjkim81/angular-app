@@ -11,14 +11,14 @@
     </div>
     <div class="col-12 col-sm-6 align-self-end">
       <div class="d-flex justify-content-end">
-        <span>Date of visit: </span>
+        <span>Date of visit</span>
         <span>{{ today | date }}</span>
       </div>
     </div>
   </div>
 
-  <app-patient-info [hidden]="page != 1"></app-patient-info>
-  <app-spine-prescription [hidden]="page != 2"></app-spine-prescription>
+  <!-- <app-patient-info [hidden]="page != 1"></app-patient-info> -->
+  <app-spine-prescription [hidden]="page != 1"></app-spine-prescription>
   <app-comment [hidden]="page != 3"></app-comment>
   <app-body-measurement [hidden]="page != 4"></app-body-measurement>
   <app-complete-register [hidden]="page != 5"
