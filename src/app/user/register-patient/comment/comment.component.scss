@@ -1,0 +1,97 @@
+@import '../register-patient.component.scss';
+.row{
+    &:nth-child(1){
+        padding-top:40px;
+        padding-bottom: 45px;
+
+        .col-12{
+            display: flex;
+            padding-top: 20px;
+            padding: 0px;
+
+            i{
+                color: #bcbcbc;
+            }
+            span{
+                font-size: 20px;
+                color: #bcbcbc;
+            }
+
+            i{
+                margin:0px 25px;
+                font-size: 18px;
+            }
+            
+            div:nth-child(1), div:nth-child(2){
+                span{
+                    color: #000000;
+                }
+                i{
+                    color: #000000;
+                }
+            }
+            
+            div:nth-child(3){
+                span{
+                    color: #51a4eb;
+                }
+                i{
+                    color: #51a4eb;
+                }
+            }
+        }
+    }
+
+    &:nth-child(2){
+        .col-12{
+            display: flex;
+            h3{
+                font-size: 20px;
+                margin-bottom: 0px;
+            }
+
+            span{
+                font-size: 14px;
+                color: #999999;
+                align-self: center;
+                margin: 0px 10px;
+            }
+        }
+    }
+
+    &:nth-child(3){
+        label{
+            margin-top: 40px;
+            margin-bottom: 11px;
+        }
+    }
+
+    .col-12{
+        padding:0px;
+    }
+
+    &:nth-child(4){
+        margin-top: 24px;
+        margin-bottom: 40px;
+
+        .col-3{
+            button{
+                text-transform: uppercase;
+            }    
+        }
+        .col-3:nth-child(1){
+            padding-left: 0px;
+        }
+        .col-3:nth-child(4){
+            padding-right: 0px;
+        }
+    }
+}
+
+.btn-primary{
+    @extend .vntc-button-fill;
+}
+ 
+.btn-outline-primary{
+    @extend .vntc-button-outline;
+}

@@ -3,11 +3,17 @@
   bottom:0;
   width:100%;
   clear: both;
-  padding: 10px 0;
-  background-color: #363636;
+  height: 32px;
+  background-color: #9b9b9b;
 }
 
 .copyright {
   color: #fff;
   text-align: center; 
+  height: 32px;
+
+  p{
+    font-size: 12px;
+    margin-bottom: 0px;
+  }
 }  

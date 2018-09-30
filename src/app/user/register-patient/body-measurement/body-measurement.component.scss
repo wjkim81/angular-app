@@ -1,0 +1,96 @@
+@import '../register-patient.component.scss';
+.row{
+    &:nth-child(1){
+        padding-top:40px;
+        padding-bottom: 45px;
+
+        .col-12{
+            display: flex;
+            padding-top: 20px;
+            padding: 0px;
+
+            i{
+                color: #bcbcbc;
+            }
+            span{
+                font-size: 20px;
+                color: #bcbcbc;
+            }
+
+            i{
+                margin:0px 25px;
+                font-size: 18px;
+            }
+            div:nth-child(1), div:nth-child(2), div:nth-child(3){
+                span{
+                    color: #000000;
+                }
+                i{
+                    color: #000000;
+                }
+            }
+
+            div:nth-child(4){
+                span{
+                    color: #51a4eb;
+                }
+                i{
+                    color: #51a4eb;
+                }
+            }
+        }
+    }
+
+    &:nth-child(2){
+        .col-12{
+            display: flex;
+            padding: 0px;
+            h3{
+                font-size: 20px;
+                margin-bottom: 0px;
+            }
+
+            span{
+                font-size: 14px;
+                color: #999999;
+                align-self: center;
+                margin: 0px 10px;
+            }
+        }
+    }
+    &:nth-child(4){
+        width: 1140px;
+        position: absolute;
+        bottom: 32px;
+        padding-bottom: 40px;
+        .col-3{
+            align-self: flex-end;
+
+            button{
+                text-transform: uppercase;
+            }
+        }
+        .col-3:first-child{padding-left: 0px;}
+        .col-3:last-child{padding-right: 0px;}
+    }
+}
+
+form{
+    .form-group:nth-child(1){
+        padding-bottom: 0px;
+        .col-2:first-child{padding-left: 0px;}
+        .col-2:last-child{padding-right: 0px;}
+    }
+    .form-group:nth-child(2){
+        .col-2:first-child{padding-left: 0px;}
+        .col-2:last-child{padding-right: 0px;}
+    }
+}
+
+.btn-primary{
+    @extend .vntc-button-fill;
+}
+ 
+.btn-outline-primary{
+    @extend .vntc-button-outline;
+}

@@ -30,7 +30,7 @@ import { ProcessHTTPMsgService } from '../services/process-httpmsg.service';
 import { OrganizationService } from '../services/organization.service';
 import { MemberService } from '../services/member.service';
 import { PatientService } from '../services/patient.service';
-import { AdminTestComponent } from './admin-test/admin-test.component';
+// import { AdminTestComponent } from './admin-test/admin-test.component';
 
 @NgModule({
   imports: [
@@ -52,7 +52,7 @@ import { AdminTestComponent } from './admin-test/admin-test.component';
     ListMembersComponent,
     PatientdetailComponent,
     MemberdetailComponent,
-    AdminTestComponent
+    // AdminTestComponent
   ],
   providers: [
     HttpClientModule,

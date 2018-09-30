@@ -26,6 +26,8 @@ export class PatientInfoComponent implements OnInit, OnDestroy {
   member: Member;
 
   patientInfoForm: FormGroup;
+  
+  patientErrMsg: boolean;
 
   patientInfoFormErrors = {
     // 'firstname': '',
@@ -60,12 +62,12 @@ export class PatientInfoComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.sexOptions = SEXES;
 
+    this.patientErrMsg = false;
     this.patientService.getHashKey()
     .subscribe((msg) => {
       console.log(msg);
       this.hashKey = msg.hashKey;
       console.log(`hashKey: ${this.hashKey}`);
-      
     });
 
     this.memberService.getMemberInfo()
@@ -134,8 +136,13 @@ export class PatientInfoComponent implements OnInit, OnDestroy {
       patientInfo.hashKey = this.hashKey;
       patientInfo.valid = true;
       this.registerPatientService.setPatientInfo(patientInfo);
-    } else {
 
+      this.patientErrMsg = false;
+      
+    } else {
+      setTimeout(() =>{
+        this.patientErrMsg = true;
+      }, 2000)
     }
   }
 

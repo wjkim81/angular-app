@@ -1,10 +1,28 @@
 <div class="row">
   <div class="col-12">
-    <span> 1. Patient Information  >  </span>
-    <span> 2. Spine Prescription  >  </span>
-    <span> 3. Comment  >  </span>
-    <span> 4. Body Measurement  >  </span>
-    <span> 5. Complete Register</span>
+    <div>
+      <span>1. Patient Information</span>
+      <i class="fa fa-chevron-right"></i>
+    </div>
+
+    <div>
+      <span>2. Spine Prescription</span>
+      <i class="fa fa-chevron-right"></i>
+    </div>
+
+    <div>
+      <span>3. Comment</span>
+      <i class="fa fa-chevron-right"></i>
+    </div>
+
+    <div>
+      <span>4. Body Measurement</span>
+      <i class="fa fa-chevron-right"></i>
+    </div>
+
+    <div>
+      <span>5. Complete Register</span>
+    </div>
   </div>
 </div>
 <div class="row">
@@ -13,16 +31,16 @@
   </div>
 </div>
 
-<div *ngIf="patientInfoForm">
+<!-- <div *ngIf="patientInfoForm">
   <p>patientInfoForm.value: {{patientInfoForm.value | json}}</p>
   <p>patientInfoFormErrors: {{patientInfoFormErrors | json}}</p>
   <p>patientInfoForm.valid: {{patientInfoForm.valid}}</p>
-</div>
+</div> -->
 
 <form novalidate [formGroup]="patientInfoForm" *ngIf="patientInfoForm">
-  <div class="form-grouprow">
+  <div class="form-group row">
     <div class="col-3">
-      <label class="col-form-label" for="organization">Organization</label>
+      <label class="col-form-label" for="organization">Organizations</label>
     </div>
   </div>
   <div class="form-group row">
@@ -69,9 +87,14 @@
 </form>
 
 <div class="row">
-  <div class="offset-9 col-3">
+  <div class="offset-9 col-3 align-self-end">
     <button type="submit" class="btn btn-primary btn-block" id="next" (click)="goNext()">
       Next
     </button>
   </div>
+</div>
+
+<div *ngIf="patientErrMsg" class="vntc-error-notice">
+  <h4>Error</h4>
+  <p>Form was missing.</p>
 </div>
