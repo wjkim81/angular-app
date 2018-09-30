@@ -4,10 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Params, Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { SUBJECTS, TYPES, COUNTRIES } from '../../shared/member-options';
-import { Member } from '../../shared/member';
-
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-cobb-angle',

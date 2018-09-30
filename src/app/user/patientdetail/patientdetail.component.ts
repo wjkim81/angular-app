@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 import { Params, ActivatedRoute } from '@angular/router';
 
-import { Patient } from '../../shared/patient';
+import { Patient } from '../../shared/models/patient';
 
-import { PatientService } from '../../services/patient.service';
+import { PatientService } from '../../shared/services/patient.service';
 import { ControlModalService } from './service/control-modal.service';
 
 @Component({

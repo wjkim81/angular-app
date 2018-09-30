@@ -59,11 +59,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let member of membersInTable; let i = index">
+            <tr *ngFor="let member of membersInTable" [routerLink]="['/admin/members', member._id]" appHighlight>
               <!-- <td><input type="checkbox" [value]="member._id"
               (change)="changeCheckedMembers(i)"
               [checked]="checkedMembers[i]"></td> -->
-              <td appHighlight><a [routerLink]="['/admin/members', member._id]">{{member.username}}</a></td>
+              <td>{{member.username}}</td>
               <td>{{member.firstname}}</td>
               <td>{{member.lastname}}</td>
               <td>{{member.organization.country}}</td>

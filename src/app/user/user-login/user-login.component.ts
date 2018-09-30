@@ -1,11 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 import { Params, Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-user-login',

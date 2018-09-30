@@ -3,9 +3,9 @@ import { Component, OnInit, EventEmitter, Input, Output, TemplateRef, ViewChild 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
-import { Patient } from '../../../shared/patient';
+import { Patient } from '../../../shared/models/patient';
 
-import { PatientService } from '../../../services/patient.service';
+import { PatientService } from '../../../shared/services/patient.service';
 import { ControlModalService } from '../service/control-modal.service';
 
 @Component({

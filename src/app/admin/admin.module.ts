@@ -15,7 +15,7 @@ import { AdminRoutingModule } from './admin-routing/admin-routing.module';
  * Import shared module
  */
 
-import { SharedModule } from '../shared-module/shared-module.module';
+import { SharedModule } from '../shared/shared-module.module';
 
 import { AdminComponent } from './admin.component';
 import { AdminNavbarComponent } from './admin-navbar/admin-navbar.component';
@@ -29,14 +29,14 @@ import { MemberdetailComponent } from './memberdetail/memberdetail.component';
 import { RegisterOrganizationComponent } from './register-organization/register-organization.component';
 import { RegisterMemberComponent } from './register-member/register-member.component';
 
-import { baseURL } from '../shared/baseurl';
-import { ProcessHTTPMsgService } from '../services/process-httpmsg.service';
+import { baseURL } from '../shared/models/baseurl';
+// import { ProcessHTTPMsgService } from '../shared/services/process-httpmsg.service';
 
 /**
  * Import services here
  */
-import { OrganizationService } from '../services/organization.service';
-import { MemberService } from '../services/member.service';
+import { OrganizationService } from '../shared/services/organization.service';
+import { MemberService } from '../shared/services/member.service';
 // import { PatientService } from '../services/patient.service';
 
 /** 
@@ -73,7 +73,7 @@ import { AdminTestComponent } from './admin-test/admin-test.component';
   providers: [
     HttpClientModule,
     { provide: 'BaseURL', useValue: baseURL },
-    ProcessHTTPMsgService,
+    // ProcessHTTPMsgService,
     OrganizationService,
     MemberService,
     // PatientService

@@ -6,14 +6,11 @@ import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-boo
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { BodyMeasurement, SpineInfo, XRayFile, Patient } from '../../shared/patient';
-import { PATIENTS } from '../../shared/patients';
+import { Patient } from '../../shared/models/patient';
 
-import { SEXES, PATIENT_TYPES, RISSERS, VERTEBRAL_COLUMNS, DIRECTIONS} from '../../shared/patient-options';
-import { Member } from '../../shared/member';
+import { SEXES, PATIENT_TYPES, RISSERS, VERTEBRAL_COLUMNS, DIRECTIONS} from '../../shared/models/patient-options';
 
-
-import { PatientService } from '../../services/patient.service';
+import { PatientService } from '../../shared/services/patient.service';
 
 import 'rxjs/add/operator/switchMap';
 
@@ -24,7 +21,6 @@ import 'rxjs/add/operator/switchMap';
 })
 export class PatientdetailComponent implements OnInit {
 
-  patients: Patient[];
   patient: Patient;
 
   errMess: string;
@@ -126,7 +122,6 @@ export class PatientdetailComponent implements OnInit {
 
   ngOnInit() {
     //console.log('patientdetail.component');
-    this.patients = PATIENTS;
 
     this.sexOptions = SEXES;
     this.patientTypeOptions = PATIENT_TYPES;

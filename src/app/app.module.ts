@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 
 //import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+// import { ReactiveFormsModule } from '@angular/forms';
 
 import 'hammerjs';
 
@@ -18,7 +18,7 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
 import { AppComponent } from './app.component';
 
 import { CoreModule } from './core-module/core-module.module';
-import { SharedModule } from './shared-module/shared-module.module';
+import { SharedModule } from './shared/shared-module.module';
 import { AdminModule } from './admin/admin.module';
 import { UserModule } from './user/user.module';
 
@@ -26,20 +26,17 @@ import { UserModule } from './user/user.module';
 // import { AuthInterceptor, UnauthorizedInterceptor } from './services/auth.interceptor';
 // import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { ModuleComponent } from './module/module.component';
 import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ModuleComponent,
     LoginComponent,
   ],
   imports: [
     BrowserModule,
-
     //FormsModule,
-    ReactiveFormsModule,
+    // ReactiveFormsModule,
     UserModule,
     AdminModule,
     CoreModule.forRoot(),
@@ -49,19 +46,6 @@ import { LoginComponent } from './login/login.component';
     AppRoutingModule
   ],
   providers: [
-    /*
-    AuthService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: UnauthorizedInterceptor,
-      multi: true
-    }
-    */
   ],
   bootstrap: [AppComponent]
 })

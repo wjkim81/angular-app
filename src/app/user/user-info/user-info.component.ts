@@ -1,19 +1,19 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Params, Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { SUBJECTS, TYPES, COUNTRIES } from '../../shared/member-options';
-import { Member } from '../../shared/member';
+import { SUBJECTS, TYPES, COUNTRIES } from '../../shared/models/member-options';
+import { Member } from '../../shared/models/member';
 
-import { MemberService } from '../../services/member.service';
-import { AuthService } from '../../services/auth.service';
+import { MemberService } from '../../shared/services/member.service';
+import { AuthService } from '../../shared/services/auth.service';
 
-import { PasswordValidation } from '../../services/password-validation';
+import { PasswordValidation } from '../../shared/services/password-validation';
 
 @Component({
   selector: 'app-user-info',

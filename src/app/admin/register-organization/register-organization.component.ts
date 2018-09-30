@@ -5,10 +5,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { SUBJECTS, TYPES, COUNTRIES } from '../../shared/member-options';
-import { Organization } from '../../shared/organization';
+import { SUBJECTS, TYPES, COUNTRIES } from '../../shared/models/member-options';
+import { Organization } from '../../shared/models/organization';
 
-import { OrganizationService } from '../../services/organization.service';
+import { OrganizationService } from '../../shared/services/organization.service';
 
 @Component({
   selector: 'app-register-organization',

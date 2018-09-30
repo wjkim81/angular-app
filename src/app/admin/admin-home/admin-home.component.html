@@ -107,7 +107,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let patient of patientsInTable; let i = index" [routerLink]="['/admin/patients', patient._id]" appHighlight>
+            <tr *ngFor="let patient of patientsInTable" [routerLink]="['/admin/patients', patient._id]" appHighlight>
               <td>{{patient.hashKey}}</td>
               <td>{{patient.firstname}} {{patient.lastname}}</td>
               <td>{{patient.birthday | date}}</td>

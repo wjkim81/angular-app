@@ -179,7 +179,7 @@
 
 
   <div class="row">
-    <div class="col-12 col-sm-6">
+    <div class="col-12 col-sm-12">
       <div class="row">
         <div class="col-12">
           <h3>X-ray images</h3>
@@ -189,11 +189,13 @@
             <thead>
               <th>Updated By</th>
               <th>Day</th>
+              <th>Description</th>
             </thead>
             <tbody>
               <tr *ngFor="let xr of patient.xRayFiles">
                 <td>{{xr.updatedBy.firstname}} {{xr.updatedBy.lastname}}</td>
                 <td>{{xr.createdAt | date}}</td>
+                <td>{{xr.description}}</td>
               </tr>
             </tbody>
             
@@ -207,36 +209,6 @@
         </div>
       </div>
     </div><!--X-ray image table -->
-    
-    <div class="col-12 col-sm-6">
-      <div class="row">
-        <div class="col-12">
-          <h3>3D images</h3>
-        </div>
-        <div class="col-12 table-responsive">
-          <table class="table table-stripped table-font">
-            <thead>
-              <th>Updated By</th>
-              <th>Day</th>
-            </thead>
-            <tbody>
-              <tr *ngFor="let three of patient.threeDFiles">
-                <td><input type="checkbox" name="checkXray" id="checkXray"></td>
-                <td>{{three.updatedBy.firstname}} {{three.updatedBy.lastname}}</td>
-                <td>{{three.createdAt | date}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="3dScanFile" class="col-12 col-sm-4 col-form-label">Add New 3D File</label>
-        <div class="col-12 col-sm-8">
-          <input type="file" class="form-control-file" id="3dScanFile">
-        </div>
-      </div>
-    </div>
-  </div><!--3D image table -->
 </div><!-- container -->
 <!--
 <div [hidden]="patient || patientErrMess">

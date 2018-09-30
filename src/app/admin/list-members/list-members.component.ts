@@ -2,8 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { Member } from '../../shared/member';
-import { MemberService } from '../../services/member.service';
+import { Member } from '../../shared/models/member';
+import { MemberService } from '../../shared/services/member.service';
 
 @Component({
   selector: 'app-list-members',

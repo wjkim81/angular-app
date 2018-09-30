@@ -4,10 +4,10 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { CURVE_TYPES, LUMBAR_SPINE_TYPES, SAGITTAL_ALIGNMENT_TYPES, RISSERS_OPTIONS, VERTEBRAL_COLUMNS, DIRECTIONS} from '../../../shared/patient-options';
-import { Patient } from '../../../shared/patient';
+import { CURVE_TYPES, LUMBAR_SPINE_TYPES, SAGITTAL_ALIGNMENT_TYPES, RISSERS_OPTIONS, VERTEBRAL_COLUMNS, DIRECTIONS} from '../../../shared/models/patient-options';
+import { Patient } from '../../../shared/models/patient';
 
-import { PatientService } from '../../../services/patient.service';
+import { PatientService } from '../../../shared/services/patient.service';
 import { ControlModalService } from '../service/control-modal.service';
 
 @Component({

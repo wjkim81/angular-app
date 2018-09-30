@@ -20,7 +20,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
  * Import shared module
  */
 
-import { SharedModule } from '../shared-module/shared-module.module';
+import { SharedModule } from '../shared/shared-module.module';
 
 /**
  * UserNavbarComponent and FooterComponent are header and footer in all user pages.
@@ -73,14 +73,14 @@ import { UserInfoComponent } from './user-info/user-info.component';
 import { UserLoginComponent } from './user-login/user-login.component';
 
 
-import { baseURL } from '../shared/baseurl';
+import { baseURL } from '../shared/models/baseurl';
 
 /**
  * Import services here
  */
 //import { AuthService } from '../services/auth.service';
 //import { AuthInterceptor, UnauthorizedInterceptor } from '../services/auth.interceptor';
-// import { ProcessHTTPMsgService } from '../services/process-httpmsg.service';
+// import { ProcessHTTPMsgService } from '../services/sharedprocess-httpmsg.service';
 // import { PatientService } from '../services/patient.service';
 
 /** 

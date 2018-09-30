@@ -3,11 +3,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { PatientInfoForm, SpinePrescriptionForm, DiagnosisForm, BodyMeasurementForm } from '../../../shared/register-form-interfaces';
-import { Patient } from '../../../shared/patient';
+import { PatientInfoForm, SpinePrescriptionForm, DiagnosisForm, BodyMeasurementForm } from '../../../shared/models/register-form-interfaces';
+import { Patient } from '../../../shared/models/patient';
 
 import { RegisterPatientService } from '../service/register-patient.service';
-import { PatientService } from '../../../services/patient.service';
+import { PatientService } from '../../../shared/services/patient.service';
 
 @Component({
   selector: 'app-complete-register',

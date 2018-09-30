@@ -5,15 +5,15 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { Patient } from '../../shared/patient';
+import { Patient } from '../../shared/models/patient';
 
-import { PatientService } from '../../services/patient.service';
+import { PatientService } from '../../shared/services/patient.service';
 
-import { AuthService } from '../../services/auth.service';
-import { JWTResponse } from '../../shared/response';
+import { AuthService } from '../../shared/services/auth.service';
+import { JWTResponse } from '../../shared/models/response';
 
-import { SUBJECTS, TYPES, COUNTRIES } from '../../shared/member-options';
-import { SEXES, PATIENT_TYPES, RISSERS } from '../../shared/patient-options';
+import { SUBJECTS, TYPES, COUNTRIES } from '../../shared/models/member-options';
+import { SEXES, PATIENT_TYPES, RISSERS } from '../../shared/models/patient-options';
 
 @Component({
   selector: 'app-user-home',
