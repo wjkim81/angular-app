@@ -1,3 +1,4 @@
+@import '../register-patient.component.scss';
 .row{
     .col-12{
         padding: 0px;
@@ -34,16 +35,15 @@
             
             div:nth-child(5){
                 span{
-                    color: #0275d8;
+                    color: #51a4eb;
                 }
                 i{
-                    color: #0275d8;
+                    color: #51a4eb;
                 }
             }
         }
     }
 }
-
 
 form{
     .form-group.row{
@@ -58,8 +58,8 @@ form{
             padding-right: 0px;
         }
     }
-
 }
+
 .vntc-register-form{
     .row{
         padding-top: 0px;
@@ -95,12 +95,13 @@ form{
     }
 }
 
-.form-group.row:nth-child(10){
+.form-group.row:nth-child(2n+8){
+    margin-top: 24px;
+    margin-bottom: 40px;
+
     button{
         text-transform: uppercase;
-    }
-    margin-bottom: 40px;
-    
+    }    
     .col-3{
         &:first-child{
             padding-left: 0px;
@@ -109,4 +110,13 @@ form{
             padding-right: 0px;
         }
     }
+}
+
+p {margin-left: -15px;}
+.btn-primary{
+    @extend .vntc-button-fill;
+}
+ 
+.btn-outline-primary{
+    @extend .vntc-button-outline;
 }

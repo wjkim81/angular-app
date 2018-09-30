@@ -1,3 +1,4 @@
+@import '../register-patient.component.scss';
 .row{
     &:nth-child(1){
         padding-top:40px;
@@ -31,15 +32,14 @@
 
             div:nth-child(4){
                 span{
-                    color: #0275d8;
+                    color: #51a4eb;
                 }
                 i{
-                    color: #0275d8;
+                    color: #51a4eb;
                 }
             }
         }
     }
-
 
     &:nth-child(2){
         .col-12{
@@ -85,4 +85,12 @@ form{
         .col-2:first-child{padding-left: 0px;}
         .col-2:last-child{padding-right: 0px;}
     }
+}
+
+.btn-primary{
+    @extend .vntc-button-fill;
+}
+ 
+.btn-outline-primary{
+    @extend .vntc-button-outline;
 }
