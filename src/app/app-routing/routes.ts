@@ -1,9 +1,15 @@
 import { Routes } from '@angular/router';
+
 import { LoginComponent } from '../login/login.component';
 
+import { UserModule } from '../user/user.module';
+import { AdminModule } from '../admin/admin.module';
 /**
  * https://stackoverflow.com/questions/47329429/using-angular-4-how-i-can-manage-admin-and-web-section-within-single-project
  * https://github.com/ariful19/angularRouting/blob/master/src/app/myrouting.module.ts
+ * 
+ * https://stackoverflow.com/questions/50243534/angular6-feature-module-lazy-loading-throwing-error-typeerror-undefined-is-not
+ * 
  */
 
 /**
@@ -18,15 +24,12 @@ export const routes: Routes = [
   },
   {
     path: '',
-    loadChildren: 'app/user/user.module#UserModule'
+    // loadChildren: 'app/user/user.module#UserModule'
+    loadChildren:() => UserModule
   },
   {
     path: 'admin',
-    loadChildren: 'app/admin/admin.module#AdminModule'
+    // loadChildren: 'app/admin/admin.module#AdminModule'
+    loadChildren:() => AdminModule
   },
-
-  //{path: 'admin', component: AdminHomeComponent},
-  //{path: 'list-hospitals', component: ListHoispitalsComponent},
-  //{path: 'register-hospital', component: RegisterHospitalComponent},
-  //{path: '', redirectTo: '/admin', pathMatch: 'full'}
 ]

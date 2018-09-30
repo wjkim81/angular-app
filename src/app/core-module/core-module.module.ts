@@ -3,8 +3,10 @@ import { CommonModule } from '@angular/common';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { AuthService } from '../services/auth.service';
-import { AuthInterceptor, UnauthorizedInterceptor } from '../services/auth.interceptor';
+import { PatientService } from '../shared/services/patient.service';
+import { AuthService } from '../shared/services/auth.service';
+import { AuthInterceptor, UnauthorizedInterceptor } from '../shared/services/auth.interceptor';
+import { ProcessHTTPMsgService } from '../shared/services/process-httpmsg.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
@@ -15,7 +17,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
   declarations: []
   ,
   providers: [
+    ProcessHTTPMsgService,
     AuthService,
+    PatientService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
@@ -43,7 +47,9 @@ export class CoreModule {
     return {
       ngModule: CoreModule,
       providers: [
+        ProcessHTTPMsgService,
         AuthService,
+        PatientService,
         {
           provide: HTTP_INTERCEPTORS,
           useClass: AuthInterceptor,

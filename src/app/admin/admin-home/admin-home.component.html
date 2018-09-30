@@ -11,10 +11,6 @@
               <th><input type="checkbox" name="orgsAll" id="orgsAll"
                 [value]="checkedOrgs.checkedAll"
                 (change)="checkAllOrgs()" checked></th>
-              
-              <!--
-              <th><input type="checkbox" name="orgsAll" id="orgsAll"></th>
-              -->
               <th>Name</th>
               <th>Country</th>
               <th>Type</th>
@@ -37,6 +33,10 @@
       </div>
     </div>
   </div>
+  <div *ngIf="orgsErrMsg">
+    <h4>Error</h4>
+    <p>{{orgsErrMsg}}</p>
+  </div>
   <div class="row">
     <div class="col-12 text-center">
       <button type="submit" class="btn btn-primary" id="filterOrganizations" (click)="filterOrganizations()">
@@ -45,12 +45,6 @@
     </div>
   </div>
 
-
-  <!--
-  <p>searchDateStart: {{searchDateStart | date:'yyyy-MM-dd'}}, searchDateEnd: {{searchDateEnd | date:'yyyy-MM-dd'}}</p>
-  <p>optionFilterForm.value: {{optionFilterForm.value | json}}</p>
-  <p>patientsInOrgs.length: {{patientsInOrgs}}</p>
-  -->
   <div class="row form-group orderOption">
     <div class="col-12 col-sm-12 col-md-12 col-lg-5">
       <div class="input-group">
@@ -86,10 +80,6 @@
             <option *ngFor="let risser of risserOptions" [ngValue]="risser">{{risser}}</option>
           </select>
 
-          <select class="form-control" formControlName="stage">
-            <option value="">All stages</option>
-            <option *ngFor="let stage of stageOptions" [ngValue]="stage">{{stage}}</option>
-          </select>
           <div class="input-group-append">
             <button class="btn btn-primary">Filter</button>
           </div>
@@ -104,57 +94,46 @@
         <table class="table table-stripped table-font">
           <thead class="thead-inverse">
             <tr>
-              <!--<th><input type="checkbox" name="checkPatient" id="checkPatient"></th>-->
-              <th>Organization</th>
+              <th>Patient ID</th>
               <th>Name</th>
               <th>Birthday</th>
               <th>Sex</th>
               <th>Type</th>
               <th>Risser</th>
-              <th>Stage</th>
               <th>Apex1</th>
               <th>Apex2</th>
               <th>Apex3</th>
-              <th>Last Update</th>
+              <th>Last Visit</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let patient of patientsInTable; let i = index; let even = even; let odd = odd"
-              [ngClass]="{ odd: odd, even: even }">
-              <!--<td><input type="checkbox" [value]="patient"></td>-->
-              <td>{{patient.organization.name}}</td>
-              <td><a [routerLink]="['/admin/patients', patient._id]" appHighlight>{{patient.firstname}} {{patient.lastname}}</a></td>
-              <!--<td>{{patient.firstname}} {{patient.lastname}}</td>-->
+            <tr *ngFor="let patient of patientsInTable" [routerLink]="['/admin/patients', patient._id]" appHighlight>
+              <td>{{patient.hashKey}}</td>
+              <td>{{patient.firstname}} {{patient.lastname}}</td>
               <td>{{patient.birthday | date}}</td>
               <td>{{patient.sex}}</td>
-              <td *ngIf="numSpineInfos[i] !== 0">{{patient.spineInfos[numSpineInfos[i]-1].type}}</td>
-              <td *ngIf="numSpineInfos[i] !== 0">{{patient.spineInfos[numSpineInfos[i]-1].risser}}</td>
-              <td *ngIf="numSpineInfos[i] !== 0">{{patient.spineInfos[numSpineInfos[i]-1].stage}}</td>
-              <td *ngIf="numSpineInfos[i] !== 0">{{patient.spineInfos[numSpineInfos[i]-1].curveStart1}}-{{patient.spineInfos[numSpineInfos[i]-1].cobbAng1}}-{{patient.spineInfos[numSpineInfos[i]-1].curveEnd1}} {{patient.spineInfos[numSpineInfos[i]-1].direction1}}</td>
-              <!--
-              <td *ngIf="patient.spineInfos[numSpineInfos[i]-1].curveStart2">{{patient.spineInfos[numSpineInfos[i]-1].curveStart2}}-{{patient.spineInfos[numSpineInfos[i]-1].cobbAng2}}-{{patient.spineInfos[numSpineInfos[i]-1].curveEnd2}} {{patient.spineInfos[numSpineInfos[i]-1].direction3}}</td>
-              <td *ngIf="patient.spineInfos[numSpineInfos[i]-1].curveStart3">{{patient.spineInfos[numSpineInfos[i]-1].curveStart3}}-{{patient.spineInfos[numSpineInfos[i]-1].cobbAng3}}-{{patient.spineInfos[numSpineInfos[i]-1].curveEnd3}} {{patient.spineInfos[numSpineInfos[i]-1].direction3}}</td>
-              -->
-              <td *ngIf="numSpineInfos[i] !== 0">{{patient.spineInfos[numSpineInfos[i]-1].curveStart2}}-{{patient.spineInfos[numSpineInfos[i]-1].cobbAng2}}-{{patient.spineInfos[numSpineInfos[i]-1].curveEnd2}} {{patient.spineInfos[numSpineInfos[i]-1].direction3}}</td>
-              <td *ngIf="numSpineInfos[i] !== 0">{{patient.spineInfos[numSpineInfos[i]-1].curveStart3}}-{{patient.spineInfos[numSpineInfos[i]-1].cobbAng3}}-{{patient.spineInfos[numSpineInfos[i]-1].curveEnd3}} {{patient.spineInfos[numSpineInfos[i]-1].direction3}}</td>
-              <td *ngIf="numSpineInfos[i] !== 0">{{patient.updatedAt | date}}</td>
+              <td>{{patient.type}}</td>
+              <td>{{patient.risser}}</td>
+              <td>{{patient.curve1}}</td>
+              <td>{{patient.curve2}}</td>
+              <td>{{patient.curve3}}</td>
+              <td>{{patient.updatedAt | date}}</td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
   </div>
+  <!-- This is loading animation part. Should be updated later!!!-->
+  <!-- <div [hidden]="pateints">
+    <md-spinner></md-spinner><h4>Loading . . . Please Wait</h4>
+  </div> -->
+  <div *ngIf="patientsErrMsg">
+    <h4>Error</h4>
+    <p>{{patientsErrMsg}}</p>
+  </div>
 
-  
   <div class="row after-table-margin">
-    <!--
-    <div class="col-12 col-sm-6 col-md-2">
-      <a role="button" class="btn btn-primary btn-block">EDIT</a>
-    </div>
-    <div class="col-12 col-sm-6 col-md-2">
-      <a role="button" class="btn btn-primary btn-block">REMOVE</a>
-    </div>
-    -->
     <div class="col-md">
     </div>
     

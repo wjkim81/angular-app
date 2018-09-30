@@ -5,16 +5,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { SUBJECTS, TYPES, COUNTRIES } from '../../shared/member-options';
+import { SUBJECTS, TYPES, COUNTRIES } from '../../shared/models/member-options';
 
 
-import { Member } from '../../shared/member';
-import { MemberService } from '../../services/member.service';
+import { Member } from '../../shared/models/member';
+import { MemberService } from '../../shared/services/member.service';
 
-import { Organization } from '../../shared/organization';
-import { OrganizationService } from '../../services/organization.service';
+import { Organization } from '../../shared/models/organization';
+import { OrganizationService } from '../../shared/services/organization.service';
 
-import { PasswordValidation } from '../../services/password-validation';
+import { PasswordValidation } from '../../shared/services/password-validation';
 
 @Component({
   selector: 'app-register-member',

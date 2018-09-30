@@ -2,14 +2,14 @@ import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Member } from '../../../shared/member';
+import { Member } from '../../../shared/models/member';
 
-import { SEXES } from '../../../shared/patient-options';
+import { SEXES } from '../../../shared/models/patient-options';
 
 // import { AuthService } from '../../../services/auth.service';
 import { RegisterPatientService } from '../service/register-patient.service';
-import { PatientService } from '../../../services/patient.service';
-import { MemberService } from '../../../services/member.service';
+import { PatientService } from '../../../shared/services/patient.service';
+import { MemberService } from '../../../shared/services/member.service';
 
 @Component({
   selector: 'app-patient-info',

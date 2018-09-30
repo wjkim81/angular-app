@@ -8,14 +8,20 @@ import { RegisterMemberComponent } from '../register-member/register-member.comp
 import { PatientdetailComponent } from '../patientdetail/patientdetail.component';
 import { MemberdetailComponent } from '../memberdetail/memberdetail.component';
 
+import { AdminTestComponent } from '../admin-test/admin-test.component';
+
 export const adminRoutes: Routes = [{
-  path: 'admin',
+  path: '',
   component: AdminComponent,
   children: [
     {
       path: 'admin/home',
       component: AdminHomeComponent
     },
+    // {
+    //   path: 'admin/test',
+    //   component: AdminHomeComponent
+    // },
     {
       path: 'admin/list-members',
       component: ListMembersComponent

@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 import { Params, ActivatedRoute } from '@angular/router';
 
-import { Member } from '../../shared/member';
+import { Member } from '../../shared/models/member';
 
-import { MemberService } from '../../services/member.service';
+import { MemberService } from '../../shared/services/member.service';
 
 import 'rxjs/add/operator/switchMap';
 

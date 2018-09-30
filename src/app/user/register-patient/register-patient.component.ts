@@ -1,12 +1,10 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
 
-// import { SUBJECTS, TYPES, COUNTRIES } from '../../shared/member-options';
-// import { SEXES, PATIENT_TYPES, RISSERS, STAGES, VERTEBRAL_COLUMNS, DIRECTIONS} from '../../shared/patient-options';
-import { Member } from '../../shared/member';
+import { Member } from '../../shared/models/member';
 // import { BodyMeasurement, SpineInfo, XRayFile, Patient } from '../../shared/patient';
-import { PatientInfoForm, SpinePrescriptionForm, DiagnosisForm, BodyMeasurementForm }  from '../../shared/register-form-interfaces';
+import { PatientInfoForm, SpinePrescriptionForm, DiagnosisForm, BodyMeasurementForm }  from '../../shared/models/register-form-interfaces';
 
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../shared/services/auth.service';
 
 
 import { RegisterPatientService } from './service/register-patient.service';

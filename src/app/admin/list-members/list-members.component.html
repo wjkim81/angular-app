@@ -42,9 +42,9 @@
         <table class="table table-stripped table-font">
           <thead class="thead-inverse">
             <tr>
-              <th><input type="checkbox" name="memberAll" id="memberAll"
+              <!-- <th><input type="checkbox" name="memberAll" id="memberAll"
                 [value]="checkedAll"
-                (change)="checkAllMember()"></th>
+                (change)="checkAllMember()"></th> -->
               <th>ID</th>
               <th>First Name</th>
               <th>Last Name</th>
@@ -59,11 +59,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let member of membersInTable; let i = index">
-              <td><input type="checkbox" [value]="member._id"
+            <tr *ngFor="let member of membersInTable" [routerLink]="['/admin/members', member._id]" appHighlight>
+              <!-- <td><input type="checkbox" [value]="member._id"
               (change)="changeCheckedMembers(i)"
-              [checked]="checkedMembers[i]"></td>
-              <td appHighlight><a [routerLink]="['/admin/members', member._id]">{{member.username}}</a></td>
+              [checked]="checkedMembers[i]"></td> -->
+              <td>{{member.username}}</td>
               <td>{{member.firstname}}</td>
               <td>{{member.lastname}}</td>
               <td>{{member.organization.country}}</td>
@@ -82,18 +82,7 @@
   </div>
   
   <div class="row after-table-margin">
-    <!--
-    <div class="col-12 col-sm-6 col-md-2">
-      <a role="button" class="btn btn-primary btn-block" href="javascript:v_edit();">EDIT</a>
-    </div>
-    <div class="col-12 col-sm-6 col-md-2">
-      <button type="submit"
-          class="btn btn-block {{!(removeBtnDisabled) ? 'btn-primary' : 'btn-secondary'}}"
-          [disabled]="removeBtnDisabled"
-          (click)="removeMembers()">
-        REMOVE</button>
-    </div>
-    -->
+
     <div class="col-md">
     </div>
     <div class="col-12 col-sm-12 col-md-2 float-right">
