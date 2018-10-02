@@ -1,6 +1,5 @@
 import { Organization } from './organization';
 
-
 export class BodyMeasurement {
   _id: string;
   updatedBy: string;

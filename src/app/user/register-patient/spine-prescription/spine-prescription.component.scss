@@ -58,7 +58,8 @@
     }
 
     &:nth-child(4){
-        padding-bottom: 40px;
+        padding-top:40px;
+        padding-bottom: 72px;
         .col-3:first-child{padding-left:0px;}
         .col-3:last-child{padding-right: 0px;}
         button{
@@ -81,7 +82,6 @@ form{
     }
 
     .form-group{
-        
         .col-2:nth-child(2){
             padding-right: 0px;
         }
@@ -111,6 +111,7 @@ form{
         }
 
         &:nth-child(4){
+            padding-top:0px;
             padding-bottom: 0px;
             .col-4:first-child{padding-left:0px;}
             .col-4:last-child{padding-right:0px;}
@@ -134,6 +135,10 @@ form{
         h5{
             font-size: 18px;
         }
+    }
+
+    .input-group.col-3{
+        padding-left: 0px;
     }
 }
 
@@ -159,7 +164,7 @@ form{
         &:after{
             @extend .vntc-check-circle;
             left: 12px;
-            top: 11px;
+            top: 13px;
         }
     }
 }

@@ -1,3 +1,7 @@
+.container{
+    height: calc(100vh - 92px);
+}
+
 .register-bottom{
     &-line{
         border-bottom: 5px solid #f0f0f0;
@@ -30,7 +34,21 @@
         }
     }
 }
-
+.vntc-error{
+    &-msg{
+        position: absolute;
+        width:calc(100% + 2px);
+        height:40px;
+        z-index: -1;
+        top:-1px;
+        left:-1px;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        border:1px solid red;
+    }
+}
 
 .vntc-button{
     &-fill{

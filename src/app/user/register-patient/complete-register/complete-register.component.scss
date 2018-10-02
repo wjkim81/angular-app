@@ -96,9 +96,10 @@ form{
 }
 
 .form-group.row:nth-child(2n+8){
-    margin-top: 24px;
-    margin-bottom: 40px;
-
+    height: calc(100% - 721px);
+    padding-bottom:40px;
+    margin-bottom: 32px;
+    
     button{
         text-transform: uppercase;
     }    

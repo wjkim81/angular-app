@@ -44,8 +44,6 @@ import { MemberService } from '../shared/services/member.service';
  */
 // import { HighlightDirective } from '../directives/highlight.directive';
 
-import { AdminTestComponent } from './admin-test/admin-test.component';
-
 @NgModule({
   imports: [
     NgbModule,
@@ -67,7 +65,6 @@ import { AdminTestComponent } from './admin-test/admin-test.component';
     ListMembersComponent,
     PatientdetailComponent,
     MemberdetailComponent,
-    AdminTestComponent,
     // HighlightDirective
   ],
   providers: [
