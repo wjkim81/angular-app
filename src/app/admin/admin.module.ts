@@ -65,6 +65,7 @@ import { MemberService } from '../shared/services/member.service';
     ListMembersComponent,
     PatientdetailComponent,
     MemberdetailComponent,
+    // HighlightDirective
   ],
   providers: [
     HttpClientModule,
