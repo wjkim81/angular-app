@@ -46,15 +46,9 @@
     }
 
     &:nth-child(4){
-        position: absolute;
+        position: relative;
         width: 1140px;
-        bottom: 32px;
-
-        .align-self-end{
-            padding-right:0px;
-            padding-bottom: 40px;
-        }
-
+        height: calc(45% - 82px);
         button{
             text-transform: uppercase;
         }

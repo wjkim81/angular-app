@@ -60,8 +60,8 @@
     }
     &:nth-child(4){
         width: 1140px;
-        position: absolute;
-        bottom: 32px;
+        height:calc(100% - 396px);
+        position: relative;
         padding-bottom: 40px;
         .col-3{
             align-self: flex-end;

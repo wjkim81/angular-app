@@ -42,6 +42,8 @@ export class SpinePrescriptionComponent implements OnInit {
   showDeleteCurveBtn: boolean;
   showAddCurveBtn: boolean;
 
+  patientErrMsg: boolean;
+
   spinePrescriptionformErrors = {
     'curveType': '',
     'lumbarSpine': '',
@@ -150,6 +152,7 @@ export class SpinePrescriptionComponent implements OnInit {
     this.showDeleteCurveBtn = false;
     this.showAddCurveBtn = true;
 
+    this.patientErrMsg = false;
     this.createSpinePrescriptionForm();
     this.createCurve2Form();
     this.createCurve3Form();
@@ -157,16 +160,17 @@ export class SpinePrescriptionComponent implements OnInit {
 
   createSpinePrescriptionForm() {
     this.spinePrescriptionForm = this.fb.group({
-      curveType: [this.curveTypeOptions[0], Validators.required],
-      lumbarSpine: [this.lumbarSpineOptions[0], Validators.required],
-      sagittalAlignment: [this.sagittalAlignmentOptions[1], Validators.required],
-      risser: [this.risserOptions[0], Validators.required],
+      curveType: [null, Validators.required],
+      lumbarSpine: [null, Validators.required],
+      // this.lumbarSpineOptions[0],
+      sagittalAlignment: [null, Validators.required],
+      risser: [null, Validators.required],
       
       curveStart1: ['', Validators.required],
       cobbAng1: [null, [Validators.required, Validators.pattern]],
       curveEnd1: ['', Validators.required],
       direction1: ['', Validators.required],
-      major1: ['y', Validators.required],
+      major1: [null, Validators.required],
       
       xRayFile: '',
     });
@@ -182,7 +186,7 @@ export class SpinePrescriptionComponent implements OnInit {
       cobbAng2: [null, [Validators.required, Validators.pattern]],
       curveEnd2: ['', Validators.required],
       direction2: ['', Validators.required],
-      major2: ['n', Validators.required],
+      major2: [null, Validators.required],
     });
 
     this.curve2Form.valueChanges
@@ -196,7 +200,7 @@ export class SpinePrescriptionComponent implements OnInit {
       cobbAng3: [null, [Validators.required, Validators.pattern]],
       curveEnd3: ['', Validators.required],
       direction3: ['', Validators.required],
-      major3: ['n', Validators.required],
+      major3: [null, Validators.required],
     });
 
     this.curve3Form.valueChanges
@@ -357,6 +361,7 @@ export class SpinePrescriptionComponent implements OnInit {
     spinePrescription.major1 = spForm.major1;
     spinePrescription.addCurve2 = false;
     spinePrescription.addCurve3 = false;
+    this.patientErrMsg = true;
 
     if (status === 'VALID' && !this.addCurve2 && !this.addCurve3) {
       console.log('main goNext()');
@@ -366,6 +371,10 @@ export class SpinePrescriptionComponent implements OnInit {
       this.registerPatientService.setSpinePrescription(spinePrescription);
     } else if (status === 'INVALID' && !this.addCurve2 && !this.addCurve3) {
       console.log('Main form is invalid');
+      console.log('test');
+      setTimeout(() =>{
+        this.patientErrMsg = true;
+      }, 2000);
       return;
     } else if (status === 'VALID' && this.addCurve2 && curve2status ==='VALID' && !this.addCurve3) {
       console.log('cureve2 goNext()');

@@ -42,7 +42,6 @@ import { MemberService } from '../shared/services/member.service';
  * Import directives here
  */
 
-
 @NgModule({
   imports: [
     NgbModule,
