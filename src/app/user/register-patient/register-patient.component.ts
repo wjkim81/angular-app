@@ -1,25 +1,28 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 
 import { Member } from '../../shared/models/member';
 // import { BodyMeasurement, SpineInfo, XRayFile, Patient } from '../../shared/patient';
 import { PatientInfoForm, SpinePrescriptionForm, DiagnosisForm, BodyMeasurementForm }  from '../../shared/models/register-form-interfaces';
 
 import { AuthService } from '../../shared/services/auth.service';
-
-
 import { RegisterPatientService } from './service/register-patient.service';
 
 @Component({
   selector: 'app-register-patient',
   templateUrl: './register-patient.component.html',
-  styleUrls: ['./register-patient.component.scss']
+  styleUrls: ['./register-patient.component.scss'],
 })
 export class RegisterPatientComponent implements OnInit {
 
   today: Date;
   loggedUser: Member;
 
-  page: Number;
+  page: number = 1;
+  page1Position: string;
+  page2Position: string;
+  page3Position: string;
+  page4Position: string;
+  page5Position: string;
 
   // patientInfoForm: FormGroup;
 
@@ -34,7 +37,6 @@ export class RegisterPatientComponent implements OnInit {
     // private fb: FormBuilder,
     private authService: AuthService,
     private registerPatientService: RegisterPatientService,
-    @Inject('BaseURL') private BaseURL
   ) { 
     registerPatientService.page$.subscribe((page) => {
       this.page = page;
@@ -55,13 +57,39 @@ export class RegisterPatientComponent implements OnInit {
     registerPatientService.bodyMeasurement$.subscribe((bodyMeasurement) => {
       this.bodyMeasurement = bodyMeasurement;
     });
+
+    registerPatientService.page1$.subscribe((position) => {
+      this.page1Position = position;
+    });
+
+    registerPatientService.page2$.subscribe((position) => {
+      this.page2Position = position;
+    });
+
+    registerPatientService.page3$.subscribe((position) => {
+      this.page3Position = position;
+    });
+
+    registerPatientService.page4$.subscribe((position) => {
+      this.page4Position = position;
+    });
+
+    registerPatientService.page5$.subscribe((position) => {
+      this.page5Position = position;
+    });
   }
 
   ngOnInit() {
     console.log('register-patient');
 
     this.today = new Date();
+
     this.registerPatientService.setPageNum(1);
+    this.registerPatientService.setPage1Position('middle');
+    this.registerPatientService.setPage2Position('right');
+    this.registerPatientService.setPage3Position('right');
+    this.registerPatientService.setPage4Position('right');
+    this.registerPatientService.setPage5Position('right');
 
     // this.authService.validateUserCredentials((res, err) => {
     //   console.log('authService.validateUserCredentials');

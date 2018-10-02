@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="col-12 col-sm-2">
-      <button type="button" class="btn btn-primary btn-block btn-sm" (click)="orderBrace()">
+      <button type="button" class="btn {{!disableOrderButton ? 'btn-primary' : 'btn-secondary'}} btn-block btn-sm" [disabled]="disableOrderButton" [routerLink]="['/patients', patient._id, 'order']">
         Order Braces
       </button>
     </div>
@@ -41,7 +41,7 @@
               <td>{{patient.lastname}} {{patient.firstname}}</td>
               <td>{{patient.birthday | date}}</td>
               <td>{{patient.sex}}</td>
-              <td></td>
+              <td>{{curveProgression | number}}</td>
               <td></td>
             </tr>
           </tbody>

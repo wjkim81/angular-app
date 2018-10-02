@@ -18,17 +18,27 @@ export class UserNavbarComponent implements OnInit {
   constructor(
     private router: Router,
     private location:Location,
-    private authservice: AuthService
-  ) { }
+    private authService: AuthService
+  ) {
+    /**
+     * I thinks user and admin modules are lozy loaded,
+     * variables in service cannot be shared between modules.
+     */
+    // this.authservice.getUsername().subscribe((username) => {
+  //   this.authservice.getName().subscribe((name) => {
+  //     console.log(name);
+  //     this.user = name;
+  //   });
+  }
 
   ngOnInit() {
-    this.user = 'test user';
+    this.user = this.authService.getNameFromStorage();
     this.navbarCollapsed = true;
   }
 
   logOut() {
     console.log('Log out');
-    this.authservice.logOut();
-    this.router.navigate(['user-login']);
+    this.authService.logOut();
+    this.router.navigate(['login']);
   }
 }

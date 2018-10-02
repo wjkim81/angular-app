@@ -15,8 +15,11 @@ import { ControlModalService } from './service/control-modal.service';
 export class PatientdetailComponent implements OnInit {
 
   patient: Patient;
+  curveProgression: number;
 
   patientErrMsg: string;
+
+  disableOrderButton: boolean;
 
   constructor(
     private controlModalService: ControlModalService,
@@ -25,10 +28,35 @@ export class PatientdetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.disableOrderButton = true;
+
     this.route.params
       .switchMap((params: Params) => { return this.patientservice.getPatient(params['id']); })
       .subscribe(patient => { 
         this.patient = patient; console.log('patient: ', patient)
+
+        if (patient.spineInfos.length > 0) {
+          let lastIdx = patient.spineInfos.length - 1;
+          var cobbAng: number;
+          if (patient.spineInfos[lastIdx].major1) cobbAng = patient.spineInfos[lastIdx].cobbAng1;
+          else if (patient.spineInfos[lastIdx].major2) cobbAng = patient.spineInfos[lastIdx].cobbAng2;
+          else if (patient.spineInfos[lastIdx].major3) cobbAng = patient.spineInfos[lastIdx].cobbAng3;
+
+          var ageDifMs = Date.now() - Date.parse(patient.birthday);
+          var ageDate = new Date(ageDifMs);
+          var ageYear = Math.abs(ageDate.getUTCFullYear() - 1970);
+          console.log(`age: ${ageYear}`);
+          this.curveProgression = (cobbAng - 3 * patient.spineInfos[lastIdx].risser) / ageYear;
+        }
+
+
+        /**
+         * When only there are both body measurement and spine prescription
+         * we activate order button
+         */
+        if (patient.bodyMeasurements.length > 0 && patient.spineInfos.length > 0)
+          this.disableOrderButton = false;
+
       }, patientErrMsg => {
         this.patientErrMsg = <any>patientErrMsg
       });

@@ -1,9 +1,11 @@
-import { Routes } from '@angular/router';
+import { Routes, CanActivate } from '@angular/router';
 
 import { LoginComponent } from '../login/login.component';
 
 import { UserModule } from '../user/user.module';
 import { AdminModule } from '../admin/admin.module';
+
+import { AuthGuardService as AuthGuard } from '../shared/services/auth-guard.service';
 /**
  * https://stackoverflow.com/questions/47329429/using-angular-4-how-i-can-manage-admin-and-web-section-within-single-project
  * https://github.com/ariful19/angularRouting/blob/master/src/app/myrouting.module.ts
@@ -24,12 +26,14 @@ export const routes: Routes = [
   },
   {
     path: '',
-    // loadChildren: 'app/user/user.module#UserModule'
-    loadChildren:() => UserModule
+    loadChildren: 'app/user/user.module#UserModule',
+    canActivate: [AuthGuard]
+    // loadChildren:() => UserModule
   },
   {
     path: 'admin',
-    // loadChildren: 'app/admin/admin.module#AdminModule'
-    loadChildren:() => AdminModule
+    loadChildren: 'app/admin/admin.module#AdminModule',
+    canActivate: [AuthGuard]
+    // loadChildren:() => AdminModule
   },
 ]

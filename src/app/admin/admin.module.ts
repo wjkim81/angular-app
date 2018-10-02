@@ -30,7 +30,6 @@ import { RegisterOrganizationComponent } from './register-organization/register-
 import { RegisterMemberComponent } from './register-member/register-member.component';
 
 import { baseURL } from '../shared/models/baseurl';
-// import { ProcessHTTPMsgService } from '../shared/services/process-httpmsg.service';
 
 /**
  * Import services here
@@ -42,7 +41,6 @@ import { MemberService } from '../shared/services/member.service';
 /** 
  * Import directives here
  */
-// import { HighlightDirective } from '../directives/highlight.directive';
 
 
 @NgModule({
@@ -59,7 +57,6 @@ import { MemberService } from '../shared/services/member.service';
   declarations: [
     AdminComponent,
     AdminNavbarComponent,
-    //FooterComponent,
     AdminHomeComponent,
     RegisterOrganizationComponent,
     RegisterMemberComponent,
@@ -70,10 +67,8 @@ import { MemberService } from '../shared/services/member.service';
   providers: [
     HttpClientModule,
     { provide: 'BaseURL', useValue: baseURL },
-    // ProcessHTTPMsgService,
     OrganizationService,
-    MemberService,
-    // PatientService
+    MemberService
   ]
 })
 export class AdminModule { }

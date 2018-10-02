@@ -7,10 +7,19 @@ import { CURVE_TYPES, LUMBAR_SPINE_TYPES, SAGITTAL_ALIGNMENT_TYPES, RISSERS_OPTI
 
 import { RegisterPatientService } from '../service/register-patient.service';
 
+import { slide } from '../../../shared/animations/app.animation';
+
 @Component({
   selector: 'app-spine-prescription',
   templateUrl: './spine-prescription.component.html',
-  styleUrls: ['./spine-prescription.component.scss']
+  styleUrls: ['./spine-prescription.component.scss'],
+  // host: {
+  //   'style': 'display: block;',
+  //   // 'overflow': 'hidden', /* Hide everything that doesn't fit component */
+  // },
+  // animations: [
+  //   slide()
+  // ]
 })
 export class SpinePrescriptionComponent implements OnInit {
 
@@ -378,8 +387,16 @@ export class SpinePrescriptionComponent implements OnInit {
     } else if (status === 'VALID' && 
               this.addCurve2 && curve2status ==='VALID' &&
               this.addCurve3 && curve3status ==='VALID') {
-
       console.log('curve3 goNext()');
+
+      let curve2 = this.curve2Form.value;
+      spinePrescription.addCurve2 = true;
+      spinePrescription.curveStart2 = curve2.curveStart2;
+      spinePrescription.cobbAng2 = curve2.cobbAng2;
+      spinePrescription.curveEnd2 = curve2.curveEnd2;
+      spinePrescription.direction2 = curve2.direction2;
+      spinePrescription.major2 = curve2.major2;
+
       let curve3 = this.curve3Form.value;
       spinePrescription.addCurve3 = true;
       spinePrescription.curveStart3 = curve3.curveStart3;

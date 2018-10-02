@@ -1,7 +1,8 @@
 export interface AuthResponse {
   status: string,
   success: string,
-  token: string
+  token: string,
+  name: string
 };
 
 export interface JWTResponse {

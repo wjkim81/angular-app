@@ -15,7 +15,7 @@ export class AuthInterceptor implements HttpInterceptor {
     ) {}
  
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('AuthInterceptor');
+    // console.log('AuthInterceptor');
     const authservice = this.inj.get(AuthService);
     // Get the auth header from the service.
     //console.log('authToken: ', authservice.authToken);
@@ -26,8 +26,8 @@ export class AuthInterceptor implements HttpInterceptor {
     const authReq = req.clone({headers: req.headers.set('Authorization', 'bearer ' + authToken)});
     
     // Pass on the cloned request instead of the original request.
-    console.log('authReq: ');
-    console.log(authReq);
+    // console.log('authReq: ');
+    // console.log(authReq);
     return next.handle(authReq);
   }
 }
@@ -37,7 +37,7 @@ export class UnauthorizedInterceptor implements HttpInterceptor {
   constructor(private inj: Injector) {}
  
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('UnauthorizedInterceptor');
+    // console.log('UnauthorizedInterceptor');
     const authservice = this.inj.get(AuthService);
     const authToken = authservice.getToken();
     
@@ -48,7 +48,7 @@ export class UnauthorizedInterceptor implements HttpInterceptor {
       }, (err: any) => {
         if (err instanceof HttpErrorResponse) {
           if (err.status === 401 && authToken) {
-            console.log("Unauthorized Interceptor: ", err);
+            // console.log("Unauthorized Interceptor: ", err);
             authservice.checkJWTtoken();
           }
         }

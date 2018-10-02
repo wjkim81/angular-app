@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -11,14 +11,23 @@ import { RegisterPatientService } from '../service/register-patient.service';
 import { PatientService } from '../../../shared/services/patient.service';
 import { MemberService } from '../../../shared/services/member.service';
 
+import { slide } from '../../../shared/animations/app.animation';
+
 @Component({
   selector: 'app-patient-info',
   templateUrl: './patient-info.component.html',
-  styleUrls: ['./patient-info.component.scss']
+  styleUrls: ['./patient-info.component.scss'],
+  // host: {
+  //   'style': 'display: block;',
+  //   // 'overflow': 'hidden', /* Hide everything that doesn't fit component */
+  // },
+  // animations: [
+  //   slide()
+  // ]
 })
 export class PatientInfoComponent implements OnInit, OnDestroy {
 
-  // @Input() organization: string;
+  position: string = 'middle';
 
   sexOptions: string[];
 
@@ -65,15 +74,17 @@ export class PatientInfoComponent implements OnInit, OnDestroy {
     this.patientErrMsg = false;
     this.patientService.getHashKey()
     .subscribe((msg) => {
-      console.log(msg);
+      // console.log(msg);
       this.hashKey = msg.hashKey;
-      console.log(`hashKey: ${this.hashKey}`);
+      // console.log(`hashKey: ${this.hashKey}`);
     });
 
     this.memberService.getMemberInfo()
     .subscribe((member) => {
       this.member = member;
       console.log(member);
+    }, (patientErrMsg) => {
+      this.patientErrMsg = <any>patientErrMsg;
     });
 
     this.createPatientInfoForm();
@@ -128,7 +139,6 @@ export class PatientInfoComponent implements OnInit, OnDestroy {
 
     if (status === 'VALID') {
       console.log('goNext()');
-      this.registerPatientService.setPageNum(2);
       // this.registerPatientService.setPatientInfoForm(this.patientInfoForm);
 
       var patientInfo = this.patientInfoForm.value;
@@ -137,12 +147,12 @@ export class PatientInfoComponent implements OnInit, OnDestroy {
       patientInfo.valid = true;
       this.registerPatientService.setPatientInfo(patientInfo);
 
-      this.patientErrMsg = false;
+      this.registerPatientService.setPageNum(2);
+      this.registerPatientService.setPage1Position('left');
+      this.registerPatientService.setPage2Position('middle');
       
     } else {
-      setTimeout(() =>{
-        this.patientErrMsg = true;
-      }, 2000)
+      console.log('PatientInfoForm is invalid');
     }
   }
 

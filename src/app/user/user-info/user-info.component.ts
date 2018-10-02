@@ -11,7 +11,6 @@ import { SUBJECTS, TYPES, COUNTRIES } from '../../shared/models/member-options';
 import { Member } from '../../shared/models/member';
 
 import { MemberService } from '../../shared/services/member.service';
-import { AuthService } from '../../shared/services/auth.service';
 
 import { PasswordValidation } from '../../shared/services/password-validation';
 
@@ -27,11 +26,11 @@ export class UserInfoComponent implements OnInit {
   countries: string[];
 
   loggedUser: Member;
-  contactForm: FormGroup;
-  errMess: string;
+  memberErrMsg: string;
 
   showContactInfo: boolean;
 
+  contactForm: FormGroup;
   contactFormErrors = {
     'phoneNum': '',
     'mobileNum': ''
@@ -52,11 +51,11 @@ export class UserInfoComponent implements OnInit {
     private location: Location,
     private fb: FormBuilder,
     private memberService: MemberService,
-    private authService: AuthService,
     @Inject('BaseURL') private BaseURL
   ) { }
 
   ngOnInit() {
+    console.log('user-info');
     this.subjects = SUBJECTS;
     this.types = TYPES;
     this.countries = COUNTRIES;
@@ -64,24 +63,12 @@ export class UserInfoComponent implements OnInit {
     this.createForm();
     this.showContactInfo = false;
 
-    this.authService.validateUserCredentials((res, err) => {
-      console.log('authService.validateUserCredentials');
-      // console.log('res: ', res);
-      console.log('err: ', err);
-      if (err) {
-        this.errMess = err;
-      }
- 
-      console.log('authenticated: ', this.authService.isAuthenticated);
-      if (!this.authService.isAuthenticated) {
-        
-        this.location.replaceState('/'); // clears browser history so they can't navigate with back button
-        this.router.navigate(['/user-login']);
-      } else {
-        console.log(res.member);
-        this.loggedUser = res.member;
-        console.log('Logged in')
-      }
+    this.memberService.getMemberWithoutId()
+    .subscribe((member) => {
+      this.loggedUser = member;
+      console.log(member);
+    }, (memberErrMsg) => {
+      this.memberErrMsg = memberErrMsg;
     });
   }
 

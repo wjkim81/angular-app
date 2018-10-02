@@ -23,10 +23,6 @@ export class UserLoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.createForm();
-  }
-
-  createForm() {
   }
 
   doLogin() {

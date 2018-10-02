@@ -1,8 +1,8 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
-//import { FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 // import { ReactiveFormsModule } from '@angular/forms';
 
 import 'hammerjs';
@@ -35,8 +35,8 @@ import { LoginComponent } from './login/login.component';
   ],
   imports: [
     BrowserModule,
-    //FormsModule,
-    // ReactiveFormsModule,
+    BrowserAnimationsModule,
+    FormsModule,
     UserModule,
     AdminModule,
     CoreModule.forRoot(),

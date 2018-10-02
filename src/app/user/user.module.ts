@@ -44,6 +44,7 @@ import { PatientdetailComponent } from './patientdetail/patientdetail.component'
 import { AddBodymeasurementModalComponent } from './patientdetail/add-bodymeasurement-modal/add-bodymeasurement-modal.component';
 import { AddSpineprescriptionModalComponent } from './patientdetail/add-spineprescription-modal/add-spineprescription-modal.component';
 import { AddDiagnosisModalComponent } from './patientdetail/add-diagnosis-modal/add-diagnosis-modal.component';
+import { OrderComponent } from './patientdetail/order/order.component';
 
 /**
  * RegisterPatientComponent
@@ -72,7 +73,6 @@ import { UserInfoComponent } from './user-info/user-info.component';
  */
 import { UserLoginComponent } from './user-login/user-login.component';
 
-
 import { baseURL } from '../shared/models/baseurl';
 
 /**
@@ -82,11 +82,6 @@ import { baseURL } from '../shared/models/baseurl';
 //import { AuthInterceptor, UnauthorizedInterceptor } from '../services/auth.interceptor';
 // import { ProcessHTTPMsgService } from '../services/sharedprocess-httpmsg.service';
 // import { PatientService } from '../services/patient.service';
-
-/** 
- * Import directives here
- */
-// import { HighlightDirective } from '../directives/highlight.directive';
 
 @NgModule({
   imports: [
@@ -107,21 +102,20 @@ import { baseURL } from '../shared/models/baseurl';
     AddBodymeasurementModalComponent,
     AddSpineprescriptionModalComponent,
     AddDiagnosisModalComponent,
+    OrderComponent,
     RegisterPatientComponent,
     PatientInfoComponent,
-    CobbAngleComponent, // Not used yet
+    CobbAngleComponent,
     SpinePrescriptionComponent,
     CommentComponent,
     BodyMeasurementComponent,
     CompleteRegisterComponent,
     UserInfoComponent,
-    UserLoginComponent,
-    // HighlightDirective,
+    UserLoginComponent
   ],
   providers: [
     HttpClientModule,
     { provide: 'BaseURL', useValue: baseURL },
-    // ProcessHTTPMsgService,
   ]
 })
 export class UserModule { }
