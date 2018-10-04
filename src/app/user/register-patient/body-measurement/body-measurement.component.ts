@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { BodyMeasurementForm }  from '../../../shared/models/register-form-interfaces';
 
 import { RegisterPatientService } from '../service/register-patient.service';
 
@@ -10,6 +12,8 @@ import { RegisterPatientService } from '../service/register-patient.service';
   styleUrls: ['./body-measurement.component.scss']
 })
 export class BodyMeasurementComponent implements OnInit {
+
+  @Input() bodyMeasurement: BodyMeasurementForm;
 
   bodyMeasurementForm: FormGroup;
 
@@ -55,19 +59,30 @@ export class BodyMeasurementComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.createBodyMeasurementForm();
+    this.createBodyMeasurementForm(this.bodyMeasurement);
   }
 
 
-  createBodyMeasurementForm() {
-    this.bodyMeasurementForm = this.fb.group({
-      height: [null, [Validators.required]],
-      weight: [null, [Validators.required]],
-      shoulder: [null, [Validators.required, Validators.pattern]],
-      bust: [null, [Validators.required, Validators.pattern]],
-      waist: [null, [Validators.required, Validators.pattern]],
-      hip: [null, [Validators.required, Validators.pattern]]
-    });
+  createBodyMeasurementForm(bodyMeasurement: BodyMeasurementForm) {
+    if (this.bodyMeasurement) {
+      this.bodyMeasurementForm = this.fb.group({
+        height: [this.bodyMeasurement.height, [Validators.required]],
+        weight: [this.bodyMeasurement.weight, [Validators.required]],
+        shoulder: [this.bodyMeasurement.shoulder, [Validators.required, Validators.pattern]],
+        bust: [this.bodyMeasurement.bust, [Validators.required, Validators.pattern]],
+        waist: [this.bodyMeasurement.waist, [Validators.required, Validators.pattern]],
+        hip: [this.bodyMeasurement.hip, [Validators.required, Validators.pattern]]
+      });
+    } else {
+      this.bodyMeasurementForm = this.fb.group({
+        height: [null, [Validators.required]],
+        weight: [null, [Validators.required]],
+        shoulder: [null, [Validators.required, Validators.pattern]],
+        bust: [null, [Validators.required, Validators.pattern]],
+        waist: [null, [Validators.required, Validators.pattern]],
+        hip: [null, [Validators.required, Validators.pattern]]
+      });
+    }
 
     this.bodyMeasurementForm.valueChanges
       .subscribe(data => this.onValueChanged(data));

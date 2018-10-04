@@ -13,12 +13,6 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
   canActivate(): boolean {
     console.log('auth-guard');
     const authservice = this.inj.get(AuthService);
-    // console.log(authservice.isAuthenticated);
-    // if (!authservice.isAuthenticated) {
-    //   this.router.navigate(['login']);
-    //   return false;
-    // }
-    // return true;
     if (!authservice.isTokenExpired()) {
       return true;
     }
@@ -30,13 +24,6 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
   canActivateChild(): boolean {
     console.log('auth-guard children');
     const authservice = this.inj.get(AuthService);
-    //   console.log(authservice.isAuthenticated);
-    //   if (!authservice.isAuthenticated) {
-    //     this.router.navigate(['login']);
-    //     return false;
-    //   }
-    //   return true;
-    // }
     if (!authservice.isTokenExpired()) {
       return true;
     }

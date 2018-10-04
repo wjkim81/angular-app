@@ -1,4 +1,5 @@
 export interface PatientInfoForm {
+  organization: string,
   hashKey: string;
   lastname: string;
   birthday: string;
@@ -17,12 +18,14 @@ export interface SpinePrescriptionForm {
   curveEnd1: string;
   direction1: string;
   major1: string; // Need to be converted to boolean before post
+
   addCurve2: boolean;
   curveStart2: string;
   cobbAng2: string; // Need to be converted to number before post
   curveEnd2: string;
   direction2: string;
   major2: string; // Need to be converted to boolean before post
+  
   addCurve3: boolean; // Need to be converted to number before post
   curveStart3: string;
   cobbAng3: string;
@@ -30,6 +33,13 @@ export interface SpinePrescriptionForm {
   direction3: string;
   major3: string; // Need to be converted to boolean before post
   valid: boolean;
+
+  xRayFile: string;
+  description: string;
+
+  showAddCurveBtn: boolean;
+  showDeleteCurveBtn: boolean;
+
 }
 
 export interface DiagnosisForm {

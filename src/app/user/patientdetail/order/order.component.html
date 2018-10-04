@@ -1,0 +1,64 @@
+<div class="container" *ngIf="patient">
+  <div class="row align-items-center order-bottom">
+    <div class="col-12 col-sm-3">
+      <h2>Order Product</h2>
+    </div>
+    <div class="col-12 col-sm-6">
+    </div>
+    <div class="col-12 col-sm-3">
+      <div>
+        <span>Date: {{ patient.updatedAt | date}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-5">
+      <h4>Patient Summary</h4>
+      <table>
+        <tbody>
+          <tr>
+            <td>Patient ID</td>
+            <td>{{patient.hashKey}}</td>
+          </tr>
+          <tr>
+            <td>Type</td>
+            <td>{{patient.spineInfos[spineInfoIdx].type}}</td>
+          </tr>
+          <tr>
+            <td>Risser</td>
+            <td>{{patient.spineInfos[spineInfoIdx].risser}}</td>
+          </tr>
+          <tr>
+            <td>Curve 01</td>
+            <td>{{patient.spineInfos[spineInfoIdx].curveStart1}}-{{patient.spineInfos[spineInfoIdx].cobbAng1}}-{{patient.spineInfos[spineInfoIdx].curveEnd1}}
+               {{patient.spineInfos[spineInfoIdx].direction1}} {{patient.spineInfos[spineInfoIdx].major1 ? 'Major' : 'minor'}}</td>
+          </tr>
+          <tr>
+            <td>Curve 02</td>
+            <td>{{patient.spineInfos[spineInfoIdx].curveStart2}}-{{patient.spineInfos[spineInfoIdx].cobbAng2}}-{{patient.spineInfos[spineInfoIdx].curveEnd2}}
+               {{patient.spineInfos[spineInfoIdx].direction2}} {{patient.spineInfos[spineInfoIdx].major2 ? 'Major' : ''}}</td>
+          </tr>
+          <tr>
+            <td>Curve 02</td>
+            <td>{{patient.spineInfos[spineInfoIdx].curveStart3}}-{{patient.spineInfos[spineInfoIdx].cobbAng3}}-{{patient.spineInfos[spineInfoIdx].curveEnd3}}
+               {{patient.spineInfos[spineInfoIdx].direction3}} {{patient.spineInfos[spineInfoIdx].major3 ? 'Major' : ''}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-7">
+      <div class="row">
+        <div class="col-6">
+          <h3>Spinamic Brace</h3>
+          <h4 *ngIf="braceSize !== 'N/A'">{{braceSize}} / {{braceDirection}} Type</h4>
+          <h4 *ngIf="braceSize === 'N/A'">Our divices cannot be fit to your body. Consult with a retailer</h4>
+        </div>
+
+        <div class="col-6">
+          <img src="/assets/images/mail_logo1.jpg">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

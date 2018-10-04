@@ -1,31 +1,35 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Member } from '../../../shared/models/member';
 
 import { SEXES } from '../../../shared/models/patient-options';
+import { PatientInfoForm }  from '../../../shared/models/register-form-interfaces';
 
 // import { AuthService } from '../../../services/auth.service';
 import { RegisterPatientService } from '../service/register-patient.service';
 import { PatientService } from '../../../shared/services/patient.service';
 import { MemberService } from '../../../shared/services/member.service';
 
-import { slide } from '../../../shared/animations/app.animation';
+// import { flyInOut, slide } from '../../../shared/animations/app.animation';
 
 @Component({
   selector: 'app-patient-info',
   templateUrl: './patient-info.component.html',
   styleUrls: ['./patient-info.component.scss'],
   // host: {
+  //   // '[@slide]': 'middle',
+  //   '[@flyInOut]': 'true',
   //   'style': 'display: block;',
   //   // 'overflow': 'hidden', /* Hide everything that doesn't fit component */
   // },
   // animations: [
+  //   flyInOut(),
   //   slide()
   // ]
 })
-export class PatientInfoComponent implements OnInit, OnDestroy {
+export class PatientInfoComponent implements OnInit {
 
   position: string = 'middle';
 
@@ -33,10 +37,14 @@ export class PatientInfoComponent implements OnInit, OnDestroy {
 
   hashKey: string;
   member: Member;
+  orgName: string;
+  
+  memberErrMsg: string;
+  hashKeyErrMsg: string;
+
+  @Input() patientInfo: PatientInfoForm;
 
   patientInfoForm: FormGroup;
-  
-  patientErrMsg: boolean;
 
   patientInfoFormErrors = {
     // 'firstname': '',
@@ -66,42 +74,60 @@ export class PatientInfoComponent implements OnInit, OnDestroy {
     private registerPatientService: RegisterPatientService,
     private patientService: PatientService,
     private memberService: MemberService
-  ) { }
+  ) { 
+    this.registerPatientService.page1$.subscribe((pos) => {
+      this.position = pos;
+    });
+  }
 
   ngOnInit() {
     this.sexOptions = SEXES;
 
-    this.patientErrMsg = false;
-    this.patientService.getHashKey()
-    .subscribe((msg) => {
-      // console.log(msg);
-      this.hashKey = msg.hashKey;
-      // console.log(`hashKey: ${this.hashKey}`);
-    });
+    console.log('patientInfo');
+    console.log(this.patientInfo);
+
+    if (this.patientInfo) {
+      this.hashKey = this.patientInfo.hashKey;
+    } else {
+      this.patientService.getHashKey()
+      .subscribe((msg) => {
+        // console.log(msg);
+        this.hashKey = msg.hashKey;
+        // console.log(`hashKey: ${this.hashKey}`);
+      }, (hashKeyErrMsg) => {
+        this.hashKeyErrMsg = hashKeyErrMsg;
+      });
+    }
 
     this.memberService.getMemberInfo()
     .subscribe((member) => {
-      this.member = member;
-      console.log(member);
-    }, (patientErrMsg) => {
-      this.patientErrMsg = <any>patientErrMsg;
+      this.orgName = member.organization.name;
+      console.log(this.orgName);
+    }, (memberErrMsg) => {
+      this.memberErrMsg = <any>memberErrMsg;
     });
 
-    this.createPatientInfoForm();
+    this.createPatientInfoForm(this.patientInfo);
   }
 
-  ngOnDestroy() {
-    // this.subscription.unsubscribe();
-  }
-
-  createPatientInfoForm() {
-    this.patientInfoForm = this.fb.group({
-      // firstname: ['', [Validators.required]],
-      // hashKey: [this.hashKey],
-      lastname: ['', [Validators.required]],
-      birthday: ['', [Validators.required]],
-      sex: [this.sexOptions[1], [Validators.required]],
-    });
+  createPatientInfoForm(patientInfo: PatientInfoForm) {
+    if (patientInfo) {
+      this.patientInfoForm = this.fb.group({
+        // firstname: ['', [Validators.required]],
+        // hashKey: [this.hashKey],
+        lastname: [patientInfo.lastname, [Validators.required]],
+        birthday: [patientInfo.birthday, [Validators.required]],
+        sex: [patientInfo.sex, [Validators.required]],
+      });
+    } else {
+      this.patientInfoForm = this.fb.group({
+        // firstname: ['', [Validators.required]],
+        // hashKey: [this.hashKey],
+        lastname: ['', [Validators.required]],
+        birthday: ['', [Validators.required]],
+        sex: [this.sexOptions[1], [Validators.required]],
+      });
+    }
 
     this.patientInfoForm.valueChanges
       .subscribe(data => this.onValueChanged(data));
@@ -142,15 +168,14 @@ export class PatientInfoComponent implements OnInit, OnDestroy {
       // this.registerPatientService.setPatientInfoForm(this.patientInfoForm);
 
       var patientInfo = this.patientInfoForm.value;
-      patientInfo.organization = this.member.organization.name;
+      patientInfo.organization = this.orgName;
       patientInfo.hashKey = this.hashKey;
       patientInfo.valid = true;
-      this.registerPatientService.setPatientInfo(patientInfo);
 
-      this.registerPatientService.setPageNum(2);
+      this.registerPatientService.setPatientInfo(patientInfo);
       this.registerPatientService.setPage1Position('left');
       this.registerPatientService.setPage2Position('middle');
-      
+      this.registerPatientService.setPageNum(2);
     } else {
       console.log('PatientInfoForm is invalid');
     }

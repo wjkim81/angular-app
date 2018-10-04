@@ -7,10 +7,21 @@ import { PatientInfoForm, SpinePrescriptionForm, DiagnosisForm, BodyMeasurementF
 import { AuthService } from '../../shared/services/auth.service';
 import { RegisterPatientService } from './service/register-patient.service';
 
+import { flyInOut, slide } from '../../shared/animations/app.animation';
+
 @Component({
   selector: 'app-register-patient',
   templateUrl: './register-patient.component.html',
   styleUrls: ['./register-patient.component.scss'],
+  // host: {
+  //   // '[@flyInOut]': 'true',
+  //   'style': 'display: block;',
+  //   // 'overflow': 'hidden', /* Hide everything that doesn't fit component */
+  // },
+  animations: [
+    // flyInOut(),
+    slide()
+  ]
 })
 export class RegisterPatientComponent implements OnInit {
 
@@ -18,7 +29,7 @@ export class RegisterPatientComponent implements OnInit {
   loggedUser: Member;
 
   page: number = 1;
-  page1Position: string;
+  page1Position: string = 'right';
   page2Position: string;
   page3Position: string;
   page4Position: string;
@@ -35,7 +46,6 @@ export class RegisterPatientComponent implements OnInit {
   
   constructor(
     // private fb: FormBuilder,
-    private authService: AuthService,
     private registerPatientService: RegisterPatientService,
   ) { 
     registerPatientService.page$.subscribe((page) => {
@@ -83,33 +93,13 @@ export class RegisterPatientComponent implements OnInit {
     console.log('register-patient');
 
     this.today = new Date();
-
+    
     this.registerPatientService.setPageNum(1);
+    this.page1Position = 'right';
     this.registerPatientService.setPage1Position('middle');
     this.registerPatientService.setPage2Position('right');
     this.registerPatientService.setPage3Position('right');
     this.registerPatientService.setPage4Position('right');
     this.registerPatientService.setPage5Position('right');
-
-    // this.authService.validateUserCredentials((res, err) => {
-    //   console.log('authService.validateUserCredentials');
-    //   // console.log('res: ', res);
-    //   console.log('err: ', err);
-    //   if (err) {
-    //     this.errMess = err;
-    //   }
- 
-    //   console.log('authenticated: ', this.authService.isAuthenticated);
-    //   if (!this.authService.isAuthenticated) {
-        
-    //     this.location.replaceState('/'); // clears browser history so they can't navigate with back button
-    //     this.router.navigate(['/user-login']);
-    //   } else {
-    //     // console.log(res.member);
-    //     // this.loggedUser = res.member;
-    //     // console.log(this.loggedUser.organization.name);
-    //     console.log('Logged in')
-    //   }
-    // });
   }
 }

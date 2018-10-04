@@ -26,17 +26,15 @@ export class LoginComponent implements OnInit {
   }
 
   doLogin() {
-    console.log('login');
-    console.log("Member: ", this.member);
+    // console.log('login');
     this.authservice.logIn(this.member)
     .subscribe(res => {
-      console.log('login success:', res.success);
+      // console.log('login success:', res.success);
       if (res.success) {
         //console.log('getToken: ', this.authservice.getToken());
         this.router.navigate(['/home']);
         //this.dialogRef.close(res.success);
-      }
-      else {
+      } else {
         console.log(res);
       }
     }, (err) => {

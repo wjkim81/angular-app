@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+import { DiagnosisForm }  from '../../../shared/models/register-form-interfaces';
 
 import { RegisterPatientService } from '../service/register-patient.service';
 
@@ -9,40 +11,52 @@ import { RegisterPatientService } from '../service/register-patient.service';
 })
 export class CommentComponent implements OnInit {
 
-  comment: string = '';
+  @Input() diagnosis: DiagnosisForm;
+  comment: string;
   
   constructor(
     private registerPatientService: RegisterPatientService,
   ) { }
 
   ngOnInit() {
+    if (this.diagnosis) {
+      this.comment = this.diagnosis.comment;;
+    } else {
+      this.comment = '';
+    }
   }
 
   goPrevious() {
+    console.log('goPrevious()');
+
+    var diagnosis: any = {};
+    diagnosis.comment = this.comment;;
+    diagnosis.valid = false;
+
+    this.registerPatientService.setDiagnosis(diagnosis);
     this.registerPatientService.setPageNum(2);
-    // this.registerPatientService.setSpinePrescription(this.spinePrescriptionForm.value);
   }
 
   skip() {
     console.log('skip()');
-    this.registerPatientService.setPageNum(4);
 
     var diagnosis: any = {};
     diagnosis.comment = this.comment;;
     diagnosis.valid = false;
     this.registerPatientService.setDiagnosis(diagnosis);
+    this.registerPatientService.setPageNum(4);
   }
 
   goNext() {
     console.log('goNext()');
 
     if (this.comment !== '') {
-      this.registerPatientService.setPageNum(4);
-
+      
       var diagnosis: any = {};
       diagnosis.comment = this.comment;;
       diagnosis.valid = true;
       this.registerPatientService.setDiagnosis(diagnosis);
+      this.registerPatientService.setPageNum(4);
     } else {
       console.log('Comment is empty');
     }

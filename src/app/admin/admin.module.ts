@@ -32,11 +32,10 @@ import { RegisterMemberComponent } from './register-member/register-member.compo
 import { baseURL } from '../shared/models/baseurl';
 
 /**
- * Import services here
+ * Import services here used only for AdminnModule
  */
 import { OrganizationService } from '../shared/services/organization.service';
 import { MemberService } from '../shared/services/member.service';
-// import { PatientService } from '../services/patient.service';
 
 /** 
  * Import directives here

@@ -68,20 +68,11 @@ import { CobbAngleComponent } from './cobb-angle/cobb-angle.component';
 
 import { UserInfoComponent } from './user-info/user-info.component';
 
-/**
- * This should be reviewed to handle auth and login properly
- */
-import { UserLoginComponent } from './user-login/user-login.component';
-
 import { baseURL } from '../shared/models/baseurl';
 
 /**
- * Import services here
+ * Import services here used only for UserModule
  */
-//import { AuthService } from '../services/auth.service';
-//import { AuthInterceptor, UnauthorizedInterceptor } from '../services/auth.interceptor';
-// import { ProcessHTTPMsgService } from '../services/sharedprocess-httpmsg.service';
-// import { PatientService } from '../services/patient.service';
 
 @NgModule({
   imports: [
@@ -110,8 +101,7 @@ import { baseURL } from '../shared/models/baseurl';
     CommentComponent,
     BodyMeasurementComponent,
     CompleteRegisterComponent,
-    UserInfoComponent,
-    UserLoginComponent
+    UserInfoComponent
   ],
   providers: [
     HttpClientModule,

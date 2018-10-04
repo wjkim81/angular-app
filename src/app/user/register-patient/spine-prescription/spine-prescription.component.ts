@@ -1,27 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { CURVE_TYPES, LUMBAR_SPINE_TYPES, SAGITTAL_ALIGNMENT_TYPES, RISSERS_OPTIONS, VERTEBRAL_COLUMNS, DIRECTIONS} from '../../../shared/models/patient-options';
-// import { SpinePrescriptionForm } from '../../../shared/register-form-interfaces';
+import { SpinePrescriptionForm } from '../../../shared/models/register-form-interfaces';
 
 import { RegisterPatientService } from '../service/register-patient.service';
 
-import { slide } from '../../../shared/animations/app.animation';
+// import { flyInOut, slide } from '../../../shared/animations/app.animation';
 
 @Component({
   selector: 'app-spine-prescription',
   templateUrl: './spine-prescription.component.html',
   styleUrls: ['./spine-prescription.component.scss'],
   // host: {
+  //   // '[@slide]': 'true',
+  //   '[@flyInOut]': 'true',
   //   'style': 'display: block;',
   //   // 'overflow': 'hidden', /* Hide everything that doesn't fit component */
   // },
   // animations: [
+  //   flyInOut(),
   //   slide()
   // ]
 })
 export class SpinePrescriptionComponent implements OnInit {
+
+  @Input() spinePrescription: SpinePrescriptionForm;
 
   curveTypeOptions: string[];
   lumbarSpineOptions: string[];
@@ -42,7 +47,7 @@ export class SpinePrescriptionComponent implements OnInit {
   showDeleteCurveBtn: boolean;
   showAddCurveBtn: boolean;
 
-  patientErrMsg: boolean;
+  showError: boolean;
 
   spinePrescriptionformErrors = {
     'curveType': '',
@@ -147,61 +152,110 @@ export class SpinePrescriptionComponent implements OnInit {
     this.vertebralColumnOptions = VERTEBRAL_COLUMNS;
     this.directionOptions = DIRECTIONS;
 
-    this.addCurve2 = false;
-    this.addCurve3 = false;
-    this.showDeleteCurveBtn = false;
-    this.showAddCurveBtn = true;
+    this.showError = false;
+    console.log(this.spinePrescription);
 
-    this.patientErrMsg = false;
-    this.createSpinePrescriptionForm();
-    this.createCurve2Form();
-    this.createCurve3Form();
+    if (this.spinePrescription) {
+      this.addCurve2 = this.spinePrescription.addCurve2;
+      this.addCurve3 = this.spinePrescription.addCurve3;
+      this.showDeleteCurveBtn = this.spinePrescription.showDeleteCurveBtn;
+      this.showAddCurveBtn = this.spinePrescription.showAddCurveBtn;
+    } else {
+      this.addCurve2 = false;
+      this.addCurve3 = false;
+      this.showDeleteCurveBtn = false;
+      this.showAddCurveBtn = true;
+    }
+
+    this.createSpinePrescriptionForm(this.spinePrescription);
+    this.createCurve2Form(this.spinePrescription);
+    this.createCurve3Form(this.spinePrescription);
   }
 
-  createSpinePrescriptionForm() {
-    this.spinePrescriptionForm = this.fb.group({
-      curveType: [null, Validators.required],
-      lumbarSpine: [null, Validators.required],
-      // this.lumbarSpineOptions[0],
-      sagittalAlignment: [null, Validators.required],
-      risser: [null, Validators.required],
-      
-      curveStart1: ['', Validators.required],
-      cobbAng1: [null, [Validators.required, Validators.pattern]],
-      curveEnd1: ['', Validators.required],
-      direction1: ['', Validators.required],
-      major1: [null, Validators.required],
-      
-      xRayFile: '',
-    });
+  createSpinePrescriptionForm(spinePrescription: SpinePrescriptionForm) {
+    if (spinePrescription) {
+      this.spinePrescriptionForm = this.fb.group({
+        curveType: [spinePrescription.curveType, Validators.required],
+        lumbarSpine: [spinePrescription.lumbarSpine, Validators.required],
+        // this.lumbarSpineOptions[0],
+        sagittalAlignment: [spinePrescription.sagittalAlignment, Validators.required],
+        risser: [spinePrescription.risser, Validators.required],
+        
+        curveStart1: [spinePrescription.curveStart1, Validators.required],
+        cobbAng1: [spinePrescription.cobbAng1, [Validators.required, Validators.pattern]],
+        curveEnd1: [spinePrescription.curveEnd1, Validators.required],
+        direction1: [spinePrescription.direction1, Validators.required],
+        major1: [spinePrescription.major1, Validators.required],
+        
+        xRayFile: spinePrescription.xRayFile,
+      });
+    } else {
+      this.spinePrescriptionForm = this.fb.group({
+        curveType: [null, Validators.required],
+        lumbarSpine: [null, Validators.required],
+        // this.lumbarSpineOptions[0],
+        sagittalAlignment: [null, Validators.required],
+        risser: [null, Validators.required],
+        
+        curveStart1: ['', Validators.required],
+        cobbAng1: [null, [Validators.required, Validators.pattern]],
+        curveEnd1: ['', Validators.required],
+        direction1: ['', Validators.required],
+        major1: [null, Validators.required],
+        
+        xRayFile: '',
+      });
+    }
 
     this.spinePrescriptionForm.valueChanges
       .subscribe(data => this.onValueChangedInSpineprescriptonForm(data));
     this.onValueChangedInSpineprescriptonForm(); // (re)set from validation messages
   }
 
-  createCurve2Form() {
-    this.curve2Form = this.fb.group({
-      curveStart2: ['', Validators.required],
-      cobbAng2: [null, [Validators.required, Validators.pattern]],
-      curveEnd2: ['', Validators.required],
-      direction2: ['', Validators.required],
-      major2: [null, Validators.required],
-    });
+  createCurve2Form(spinePrescription: SpinePrescriptionForm) {
+    if (spinePrescription && spinePrescription.addCurve2) {
+      this.curve2Form = this.fb.group({
+        curveStart2: [spinePrescription.curveStart2, Validators.required],
+        cobbAng2: [spinePrescription.cobbAng2, [Validators.required, Validators.pattern]],
+        curveEnd2: [spinePrescription.curveEnd2, Validators.required],
+        direction2: [spinePrescription.direction2, Validators.required],
+        major2: [spinePrescription.major2, Validators.required],
+      });
+    } else {
+      this.curve2Form = this.fb.group({
+        curveStart2: ['', Validators.required],
+        cobbAng2: [null, [Validators.required, Validators.pattern]],
+        curveEnd2: ['', Validators.required],
+        direction2: ['', Validators.required],
+        major2: [null, Validators.required],
+      });
+    }
+
 
     this.curve2Form.valueChanges
       .subscribe(data => this.onValueChangedInCurve2Form(data));
     this.onValueChangedInCurve2Form(); // (re)set from validation messages
   }
 
-  createCurve3Form() {
-    this.curve3Form = this.fb.group({
-      curveStart3: ['', Validators.required],
-      cobbAng3: [null, [Validators.required, Validators.pattern]],
-      curveEnd3: ['', Validators.required],
-      direction3: ['', Validators.required],
-      major3: [null, Validators.required],
-    });
+  createCurve3Form(spinePrescription: SpinePrescriptionForm) {
+    if (spinePrescription && spinePrescription.addCurve3) {
+      this.curve3Form = this.fb.group({
+        curveStart3: [spinePrescription.curveStart3, Validators.required],
+        cobbAng3: [spinePrescription.cobbAng3, [Validators.required, Validators.pattern]],
+        curveEnd3: [spinePrescription.curveEnd3, Validators.required],
+        direction3: [spinePrescription.direction3, Validators.required],
+        major3: [spinePrescription.major3, Validators.required],
+      });
+    } else {
+      this.curve3Form = this.fb.group({
+        curveStart3: ['', Validators.required],
+        cobbAng3: [null, [Validators.required, Validators.pattern]],
+        curveEnd3: ['', Validators.required],
+        direction3: ['', Validators.required],
+        major3: [null, Validators.required],
+      });
+    }
+
 
     this.curve3Form.valueChanges
       .subscribe(data => this.onValueChangedInCurve3Form(data));
@@ -306,7 +360,7 @@ export class SpinePrescriptionComponent implements OnInit {
         cobbAng2: null,
         curveEnd2: '',
         direction2: '',
-        major2: 'n',
+        major2: null,
       });
       return;
     }
@@ -319,26 +373,26 @@ export class SpinePrescriptionComponent implements OnInit {
         cobbAng3: null,
         curveEnd3: '',
         direction3: '',
-        major3: 'n',
+        major3: null,
       });
       return;
     }
   }
 
   goPrevious() {
+    console.log('goPrevious()');
+    var spinePrescription =this.saveToSpinePrescriptionFromForms();
+    this.registerPatientService.setSpinePrescription(spinePrescription);
+
     this.registerPatientService.setPageNum(1);
-    // this.registerPatientService.setSpinePrescription(this.spinePrescriptionForm.value);
   }
 
   skip() {
     console.log('skip()');
-    this.registerPatientService.setPageNum(3);
+    var spinePrescription =this.saveToSpinePrescriptionFromForms();
 
-    // let spForm = this.spinePrescriptionForm.value;
-
-    var spinePrescription = this.spinePrescriptionForm.value;
-    spinePrescription.valid = false;
     this.registerPatientService.setSpinePrescription(spinePrescription);
+    this.registerPatientService.setPageNum(3);
   }
 
   goNext() {
@@ -346,6 +400,40 @@ export class SpinePrescriptionComponent implements OnInit {
     let status = this.spinePrescriptionForm.status;
     let curve2status = this.curve2Form.status;
     let curve3status = this.curve3Form.status;
+
+    var spinePrescription = this.saveToSpinePrescriptionFromForms();
+
+    if (status === 'VALID' && !this.addCurve2 && !this.addCurve3) {
+      console.log('main goNext()');
+
+      spinePrescription.valid = true;
+      this.registerPatientService.setSpinePrescription(spinePrescription);
+      this.registerPatientService.setPageNum(3);
+    } else if (status === 'INVALID' && !this.addCurve2 && !this.addCurve3) {
+      console.log('Main form is invalid');
+      this.showError = true;
+    } else if (status === 'VALID' && this.addCurve2 && curve2status ==='VALID' && !this.addCurve3) {
+      console.log('cureve2 goNext()');
+      spinePrescription.valid = true;
+      this.registerPatientService.setSpinePrescription(spinePrescription);
+      this.registerPatientService.setPageNum(3);
+    } else if (status === 'VALID' && this.addCurve2 && curve2status ==='INVALID' && !this.addCurve3) {
+      console.log('curve2Form is invalid');
+    } else if (status === 'VALID' && 
+              this.addCurve2 && curve2status ==='VALID' &&
+              this.addCurve3 && curve3status ==='VALID') {
+      console.log('curve3 goNext()');
+      spinePrescription.valid = true;
+      this.registerPatientService.setSpinePrescription(spinePrescription);
+      this.registerPatientService.setPageNum(3);
+    } else if (status === 'VALID' && 
+              this.addCurve2 && curve2status ==='VALID' &&
+              this.addCurve3 && curve3status ==='INVALID') {
+      console.log('curve3Form is invalid');
+    }
+  }
+
+  saveToSpinePrescriptionFromForms(): SpinePrescriptionForm {
     let spForm = this.spinePrescriptionForm.value;
 
     var spinePrescription = spForm;
@@ -359,69 +447,35 @@ export class SpinePrescriptionComponent implements OnInit {
     spinePrescription.curveEnd1 = spForm.curveEnd1;
     spinePrescription.direction1 = spForm.direction1;
     spinePrescription.major1 = spForm.major1;
-    spinePrescription.addCurve2 = false;
-    spinePrescription.addCurve3 = false;
-    this.patientErrMsg = true;
+    spinePrescription.addCurve2 = this.addCurve2;
+    spinePrescription.addCurve3 = this.addCurve3;;
 
-    if (status === 'VALID' && !this.addCurve2 && !this.addCurve3) {
-      console.log('main goNext()');
+    spinePrescription.showAddCurveBtn = this.showAddCurveBtn;
+    spinePrescription.showDeleteCurveBtn = this.showDeleteCurveBtn;
 
-      spinePrescription.valid = true;
-      this.registerPatientService.setPageNum(3);
-      this.registerPatientService.setSpinePrescription(spinePrescription);
-    } else if (status === 'INVALID' && !this.addCurve2 && !this.addCurve3) {
-      console.log('Main form is invalid');
-      console.log('test');
-      setTimeout(() =>{
-        this.patientErrMsg = true;
-      }, 2000);
-      return;
-    } else if (status === 'VALID' && this.addCurve2 && curve2status ==='VALID' && !this.addCurve3) {
-      console.log('cureve2 goNext()');
+    console.log('spinePrescription: ');
+    console.log(spinePrescription);
 
+    this.showError = true;
+
+    if (this.addCurve2) {
       let curve2 = this.curve2Form.value;
-      spinePrescription.addCurve2 = true;
       spinePrescription.curveStart2 = curve2.curveStart2;
       spinePrescription.cobbAng2 = curve2.cobbAng2;
       spinePrescription.curveEnd2 = curve2.curveEnd2;
       spinePrescription.direction2 = curve2.direction2;
       spinePrescription.major2 = curve2.major2;
 
-      spinePrescription.valid = true;
-      this.registerPatientService.setPageNum(3);
-      this.registerPatientService.setSpinePrescription(spinePrescription);
-    } else if (status === 'VALID' && this.addCurve2 && curve2status ==='INVALID' && !this.addCurve3) {
-      console.log('curve2Form is invalid');
-      return;
-    } else if (status === 'VALID' && 
-              this.addCurve2 && curve2status ==='VALID' &&
-              this.addCurve3 && curve3status ==='VALID') {
-      console.log('curve3 goNext()');
-
-      let curve2 = this.curve2Form.value;
-      spinePrescription.addCurve2 = true;
-      spinePrescription.curveStart2 = curve2.curveStart2;
-      spinePrescription.cobbAng2 = curve2.cobbAng2;
-      spinePrescription.curveEnd2 = curve2.curveEnd2;
-      spinePrescription.direction2 = curve2.direction2;
-      spinePrescription.major2 = curve2.major2;
-
+    }
+    if (this.addCurve3) {
       let curve3 = this.curve3Form.value;
-      spinePrescription.addCurve3 = true;
       spinePrescription.curveStart3 = curve3.curveStart3;
       spinePrescription.cobbAng3 = curve3.cobbAng3;
       spinePrescription.curveEnd3 = curve3.curveEnd3;
       spinePrescription.direction3 = curve3.direction3;
       spinePrescription.major3 = curve3.major3;
-
-      spinePrescription.valid = true;
-      this.registerPatientService.setPageNum(3);
-      this.registerPatientService.setSpinePrescription(spinePrescription);
-    } else if (status === 'VALID' && 
-              this.addCurve2 && curve2status ==='VALID' &&
-              this.addCurve3 && curve3status ==='INVALID') {
-      console.log('curve3Form is invalid');
-      return;
     }
+    return spinePrescription;
   }
+
 }

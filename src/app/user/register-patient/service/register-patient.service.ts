@@ -31,10 +31,10 @@ export class RegisterPatientService {
   private page5Source = new Subject<string>();
 
   page1$ = this.page1Source.asObservable();
-  page2$ = this.page1Source.asObservable();
-  page3$ = this.page1Source.asObservable();
-  page4$ = this.page1Source.asObservable();
-  page5$ = this.page1Source.asObservable();
+  page2$ = this.page2Source.asObservable();
+  page3$ = this.page3Source.asObservable();
+  page4$ = this.page4Source.asObservable();
+  page5$ = this.page5Source.asObservable();
  
   // Service message commands
   setPageNum(num: number) {

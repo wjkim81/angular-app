@@ -219,7 +219,7 @@
 
     <div class="col-4 col-sm-2 col-md-2">
       <div class="input-group">
-          <div *ngIf="patientErrMsg" class="vntc-error-msg"></div>
+          <div *ngIf="showError" class="vntc-error-msg"></div>
 
           <div class="input-group-prepend">
             <div class="input-group-text">
@@ -233,7 +233,7 @@
 
     <div class="col-4 col-sm-2 col-md-2">
       <div class="input-group">
-        <div *ngIf="patientErrMsg" class="vntc-error-msg"></div>
+        <div *ngIf="showError" class="vntc-error-msg"></div>
 
         <div class="input-group-prepend">
           <div class="input-group-text">
@@ -344,7 +344,7 @@
               <label></label>
             </div>
           </div>
-          <input type="text" class="form-control bg-light" placeholder="Major Curve" disabled>
+          <input type="text" class="form-control bg-light" placeholder="Minor Curve" disabled>
         </div>
       </div>
     </div>
