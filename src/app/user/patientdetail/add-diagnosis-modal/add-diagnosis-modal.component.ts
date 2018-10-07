@@ -119,7 +119,8 @@ export class AddDiagnosisModalComponent implements OnInit {
       this.updatedPatient.emit(patient);
 
       // console.log(patient);
-      this.diagnosisModal.close();
+      // this.diagnosisModal.close();
+      this.controlModalService.closeDiagnosisModal();
     }, (errMsg) => {
       this.errMsg = <any>errMsg;
       console.log(errMsg);

@@ -41,7 +41,6 @@ export class UserHomeComponent implements OnInit {
   numAllPatients: number;
   numPatientsInTable: number;
 
-  errMsg: string;
   patientsErrMsg: string;
 
   optionFilterForm: FormGroup;
@@ -61,35 +60,7 @@ export class UserHomeComponent implements OnInit {
     private patientService: PatientService,
     private authService: AuthService,
     @Inject('BaseURL') private BaseURL
-  ) {
-    /*
-    this.authService.loadUserCredentials();
-    if (!this.authService.isAuthenticated) {
-      this.location.replaceState('/'); // clears browser history so they can't navigate with back button
-      this.router.navigate(['/user-login']);
-    }
-    */
-
-    // console.log('user-home');
-    // this.authService.validateUserCredentials((res, err) => {
-    //   console.log('authService.validateUserCredentials');
-    //   console.log('res: ', res);
-    //   console.log('err: ', err);
-    //   if (err) {
-    //     this.errMsg = err;
-    //   }
- 
-    //   console.log('authenticated: ', this.authService.isAuthenticated);
-    //   if (!this.authService.isAuthenticated) {
-        
-    //     this.location.replaceState('/'); // clears browser history so they can't navigate with back button
-    //     this.router.navigate(['/user-login']);
-    //   } else {
-    //     console.log(res.member);
-    //     console.log('Logged in')
-    //   }
-    // });
-  }
+  ) { }
 
   ngOnInit() {
     this.subjects = SUBJECTS;
@@ -118,6 +89,7 @@ export class UserHomeComponent implements OnInit {
     //this.patientService.getPatients()
     this.patientService.getPatientsBetween(this.searchDateStart.toISOString(), this.searchDateEnd.toISOString())
     .subscribe((patients) => {
+      console.log(patients);
       this.summarizePatients(patients);
     }, (patientsErrMsg) => {
       this.patientsErrMsg = <any>patientsErrMsg;

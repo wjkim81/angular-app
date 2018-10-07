@@ -1,10 +1,16 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
-import { HttpClientModule } from '@angular/common/http';
-//import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+/**
+ * Import core and shared module
+ * While I am reading the Internet, I misunderstand core and shared modules.
+ * It seems they provide similar functions, so it was not neccesary to seperate them.
+ * Anyway, I arranged these two modules as following:
+ * 
+ * core module defines modules and services commonly used in all modules.
+ * shared module defines directives, pipes, and components commonly used in all modules.s
+ */
+import { CoreModule } from '../core-module/core-module.module';
+import { SharedModule } from '../shared/shared-module.module';
 
 /**
  * Import user routing module.
@@ -12,23 +18,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UserRoutingModule } from './user-routing/user-routing.module';
 
 /**
- * Import ng-bootstrap module
- */
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
-/**
- * Import shared module
- */
-
-import { SharedModule } from '../shared/shared-module.module';
-
-/**
  * UserNavbarComponent and FooterComponent are header and footer in all user pages.
  */
 import { UserComponent } from './user.component';
 import { UserNavbarComponent } from './user-navbar/user-navbar.component';
 import { FooterComponent } from './footer/footer.component';
-
 
 /**
  * UserHomeComponent shows list of patients.
@@ -68,18 +62,13 @@ import { CobbAngleComponent } from './cobb-angle/cobb-angle.component';
 
 import { UserInfoComponent } from './user-info/user-info.component';
 
-import { baseURL } from '../shared/models/baseurl';
-
 /**
  * Import services here used only for UserModule
  */
 
 @NgModule({
   imports: [
-    NgbModule,
-    FormsModule,
-    ReactiveFormsModule,
-    CommonModule,
+    CoreModule,
     SharedModule,
     // Routing should be the last
     UserRoutingModule,
@@ -104,8 +93,6 @@ import { baseURL } from '../shared/models/baseurl';
     UserInfoComponent
   ],
   providers: [
-    HttpClientModule,
-    { provide: 'BaseURL', useValue: baseURL },
   ]
 })
 export class UserModule { }

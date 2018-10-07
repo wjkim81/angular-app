@@ -1,13 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Router } from '@angular/router';
-import { Location } from '@angular/common';
 
 import { PatientInfoForm, SpinePrescriptionForm, DiagnosisForm, BodyMeasurementForm } from '../../../shared/models/register-form-interfaces';
 import { Patient } from '../../../shared/models/patient';
 
 import { RegisterPatientService } from '../service/register-patient.service';
 import { PatientService } from '../../../shared/services/patient.service';
+import { AwsService } from '../../../shared/services/aws.service';
 
 @Component({
   selector: 'app-complete-register',
@@ -26,13 +26,14 @@ export class CompleteRegisterComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private location: Location,
     private registerPatientService: RegisterPatientService,
-    private patientService: PatientService
+    private patientService: PatientService,
+    private awsService: AwsService
   ) { }
 
   ngOnInit() {
     this.showResult = false;
+    console.log(this.spinePrescription);
   }
 
   goPrevious() {
@@ -82,6 +83,30 @@ export class CompleteRegisterComponent implements OnInit {
       patient.spineInfos = [spineInfo];
     }
 
+    if (this.spinePrescription.valid && this.spinePrescription.xRayFileValid) {
+      var xRayInfo: any = {};
+      let fileName = this.spinePrescription.xRayFile.name;
+      
+      let nameList = fileName.split('.');
+      let fileType = nameList[nameList.length - 1];
+      // console.log(fileType);
+      let date = new Date();
+
+      var todayYYYY = date.getFullYear();
+      var todayMM = (date.getMonth() + 1).toString();
+      if (todayMM.length === 1) todayMM = '0' + todayMM;
+      var todayDD = date.getDate().toString();
+      if (todayDD.length === 1) todayDD = '0' + todayDD;
+      var today = todayYYYY + todayMM + todayDD;
+
+
+      xRayInfo.filePath = patient.hashKey + '_' + today + '.' + fileType;
+      xRayInfo.description = this.spinePrescription.xRaydescription;
+      console.log(xRayInfo);
+
+      patient.xRayFiles = [xRayInfo];
+    }
+
     if (this.diagnosis.valid) {
       var comment: any = {};
       comment.comment = this.diagnosis.comment
@@ -98,7 +123,6 @@ export class CompleteRegisterComponent implements OnInit {
       bodyMeasurement.hip = +this.bodyMeasurement.hip;
       patient.bodyMeasurements = [bodyMeasurement];
     }
-    
 
     this.patientService.postPatient(patient)
     .subscribe((patient) => {
@@ -106,13 +130,19 @@ export class CompleteRegisterComponent implements OnInit {
       console.log(patient);
       this.patient = patient;
       this.showResult = true;
+
+      if (this.spinePrescription.xRayFileValid) {
+        this.awsService.uploadImage(this.spinePrescription.xRayFile, patient.xRayFiles[0].filePath)
+        .subscribe((res) => {
+          console.log(res);
+        });
+      }
       setTimeout(() => {
         this.showResult = false;
         
         // window.location.reload();
         this.router.navigate(['/home']);
       }, 5000);
-    })
-
+    });
   }
 }

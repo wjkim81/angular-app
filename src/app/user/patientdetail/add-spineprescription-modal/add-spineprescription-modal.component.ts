@@ -424,7 +424,8 @@ export class AddSpineprescriptionModalComponent implements OnInit {
 
       // console.log(patient);
       
-      this.spineDiagModal.close();
+      // this.spineDiagModal.close();
+      this.controlModalService.closeSpinePrescriptionModal();
     }, (errMsg) => {
       this.errMsg = <any>errMsg;
       console.log(errMsg);

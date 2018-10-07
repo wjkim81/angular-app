@@ -34,12 +34,13 @@ export interface SpinePrescriptionForm {
   major3: string; // Need to be converted to boolean before post
   valid: boolean;
 
-  xRayFile: string;
-  description: string;
-
   showAddCurveBtn: boolean;
   showDeleteCurveBtn: boolean;
 
+  xRayFile: File;
+  xRaydescription: string;
+  imgSrc: Blob;
+  xRayFileValid: boolean;
 }
 
 export interface DiagnosisForm {

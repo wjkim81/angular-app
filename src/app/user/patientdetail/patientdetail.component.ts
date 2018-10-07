@@ -6,6 +6,7 @@ import { Patient } from '../../shared/models/patient';
 
 import { PatientService } from '../../shared/services/patient.service';
 import { ControlModalService } from './service/control-modal.service';
+import { AwsService } from '../../shared/services/aws.service';
 
 @Component({
   selector: 'app-patientdetail',
@@ -17,14 +18,18 @@ export class PatientdetailComponent implements OnInit {
   patient: Patient;
   curveProgression: number;
 
+  xRayPath: string;
+
   patientErrMsg: string;
 
   disableOrderButton: boolean;
 
   constructor(
+    private route: ActivatedRoute,
     private controlModalService: ControlModalService,
     private patientservice: PatientService,
-    private route: ActivatedRoute
+    private awsService: AwsService
+
   ) { }
 
   ngOnInit() {
@@ -56,6 +61,11 @@ export class PatientdetailComponent implements OnInit {
          */
         if (patient.bodyMeasurements.length > 0 && patient.spineInfos.length > 0)
           this.disableOrderButton = false;
+
+        if (patient.xRayFiles.length > 0) {
+          let lastIdx = patient.xRayFiles.length - 1;
+          this.xRayPath = this.awsService.getFullPathName(patient.xRayFiles[lastIdx].filePath);
+        }
 
       }, patientErrMsg => {
         this.patientErrMsg = <any>patientErrMsg

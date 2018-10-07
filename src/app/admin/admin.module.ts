@@ -1,25 +1,24 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
-import { HttpClientModule } from '@angular/common/http';
-//import { HTTP_INTERCEPTORS } from '@angular/common/http';
-
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
-import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+/**
+ * Import core and shared module
+ * While I am reading the Internet, I misunderstand core and shared modules.
+ * It seems they provide similar functions, so it was not neccesary to seperate them.
+ * Anyway, I arranged these two modules as following:
+ * 
+ * core module defines modules and services commonly used in all modules.
+ * shared module defines directives, pipes, and components commonly used in all modules.s
+ */
+import { CoreModule } from '../core-module/core-module.module';
+import { SharedModule } from '../shared/shared-module.module';
 
 import { AdminRoutingModule } from './admin-routing/admin-routing.module';
 
 /**
- * Import shared module
+ * Import all components here
  */
-
-import { SharedModule } from '../shared/shared-module.module';
-
 import { AdminComponent } from './admin.component';
 import { AdminNavbarComponent } from './admin-navbar/admin-navbar.component';
-//import { FooterComponent } from '../footer/footer.component';
 
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { PatientdetailComponent } from './patientdetail/patientdetail.component';
@@ -28,8 +27,6 @@ import { ListMembersComponent } from './list-members/list-members.component';
 import { MemberdetailComponent } from './memberdetail/memberdetail.component';
 import { RegisterOrganizationComponent } from './register-organization/register-organization.component';
 import { RegisterMemberComponent } from './register-member/register-member.component';
-
-import { baseURL } from '../shared/models/baseurl';
 
 /**
  * Import services here used only for AdminnModule
@@ -43,11 +40,7 @@ import { MemberService } from '../shared/services/member.service';
 
 @NgModule({
   imports: [
-    NgbModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    CommonModule,
+    CoreModule,
     SharedModule,
     // Routing should be the last
     AdminRoutingModule
@@ -63,8 +56,6 @@ import { MemberService } from '../shared/services/member.service';
     MemberdetailComponent,
   ],
   providers: [
-    HttpClientModule,
-    { provide: 'BaseURL', useValue: baseURL },
     OrganizationService,
     MemberService
   ]

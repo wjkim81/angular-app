@@ -150,7 +150,8 @@ export class AddBodymeasurementModalComponent implements OnInit {
 
       // console.log(patient);
       
-      this.bodyMeasureModal.close();
+      // this.bodyMeasureModal.close();
+      this.controlModalService.closeBodyMeasurementModal();
     }, (errMsg) => {
       this.errMsg = <any>errMsg;
       console.log(errMsg);

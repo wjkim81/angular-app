@@ -33,6 +33,9 @@
       </div>
     </div>
   </div>
+  <div [hidden]="organizations || orgsErrMsg">
+    <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
+  </div>
   <div *ngIf="orgsErrMsg">
     <h4>Error</h4>
     <p>{{orgsErrMsg}}</p>
@@ -95,6 +98,7 @@
           <thead class="thead-inverse">
             <tr>
               <th>Patient ID</th>
+              <th>Organization</th>
               <th>Name</th>
               <th>Birthday</th>
               <th>Sex</th>
@@ -103,12 +107,13 @@
               <th>Apex1</th>
               <th>Apex2</th>
               <th>Apex3</th>
-              <th>Last Visit</th>
+              <th>Last Update</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let patient of patientsInTable" [routerLink]="['/admin/patients', patient._id]" appHighlight>
               <td>{{patient.hashKey}}</td>
+              <td>{{patient.orgName}}</td>
               <td>{{patient.firstname}} {{patient.lastname}}</td>
               <td>{{patient.birthday | date}}</td>
               <td>{{patient.sex}}</td>
@@ -124,10 +129,13 @@
       </div>
     </div>
   </div>
-  <!-- This is loading animation part. Should be updated later!!!-->
-  <!-- <div [hidden]="pateints">
-    <md-spinner></md-spinner><h4>Loading . . . Please Wait</h4>
-  </div> -->
+  <div [hidden]="patients || patientsErrMsg">
+    <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
+  </div>
+  <div *ngIf="patientsErrMsg">
+    <h4>Error</h4>
+    <p>{{patientsErrMsg}}</p>
+  </div>
   <div *ngIf="patientsErrMsg">
     <h4>Error</h4>
     <p>{{patientsErrMsg}}</p>

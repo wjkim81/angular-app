@@ -364,11 +364,9 @@
       <h5>X-Ray Image</h5>
     </div>
   </div>
-
   <div class="form-group row">
-    <label for="xRayFile" class="col-12 col-sm-12 col-form-label">X-ray file</label>
-    <div class="col-12 col-sm-12">
-      <input type="file" class="form-control-file" id="xRayFile" name="xRayFile">
+    <div class="col-12">
+      <img *ngIf="spinePrescription.imgSrc" [src]="spinePrescription.imgSrc" name="imgSrc" id="blah"/>
     </div>
   </div>
 </form>

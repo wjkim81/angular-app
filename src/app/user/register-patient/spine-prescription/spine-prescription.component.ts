@@ -7,6 +7,8 @@ import { SpinePrescriptionForm } from '../../../shared/models/register-form-inte
 
 import { RegisterPatientService } from '../service/register-patient.service';
 
+
+
 // import { flyInOut, slide } from '../../../shared/animations/app.animation';
 
 @Component({
@@ -139,6 +141,11 @@ export class SpinePrescriptionComponent implements OnInit {
     }
   };
 
+  xRayFile: File;
+  xRayDescription: string;
+  imgSrc: Blob;
+  xRayFileValid: boolean;
+
   constructor(
     private fb: FormBuilder,
     private registerPatientService: RegisterPatientService,
@@ -160,16 +167,19 @@ export class SpinePrescriptionComponent implements OnInit {
       this.addCurve3 = this.spinePrescription.addCurve3;
       this.showDeleteCurveBtn = this.spinePrescription.showDeleteCurveBtn;
       this.showAddCurveBtn = this.spinePrescription.showAddCurveBtn;
+      this.xRayFileValid = this.spinePrescription.xRayFileValid;
     } else {
       this.addCurve2 = false;
       this.addCurve3 = false;
       this.showDeleteCurveBtn = false;
       this.showAddCurveBtn = true;
+      this.xRayFileValid = false;
     }
 
     this.createSpinePrescriptionForm(this.spinePrescription);
     this.createCurve2Form(this.spinePrescription);
     this.createCurve3Form(this.spinePrescription);
+    this.setXRayFile(this.spinePrescription);
   }
 
   createSpinePrescriptionForm(spinePrescription: SpinePrescriptionForm) {
@@ -186,8 +196,6 @@ export class SpinePrescriptionComponent implements OnInit {
         curveEnd1: [spinePrescription.curveEnd1, Validators.required],
         direction1: [spinePrescription.direction1, Validators.required],
         major1: [spinePrescription.major1, Validators.required],
-        
-        xRayFile: spinePrescription.xRayFile,
       });
     } else {
       this.spinePrescriptionForm = this.fb.group({
@@ -202,8 +210,6 @@ export class SpinePrescriptionComponent implements OnInit {
         curveEnd1: ['', Validators.required],
         direction1: ['', Validators.required],
         major1: [null, Validators.required],
-        
-        xRayFile: '',
       });
     }
 
@@ -230,7 +236,6 @@ export class SpinePrescriptionComponent implements OnInit {
         major2: [null, Validators.required],
       });
     }
-
 
     this.curve2Form.valueChanges
       .subscribe(data => this.onValueChangedInCurve2Form(data));
@@ -379,60 +384,6 @@ export class SpinePrescriptionComponent implements OnInit {
     }
   }
 
-  goPrevious() {
-    console.log('goPrevious()');
-    var spinePrescription =this.saveToSpinePrescriptionFromForms();
-    this.registerPatientService.setSpinePrescription(spinePrescription);
-
-    this.registerPatientService.setPageNum(1);
-  }
-
-  skip() {
-    console.log('skip()');
-    var spinePrescription =this.saveToSpinePrescriptionFromForms();
-
-    this.registerPatientService.setSpinePrescription(spinePrescription);
-    this.registerPatientService.setPageNum(3);
-  }
-
-  goNext() {
-    console.log('goNext()');
-    let status = this.spinePrescriptionForm.status;
-    let curve2status = this.curve2Form.status;
-    let curve3status = this.curve3Form.status;
-
-    var spinePrescription = this.saveToSpinePrescriptionFromForms();
-
-    if (status === 'VALID' && !this.addCurve2 && !this.addCurve3) {
-      console.log('main goNext()');
-
-      spinePrescription.valid = true;
-      this.registerPatientService.setSpinePrescription(spinePrescription);
-      this.registerPatientService.setPageNum(3);
-    } else if (status === 'INVALID' && !this.addCurve2 && !this.addCurve3) {
-      console.log('Main form is invalid');
-      this.showError = true;
-    } else if (status === 'VALID' && this.addCurve2 && curve2status ==='VALID' && !this.addCurve3) {
-      console.log('cureve2 goNext()');
-      spinePrescription.valid = true;
-      this.registerPatientService.setSpinePrescription(spinePrescription);
-      this.registerPatientService.setPageNum(3);
-    } else if (status === 'VALID' && this.addCurve2 && curve2status ==='INVALID' && !this.addCurve3) {
-      console.log('curve2Form is invalid');
-    } else if (status === 'VALID' && 
-              this.addCurve2 && curve2status ==='VALID' &&
-              this.addCurve3 && curve3status ==='VALID') {
-      console.log('curve3 goNext()');
-      spinePrescription.valid = true;
-      this.registerPatientService.setSpinePrescription(spinePrescription);
-      this.registerPatientService.setPageNum(3);
-    } else if (status === 'VALID' && 
-              this.addCurve2 && curve2status ==='VALID' &&
-              this.addCurve3 && curve3status ==='INVALID') {
-      console.log('curve3Form is invalid');
-    }
-  }
-
   saveToSpinePrescriptionFromForms(): SpinePrescriptionForm {
     let spForm = this.spinePrescriptionForm.value;
 
@@ -452,6 +403,9 @@ export class SpinePrescriptionComponent implements OnInit {
 
     spinePrescription.showAddCurveBtn = this.showAddCurveBtn;
     spinePrescription.showDeleteCurveBtn = this.showDeleteCurveBtn;
+
+    spinePrescription.xRayFile = this.xRayFile;
+    spinePrescription.imgSrc = this.imgSrc;
 
     console.log('spinePrescription: ');
     console.log(spinePrescription);
@@ -475,7 +429,105 @@ export class SpinePrescriptionComponent implements OnInit {
       spinePrescription.direction3 = curve3.direction3;
       spinePrescription.major3 = curve3.major3;
     }
+
+    if (this.xRayFile) {
+
+      spinePrescription.xRayFile = this.xRayFile;
+      spinePrescription.xRayDescription = this.xRayDescription;
+      spinePrescription.imgSrc = this.imgSrc;
+    }
+
     return spinePrescription;
   }
 
+  readURL(imgInput: any): void {
+    if (imgInput.target.files && imgInput.target.files[0]) {
+      this.xRayFile = imgInput.target.files[0];
+      console.log(this.xRayFile);
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.imgSrc = <any> reader.result;
+        // console.log(this.imgSrc);
+      }
+      reader.readAsDataURL(this.xRayFile);
+    }
+  }
+
+  setXRayFile(spinePrescription) {
+    if (spinePrescription && spinePrescription.xRayFile && spinePrescription.imgSrc) {
+      this.xRayFile = spinePrescription.xRayFile;
+      this.xRayDescription = spinePrescription.xRayDescription;
+      this.imgSrc = spinePrescription.imgSrc;
+    } else {
+      this.xRayFile = undefined;
+      this.xRayDescription = undefined;
+      this.imgSrc = undefined;
+    }
+  }
+
+  goPrevious() {
+    console.log('goPrevious()');
+    var spinePrescription = this.saveToSpinePrescriptionFromForms();
+    this.registerPatientService.setSpinePrescription(spinePrescription);
+
+    this.registerPatientService.setPageNum(1);
+  }
+
+  skip() {
+    console.log('skip()');
+    var spinePrescription = this.saveToSpinePrescriptionFromForms();
+
+    spinePrescription.valid = false;
+    spinePrescription.xRayFileValid = false;
+
+    this.registerPatientService.setSpinePrescription(spinePrescription);
+    this.registerPatientService.setPageNum(3);
+  }
+
+  goNext() {
+    console.log('goNext()');
+    let status = this.spinePrescriptionForm.status;
+    let curve2status = this.curve2Form.status;
+    let curve3status = this.curve3Form.status;
+
+    var spinePrescription = this.saveToSpinePrescriptionFromForms();
+
+    /**
+     * We need one more button to reset x-Ray file after select image file.
+     * Thus, we can reset xRayFileValid as false when reseting x-Ray file.
+     */
+    spinePrescription.xRayFileValid = true;
+
+    if (status === 'VALID' && !this.addCurve2 && !this.addCurve3) {
+      console.log('main goNext()');
+
+      spinePrescription.valid = true;
+      this.registerPatientService.setSpinePrescription(spinePrescription);
+      this.registerPatientService.setPageNum(3);
+    } else if (status === 'INVALID' && !this.addCurve2 && !this.addCurve3) {
+      console.log('Main form is invalid');
+      this.showError = true;
+    } else if (status === 'VALID' && this.addCurve2 && curve2status ==='VALID' && !this.addCurve3) {
+      console.log('cureve2 goNext()');
+
+      spinePrescription.valid = true;
+      this.registerPatientService.setSpinePrescription(spinePrescription);
+      this.registerPatientService.setPageNum(3);
+    } else if (status === 'VALID' && this.addCurve2 && curve2status ==='INVALID' && !this.addCurve3) {
+      console.log('curve2Form is invalid');
+    } else if (status === 'VALID' && 
+              this.addCurve2 && curve2status ==='VALID' &&
+              this.addCurve3 && curve3status ==='VALID') {
+      console.log('curve3 goNext()');
+
+      spinePrescription.valid = true;
+      this.registerPatientService.setSpinePrescription(spinePrescription);
+      this.registerPatientService.setPageNum(3);
+    } else if (status === 'VALID' && 
+              this.addCurve2 && curve2status ==='VALID' &&
+              this.addCurve3 && curve3status ==='INVALID') {
+      console.log('curve3Form is invalid');
+    }
+  }
 }

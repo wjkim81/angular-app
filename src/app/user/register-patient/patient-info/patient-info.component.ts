@@ -75,9 +75,9 @@ export class PatientInfoComponent implements OnInit {
     private patientService: PatientService,
     private memberService: MemberService
   ) { 
-    this.registerPatientService.page1$.subscribe((pos) => {
-      this.position = pos;
-    });
+    // this.registerPatientService.page1$.subscribe((pos) => {
+    //   this.position = pos;
+    // });
   }
 
   ngOnInit() {
@@ -173,8 +173,10 @@ export class PatientInfoComponent implements OnInit {
       patientInfo.valid = true;
 
       this.registerPatientService.setPatientInfo(patientInfo);
-      this.registerPatientService.setPage1Position('left');
-      this.registerPatientService.setPage2Position('middle');
+
+      // this.registerPatientService.setPage1Position('left');
+      // this.registerPatientService.setPage2Position('middle');
+
       this.registerPatientService.setPageNum(2);
     } else {
       console.log('PatientInfoForm is invalid');

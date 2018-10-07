@@ -61,7 +61,7 @@
               <th>Apex1</th>
               <th>Apex2</th>
               <th>Apex3</th>
-              <th>Last Visit</th>
+              <th>Last Update</th>
             </tr>
           </thead>
           <tbody>
@@ -83,9 +83,13 @@
     </div>
   </div>
   <!-- This is loading animation part. Should be updated later!!!-->
-  <!-- <div [hidden]="pateints">
-    <md-spinner></md-spinner><h4>Loading . . . Please Wait</h4>
-  </div> -->
+  <div [hidden]="patients || patientsErrMsg">
+    <mat-spinner strokeWidth="3" [diameter]="50"></mat-spinner>
+    <!-- <mat-spinner strokeWidth="3" [diameter]="80"></mat-spinner>
+    <mat-spinner strokeWidth="3" [diameter]="100"></mat-spinner>
+    <mat-spinner></mat-spinner> -->
+    <h4>Loading . . . Please Wait</h4>
+  </div>
   <div *ngIf="patientsErrMsg">
     <h4>Error</h4>
     <p>{{patientsErrMsg}}</p>

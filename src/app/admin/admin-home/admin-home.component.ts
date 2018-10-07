@@ -136,6 +136,7 @@ export class AdminHomeComponent implements OnInit {
       var patient: any = {};
       patient._id = this.patients[i]._id;
       patient.hashKey = this.patients[i].hashKey;
+      patient.orgName = (<any>this.patients[i].organization).name;
       patient.firstname = this.patients[i].firstname;
       patient.lastname = this.patients[i].lastname;
       patient.birthday = this.patients[i].birthday;

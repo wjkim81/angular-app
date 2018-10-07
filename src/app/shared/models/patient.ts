@@ -66,6 +66,7 @@ export class Patient {
   /** Why not Oranization? We just need _id of Organization
    *  We will fetch organization data through api if we need more
    */
+  // organization: Organization;
   organization: string;
 
   //patientId: string;

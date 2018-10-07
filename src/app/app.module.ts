@@ -15,17 +15,13 @@ import 'hammerjs';
 
 import { AppRoutingModule } from './app-routing/app-routing.module';
 
-import { AppComponent } from './app.component';
 
 import { CoreModule } from './core-module/core-module.module';
 import { SharedModule } from './shared/shared-module.module';
 import { AdminModule } from './admin/admin.module';
 import { UserModule } from './user/user.module';
 
-// import { AuthService } from './services/auth.service';
-// import { AuthInterceptor, UnauthorizedInterceptor } from './services/auth.interceptor';
-// import { HTTP_INTERCEPTORS } from '@angular/common/http';
-
+import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 
 @NgModule({

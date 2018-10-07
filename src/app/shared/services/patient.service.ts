@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError, delay } from 'rxjs/operators';
 
 import { BodyMeasurement, SpineInfo, Comment, XRayFile, Patient } from '../models/patient';
 
@@ -26,7 +26,7 @@ export class PatientService {
 
   getPatientsBetween(startDate: String, endDate: String): Observable<Patient[]> {
     console.log(baseURL + 'patients?startDate=' + startDate + '&endDate=' + endDate);
-    return this.http.get<Patient[]>(baseURL + 'patients?startDate=' + startDate + '&endDate=' + endDate)
+    return this.http.get<Patient[]>(baseURL + 'patients?startDate=' + startDate + '&endDate=' + endDate).delay(5000)
       .pipe(
         catchError(this.processHTTPMsgService.handleError)
       );
