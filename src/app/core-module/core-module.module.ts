@@ -14,6 +14,7 @@ import { PatientService } from '../shared/services/patient.service';
 import { AuthService } from '../shared/services/auth.service';
 import { AuthInterceptor, UnauthorizedInterceptor } from '../shared/services/auth.interceptor';
 import { AuthGuardService } from '../shared/services/auth-guard.service';
+import { AdminAuthGuardService } from '../shared/services/admin-auth-guard.service';
 import { ProcessHTTPMsgService } from '../shared/services/process-httpmsg.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -27,7 +28,6 @@ import { baseURL } from '../shared/models/baseurl';
     FormsModule,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
-    
   ],
   declarations: [
 
@@ -45,6 +45,7 @@ import { baseURL } from '../shared/models/baseurl';
     ProcessHTTPMsgService,
     AuthService,
     AuthGuardService,
+    AdminAuthGuardService,
     PatientService,
     {
       provide: HTTP_INTERCEPTORS,
@@ -78,6 +79,7 @@ export class CoreModule {
         ProcessHTTPMsgService,
         AuthService,
         AuthGuardService,
+        AdminAuthGuardService,
         PatientService,
         {
           provide: HTTP_INTERCEPTORS,

@@ -5,15 +5,16 @@ import { AdminHomeComponent } from '../admin-home/admin-home.component';
 import { PatientdetailComponent } from '../patientdetail/patientdetail.component';
 import { ListMembersComponent } from '../list-members/list-members.component';
 import { MemberdetailComponent } from '../memberdetail/memberdetail.component';
-import { RegisterOrganizationComponent } from '../register-organization/register-organization.component';
-import { RegisterMemberComponent } from '../register-member/register-member.component';
+import { RegistersComponent } from '../registers/registers.component';
+import { RegisterOrganizationComponent } from '../registers/register-organization/register-organization.component';
+import { RegisterMemberComponent } from '../registers/register-member/register-member.component';
 
-import { AuthGuardService as AuthGuard } from '../../shared/services/auth-guard.service';
+import { AdminAuthGuardService as AdminAuthGuard } from '../../shared/services/admin-auth-guard.service';
 
 export const adminRoutes: Routes = [{
   path: '',
   component: AdminComponent,
-  canActivateChild: [AuthGuard],
+  canActivateChild: [AdminAuthGuard],
   children: [
     {
       path: 'admin/home',
@@ -26,6 +27,10 @@ export const adminRoutes: Routes = [{
     {
       path: 'admin/list-members',
       component: ListMembersComponent
+    },
+    {
+      path: 'admin/registers',
+      component: RegistersComponent
     },
     {
       path: 'admin/register-organization',

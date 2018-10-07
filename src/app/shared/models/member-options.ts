@@ -1,4 +1,4 @@
-export const SUBJECTS: string[] = [
+export const DEPARTMENTS: string[] = [
   '가정의학과',
   '내과',
   '마취통증의학과',

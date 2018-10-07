@@ -27,13 +27,13 @@ export const routes: Routes = [
   {
     path: '',
     loadChildren: 'app/user/user.module#UserModule',
-    canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
     // loadChildren:() => UserModule
   },
   {
     path: 'admin',
     loadChildren: 'app/admin/admin.module#AdminModule',
-    canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
     // loadChildren:() => AdminModule
   },
 ]

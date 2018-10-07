@@ -431,7 +431,6 @@ export class SpinePrescriptionComponent implements OnInit {
     }
 
     if (this.xRayFile) {
-
       spinePrescription.xRayFile = this.xRayFile;
       spinePrescription.xRayDescription = this.xRayDescription;
       spinePrescription.imgSrc = this.imgSrc;
@@ -440,7 +439,7 @@ export class SpinePrescriptionComponent implements OnInit {
     return spinePrescription;
   }
 
-  readURL(imgInput: any): void {
+  readURL(imgInput: any) {
     if (imgInput.target.files && imgInput.target.files[0]) {
       this.xRayFile = imgInput.target.files[0];
       console.log(this.xRayFile);

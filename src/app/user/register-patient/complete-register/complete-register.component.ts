@@ -97,10 +97,9 @@ export class CompleteRegisterComponent implements OnInit {
       if (todayMM.length === 1) todayMM = '0' + todayMM;
       var todayDD = date.getDate().toString();
       if (todayDD.length === 1) todayDD = '0' + todayDD;
-      var today = todayYYYY + todayMM + todayDD;
+      let today = todayYYYY + todayMM + todayDD;
 
-
-      xRayInfo.filePath = patient.hashKey + '_' + today + '.' + fileType;
+      xRayInfo.filePath = patient.hashKey + '_' + today + '_original.' + fileType;
       xRayInfo.description = this.spinePrescription.xRaydescription;
       console.log(xRayInfo);
 

@@ -25,14 +25,17 @@ import { PatientdetailComponent } from './patientdetail/patientdetail.component'
 
 import { ListMembersComponent } from './list-members/list-members.component';
 import { MemberdetailComponent } from './memberdetail/memberdetail.component';
-import { RegisterOrganizationComponent } from './register-organization/register-organization.component';
-import { RegisterMemberComponent } from './register-member/register-member.component';
+
+import { RegistersComponent } from './registers/registers.component';
+import { RegisterOrganizationComponent } from './registers/register-organization/register-organization.component';
+import { RegisterMemberComponent } from './registers/register-member/register-member.component';
 
 /**
  * Import services here used only for AdminnModule
  */
 import { OrganizationService } from '../shared/services/organization.service';
 import { MemberService } from '../shared/services/member.service';
+
 
 /** 
  * Import directives here
@@ -49,6 +52,7 @@ import { MemberService } from '../shared/services/member.service';
     AdminComponent,
     AdminNavbarComponent,
     AdminHomeComponent,
+    RegistersComponent,
     RegisterOrganizationComponent,
     RegisterMemberComponent,
     ListMembersComponent,

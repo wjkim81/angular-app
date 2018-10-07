@@ -1,0 +1,79 @@
+
+<!--
+<p>orgForm.value: {{orgForm.value | json}}</p>
+<p>formErrors: {{formErrors | json}}</p>
+<p>orgForm.valid: {{orgForm.valid}}</p>
+-->
+<form novalidate [formGroup]="orgForm" (ngSubmit)="submitOrganization()" *ngIf=!(showOrganizationInfo)>
+  <div class="row">
+    <label class="offset-2 col-4 col-form-label" for="orgName">Organization Name*</label>
+    <label class="col-4 col-form-label" for="type">Type*</label>
+  </div>
+  <div class="form-group row">
+    <div class="offset-2 col-4">
+      <input type="text" class="form-control {{(formErrors.name) ? 'is-invalid' : ''}}" id="orgName"
+             placeholder="Enter organzation name" formControlName="name">
+      <div class="invalid-feedback">{{formErrors.name}}</div>
+    </div>
+    <div class="col-4">
+      <select id="type" class="form-control {{(formErrors.type) ? 'is-invalid' : ''}}" formControlName="type">
+        <option *ngFor="let type of types" [value]="type">{{type}}</option>
+        <div class="invalid-feedback">{{formErrors.type}}</div>
+      </select>
+    </div>
+  </div>
+
+  <div class="row">
+    <label class="offset-2 col-4 col-form-label" for="country">Country*</label>
+    <label class="col-4 col-form-label" for="city">City*</label>
+  </div>
+  <div class="form-group row">
+    <div class="offset-2 col-4">
+      <select id="country" class="form-control {{(formErrors.country) ? 'is-invalid' : ''}}" formControlName="country">
+        <option *ngFor="let country of countries" [value]="country">{{country}}</option>
+        <div class="invalid-feedback">{{formErrors.country}}</div>
+      </select>
+    </div>
+    <div class="col-4">
+      <input type="text" class="form-control {{(formErrors.city) ? 'is-invalid' : ''}}" id="city"
+             placeholder="Enter city" formControlName="city">
+      <div class="invalid-feedback">{{formErrors.city}}</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <label class="offset-2 col-4 col-form-label" for="address">Address*</label>
+    <label class="col-4 col-form-label" for="postCode" >Post Code*</label>
+  </div>
+  <div class="form-group row">
+    <div class="offset-2 col-4">
+      <input type="text" class="form-control {{(formErrors.address) ? 'is-invalid' : ''}}" id="address"
+             placeholder="Enter address" formControlName="address">
+        <div class="invalid-feedback">{{formErrors.address}}</div>
+    </div>
+    <div class="col-4">
+      <input type="text" class="form-control {{(formErrors.postCode) ? 'is-invalid' : ''}}" id="postCode"
+             placeholder="Enter post code" formControlName="postCode">
+      <div class="invalid-feedback">{{formErrors.postCode}}</div>
+    </div>
+  </div>
+
+
+  <div class="form-group row mb-3">
+    <div class="col-12 text-center">
+      <button type="submit" class="btn {{orgForm.valid ? 'btn-primary' : 'btn-secondary'}}" id="submitOrganization" [disabled]="orgForm.invalid">
+        Save
+      </button>
+    </div>
+  </div>
+</form>
+
+<div *ngIf="showOrganizationInfo">
+  <h3>New organization information</h3>
+  <p>Type: {{newOrganization.type}}</p>
+  <p>Name: {{newOrganization.name}}</p>
+  <p>Country: {{newOrganization.country}}</p>
+  <p>City: {{newOrganization.city}}</p>
+  <p>Address: {{newOrganization.address}}</p>
+  <p>Post Code: {{newOrganization.postCode}}</p>
+</div>

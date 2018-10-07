@@ -9,14 +9,9 @@ export class Member {
   firstname: string;
   lastname: string;
   organization: Organization;
-  subject: string;
-  //city: string;
-  //address: string;
-  //postCode: string;
-  managerName: string;
-  phoneNum: string;
-  mobileNum: string;
+  department: string;
   email: string;
+  mobileNum: string;
 }
 
 // Synced Data with server, some modified required, and it will be feature change.

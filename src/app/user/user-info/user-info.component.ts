@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { SUBJECTS, TYPES, COUNTRIES } from '../../shared/models/member-options';
+import { DEPARTMENTS, TYPES, COUNTRIES } from '../../shared/models/member-options';
 import { Member } from '../../shared/models/member';
 
 import { MemberService } from '../../shared/services/member.service';
@@ -56,7 +56,7 @@ export class UserInfoComponent implements OnInit {
 
   ngOnInit() {
     console.log('user-info');
-    this.subjects = SUBJECTS;
+    this.subjects = DEPARTMENTS;
     this.types = TYPES;
     this.countries = COUNTRIES;
 

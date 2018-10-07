@@ -1,0 +1,109 @@
+<!--
+<div *ngIf="orgsLoaded">
+<p>memberForm.value: {{memberForm.value | json}}</p>
+<p>formErrors: {{formErrors | json}}</p>
+<p>memberForm.valid: {{memberForm.valid}}</p>
+</div>
+-->
+<form novalidate [formGroup]="memberForm" (ngSubmit)="submitMember()" *ngIf="orgsLoaded && !(showMemberInfo)">
+  <div class="row">
+    <label class="offset-2 col-10 col-form-label" for="username">User Name*</label>
+  </div>
+  <div class="form-group row">
+    <div class="offset-2 col-4">
+      <input type="text" class="form-control {{(formErrors.username) ? 'is-invalid' : ''}}" id="username"
+              placeholder="Enter user name" formControlName="username">
+      <div class="invalid-feedback">{{formErrors.username}}</div>
+    </div>
+  </div>
+
+  <div class="row align-items-center">
+    <label for="password" class="offset-2 col-4 col-form-label">Enter password*</label>
+    <label for="confirmPassword" class="col-4 col-form-label">Confirm password*</label>
+  </div>
+  <div class="form-group row align-items-center">
+    <div class="offset-2 col-4">
+      <input type="password" class="form-control {{(formErrors.password) ? 'is-invalid' : ''}}" id="password"
+              placeholder="Enter your password" formControlName="password">
+      <div class="invalid-feedback">{{formErrors.password}}</div>
+    </div>
+      <div class="col-4">
+      <input type="password" class="form-control {{(formErrors.confirmPassword) ? 'is-invalid' : ''}}" id="confirmPassword"
+              placeholder="Confirm your password" formControlName="confirmPassword">
+      <div class="invalid-feedback">{{formErrors.confirmPassword}}</div>
+    </div>
+  </div>
+
+  <div class="row align-items-center">
+    <label for="firstname" class="offset-2 col-4 col-form-label">First Name*</label>
+    <label for="lastname" class="col-4 col-form-label">Last Name*</label>
+  </div>
+  <div class="form-group row align-items-center">
+    <div class="offset-2 col-4">
+      <input type="text" class="form-control {{(formErrors.firstname) ? 'is-invalid' : ''}}" id="firstname"
+              placeholder="Enter first name" formControlName="firstname">
+        <div class="invalid-feedback">{{formErrors.firstname}}</div>
+    </div>
+    <div class="col-4">
+      <input type="text" class="form-control {{(formErrors.lastname) ? 'is-invalid' : ''}}" id="lastname"
+            placeholder="Enter last name" formControlName="lastname">
+        <div class="invalid-feedback">{{formErrors.lastname}}</div>
+    </div>
+  </div>
+
+  <div class="row align-items-center">
+    <label for="email" class="offset-2 col-4 col-form-label">Email Address*</label>
+    <label for="mobileNum" class="col-4 col-form-label">Mobile number*</label>
+  </div>
+  <div class="form-group row align-items-center">
+    <div class="offset-2 col-4">
+      <input type="email" class="form-control {{(formErrors.email) ? 'is-invalid' : ''}}" id="email"
+              placeholder="Enter email address" formControlName="email">
+      <div class="invalid-feedback">{{formErrors.email}}</div>
+    </div>
+    <div class="col-4">
+      <input type="text" class="form-control {{(formErrors.mobileNum) ? 'is-invalid' : ''}}" id="mobileNum"
+              placeholder="Enter mobile number" formControlName="mobileNum">
+      <div class="invalid-feedback">{{formErrors.mobileNum}}</div>
+    </div>
+  </div>
+
+  <div class="row align-items-center">
+    <label for="organization" class="offset-2 col-4 col-form-label">Organization*</label>
+    <label for="department" class="col-4 col-form-label">Department*</label>
+  </div>
+  <div class="form-group row align-items-center">
+    <div class="offset-2 col-4">
+      <select id="organization" class="form-control {{(formErrors.organization) ? 'is-invalid' : ''}}" formControlName="organization">
+        <option *ngFor="let organization of organizations" [value]="organization._id">{{organization.name}}</option>
+        <div class="invalid-feedback">{{formErrors.organization}}</div>
+      </select>
+    </div>
+    <div class="col-4">
+      <select id="department" class="form-control {{(formErrors.department) ? 'is-invalid' : ''}}" formControlName="department">
+        <option *ngFor="let dep of departmentOptions" [value]="dep">{{dep}}</option>
+        <div class="invalid-feedback">{{formErrors.department}}</div>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group row mb-3">
+    <div class="col-12 text-center">
+      <button type="submit" class="btn {{memberForm.valid ? 'btn-primary' : 'btn-secondary'}}" id="submitMember" [disabled]="memberForm.invalid">
+        Save
+      </button>
+    </div>
+  </div>
+</form>
+
+<div *ngIf="showMemberInfo">
+  <h3>New member information</h3>
+  <p>Register Status: {{status}}</p>
+  <p>ID: {{newMember.username}}</p>
+  <p>First Name: {{newMember.firstname}}</p>
+  <p>Last Name: {{newMember.lastname}}</p>
+  <p>Email: {{newMember.email}}</p>
+  <p>Mobile Num.: {{newMember.mobileNum}}</p>
+  <p>Oragnization: {{newMember.organization}}</p>
+  <p>Department: {{newMember.department}}</p>
+</div>

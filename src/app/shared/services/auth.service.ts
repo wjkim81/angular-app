@@ -17,6 +17,7 @@ export class AuthService {
   isAuthenticated: Boolean = false;
   username: Subject<string> = new Subject<string>();
   name: Subject<string> = new Subject<string>();
+  admin: Subject<boolean> = new Subject<boolean>();
   authToken: string = undefined;
 
   constructor(
@@ -32,6 +33,7 @@ export class AuthService {
       console.log("JWT Token Valid: ", res);
       this.sendUsername(res.member.username);
       this.sendName(res.member.firstname + ' ' + res.member.lastname);
+      this.sendAdmin(res.member.admin);
     },
     err => {
       console.log("JWT Token invalid: ", err);
@@ -47,6 +49,7 @@ export class AuthService {
         console.log("JWT Token Valid: ", res);
         this.sendUsername(res.member.username);
         this.sendName(res.member.firstname + ' ' + res.member.lastname);
+        this.sendAdmin(res.member.admin);
         return res;
       }),
       catchError(this.processHTTPMsgService.handleError)
@@ -67,6 +70,14 @@ export class AuthService {
 
   clearName() {
     this.name.next(undefined);
+  }
+
+  sendAdmin(admin: boolean) {
+    this.admin.next(admin);
+  }
+
+  clearAdmin() {
+    this.admin.next(undefined);
   }
 
   loadUserCredentials() {
@@ -109,6 +120,7 @@ export class AuthService {
     this.isAuthenticated = true;
     this.sendUsername(credentials.username);
     this.sendName(credentials.name);
+    this.sendAdmin(credentials.admin);
     this.authToken = credentials.token;
     console.log('useCredentials authToken: ', this.authToken);
   }
@@ -117,6 +129,7 @@ export class AuthService {
     this.authToken = undefined;
     this.clearUsername();
     this.clearName();
+    this.clearAdmin();
     this.isAuthenticated = false;
     localStorage.removeItem(this.tokenKey);
   }
@@ -133,10 +146,10 @@ export class AuthService {
       .pipe(
         map(res => {
           console.log(res)
-          let credentials = {username: member.username, token: res.token, name: res.name};
+          let credentials = {username: member.username, token: res.token, name: res.name, admin: res.admin};
           this.storeUserCredentials(credentials);
           // this.storeUserCredentials({username: member.username, token: res.token});
-          return {'success': true, 'username': member.username, 'name': res.name };
+          return {'success': true, 'username': member.username, 'name': res.name, 'admin': res.admin };
         }),
         catchError(this.processHTTPMsgService.handleError)
       );
@@ -156,6 +169,10 @@ export class AuthService {
 
   getName(): Observable<string> {
     return this.name.asObservable();
+  }
+
+  getAdmin(): Observable<boolean> {
+    return this.admin.asObservable();
   }
 
   getNameFromStorage(): string {
@@ -203,5 +220,18 @@ export class AuthService {
     const date = this.getTokenExpirationDate(token);
     if(date === undefined) return false;
     return !(date.valueOf() > new Date().valueOf());
+  }
+
+  checkAdmin(): boolean {
+    var credentials = JSON.parse(localStorage.getItem(this.tokenKey));
+    var admin: boolean;
+    if (credentials)
+       admin = credentials.admin;
+    else
+      admin = false;
+      
+    // console.log('getToken: ', authToken);
+    return admin;
+    //return this.authToken;
   }
 }

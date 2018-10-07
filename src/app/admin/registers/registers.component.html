@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row mt-5 mb-5">
+    <div class="offset-2 col-8">
+      <div class="text-center">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" class="btn {{(page === 1) ? 'btn-primary' : 'btn-outline-primary'}}" (click)="changePageTo1()">Member Registration</button>
+          <button type="button" class="btn {{(page === 2) ? 'btn-primary' : 'btn-outline-primary'}}" (click)="changePageTo2()">Organization Registration</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-register-member *ngIf="page === 1"></app-register-member>
+  <app-register-organization  *ngIf="page === 2"></app-register-organization>
+</div>

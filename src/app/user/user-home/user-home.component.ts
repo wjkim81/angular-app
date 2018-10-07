@@ -12,7 +12,6 @@ import { PatientService } from '../../shared/services/patient.service';
 import { AuthService } from '../../shared/services/auth.service';
 import { JWTResponse } from '../../shared/models/response';
 
-import { SUBJECTS, TYPES, COUNTRIES } from '../../shared/models/member-options';
 import { SEXES, PATIENT_TYPES, RISSERS } from '../../shared/models/patient-options';
 
 @Component({
@@ -21,10 +20,6 @@ import { SEXES, PATIENT_TYPES, RISSERS } from '../../shared/models/patient-optio
   styleUrls: ['./user-home.component.scss']
 })
 export class UserHomeComponent implements OnInit {
-
-  subjects: string[];
-  types: string[];
-  countries: string[];
 
   sexes: string[];
   patientTypes: string[];
@@ -63,10 +58,6 @@ export class UserHomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.subjects = SUBJECTS;
-    this.types = TYPES;
-    this.countries = COUNTRIES;
-
     this.sexes = SEXES;
     this.patientTypes = PATIENT_TYPES;
     this.rissers = RISSERS;

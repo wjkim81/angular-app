@@ -1,20 +1,18 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Params, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 
-import { SUBJECTS, TYPES, COUNTRIES } from '../../shared/models/member-options';
+import { DEPARTMENTS } from '../../../shared/models/member-options';
 
 
-import { Member } from '../../shared/models/member';
-import { MemberService } from '../../shared/services/member.service';
+import { Member } from '../../../shared/models/member';
+import { MemberService } from '../../../shared/services/member.service';
 
-import { Organization } from '../../shared/models/organization';
-import { OrganizationService } from '../../shared/services/organization.service';
+import { Organization } from '../../../shared/models/organization';
+import { OrganizationService } from '../../../shared/services/organization.service';
 
-import { PasswordValidation } from '../../shared/services/password-validation';
+import { PasswordValidation } from '../../../shared/services/password-validation';
 
 @Component({
   selector: 'app-register-member',
@@ -26,7 +24,7 @@ export class RegisterMemberComponent implements OnInit {
   //countryOptions: string[];
   //typeOptions: string[];
   organizationOptions: string[];
-  subjectOptions: string[];
+  departmentOptions: string[];
   
   newMember: Member;
   memberForm: FormGroup;
@@ -44,12 +42,8 @@ export class RegisterMemberComponent implements OnInit {
     'confirmPassword': '',
     'firstname': '',
     'lastname': '',
-    //'type': '',
-    'subject': '',
-    //'country': '',
-    'city': '',
-    'address': '',
-    'phoneNum': '',
+    'department': '',
+    'email': '',
     'mobileNum': ''
   };
 
@@ -78,26 +72,15 @@ export class RegisterMemberComponent implements OnInit {
     'lastname': {
       'required': 'Last name is required.',
     },
-    //'type': {
-    //  'required': 'Type is required.',
-    //},
-    'subject': {
-      'required': 'Subject is required.',
-    },
-    //'country': {
-    //  'required': 'Country is required.',
-    //},
-    'city': {
-      'required': 'City is required.',
-    },
-    'address': {
-      'required': 'Address is required.',
-    },
     'organization': {
       'required': 'Organization is required.',
     },
-    'phoneNum': {
-      'required': 'Phone number is required.',
+    'department': {
+      'required': 'Department is required.',
+    },
+    'email': {
+      'required': 'Email is required.',
+      'email': 'Not valid email address'
     },
     'mobileNum': {
       'required': 'Mobile number is required.',
@@ -107,7 +90,6 @@ export class RegisterMemberComponent implements OnInit {
   orgsLoaded: boolean;
 
   constructor(
-    private location: Location,
     private fb: FormBuilder,
     private organizationService: OrganizationService,
     private memberService: MemberService,
@@ -133,7 +115,7 @@ export class RegisterMemberComponent implements OnInit {
       //this.countryOptions = Array.from(new Set(countries));
       //this.typeOptions = Array.from(new Set(types));
       //console.log(this.orgNameOptions);
-      this.subjectOptions = SUBJECTS;
+      this.departmentOptions = DEPARTMENTS;
 
       this.orgsLoaded = true;
       this.showMemberInfo = false;
@@ -151,15 +133,10 @@ export class RegisterMemberComponent implements OnInit {
       confirmPassword: ['', [Validators.required]],
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
-      //type: [this.typeOptions[0], Validators.required],
-      subject: [this.subjectOptions[0], Validators.required],
-      //country: [this.countryOptions[0], Validators.required],
-      city: ['', Validators.required],
-      address: ['', Validators.required],
+      department: [this.departmentOptions[0], Validators.required],
       organization: [this.organizations[0]._id, Validators.required],
-      postCode: '',
-      managerName: '',
-      phoneNum: ['', Validators.required],
+      // email: ['', Validators.required, Validators.email],
+      email: ['', Validators.required],
       mobileNum: ['', Validators.required]
     },
     {
@@ -207,15 +184,9 @@ export class RegisterMemberComponent implements OnInit {
           confirmPassword: '',
           firstname: '',
           lastname: '',
-          //type: this.typeOptions[0],
-          subject: this.subjectOptions[0],
-          //country: this.countryOptions[0],
-          city: '',
-          address: '',
+          department: this.departmentOptions[0],
           organization: this.organizations[0]._id,
-          postCode: '',
-          managerName: '',
-          phoneNum: '',
+          email: '',
           mobileNum: ''
         });
 

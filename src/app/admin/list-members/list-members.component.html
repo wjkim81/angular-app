@@ -25,9 +25,9 @@
         </select>
       </div>
       <div class="col-12 col-sm-6 col-md-2">
-        <select class="form-control" formControlName="subject">
-          <option value="">All subjetcs</option>
-          <option *ngFor="let subject of subjectOptions">{{subject}}</option>
+        <select class="form-control" formControlName="department">
+          <option value="">All departments</option>
+          <option *ngFor="let department of departmentOptions">{{department}}</option>
         </select>
       </div>
       <div class="col-12 col-sm-12 offset-md-2 col-md-2">
@@ -46,16 +46,13 @@
                 [value]="checkedAll"
                 (change)="checkAllMember()"></th> -->
               <th>ID</th>
-              <th>First Name</th>
-              <th>Last Name</th>
+              <th>Name</th>
               <th>Country</th>
               <th>Type</th>
               <th>Organization</th>
               <th>Subject</th>
               <th>City</th>
               <th>Address</th>
-              <!--<th># of patients</th>-->
-              <!--<th>Status</th>-->
             </tr>
           </thead>
           <tbody>
@@ -64,15 +61,13 @@
               (change)="changeCheckedMembers(i)"
               [checked]="checkedMembers[i]"></td> -->
               <td>{{member.username}}</td>
-              <td>{{member.firstname}}</td>
-              <td>{{member.lastname}}</td>
+              <td>{{member.firstname}} {{member.lastname}}</td>
               <td>{{member.organization.country}}</td>
               <td>{{member.organization.type}}</td>
               <td>{{member.organization.name}}</td>
               <td>{{member.subject}}</td>
               <td>{{member.city}}</td>
               <td>{{member.address}}</td>
-              <!--<td>{{numAllPatients}}</td>-->
               <td></td>
             </tr>
           </tbody>

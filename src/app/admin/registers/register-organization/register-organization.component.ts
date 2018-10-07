@@ -2,13 +2,12 @@ import { Component, OnInit, Inject } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { SUBJECTS, TYPES, COUNTRIES } from '../../shared/models/member-options';
-import { Organization } from '../../shared/models/organization';
+import { TYPES, COUNTRIES } from '../../../shared/models/member-options';
+import { Organization } from '../../../shared/models/organization';
 
-import { OrganizationService } from '../../shared/services/organization.service';
+import { OrganizationService } from '../../../shared/services/organization.service';
 
 @Component({
   selector: 'app-register-organization',
@@ -30,8 +29,11 @@ export class RegisterOrganizationComponent implements OnInit {
 
   formErrors = {
     'name': '',
-    'country': '',
     'type': '',
+    'country': '',
+    'city': '',
+    'address': '',
+    'postCode': ''
   };
 
   validationMessages = {
@@ -39,12 +41,21 @@ export class RegisterOrganizationComponent implements OnInit {
       'required': 'ID is required.',
       'minlength': 'Name must be at least 4 characters long.',
     },
-    'country': {
-      'required': 'Password is required.'
-    },
     'type': {
-      'required': 'Confirm Password is required.'
+      'required': 'Type is required.'
     },
+    'country': {
+      'required': 'Country is required.'
+    },
+    'city': {
+      'required': 'City is required.'
+    },
+    'address': {
+      'required': 'Address is required.'
+    },
+    'postCode': {
+      'required': 'Post Code is required.'
+    }
   };
 
   constructor(
@@ -68,9 +79,11 @@ export class RegisterOrganizationComponent implements OnInit {
   createForm() {
     this.orgForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(4) ]],
-      country: [this.countries[0], [Validators.required]],
       type: [this.types[0], [Validators.required]],
-
+      country: [this.countries[0], [Validators.required]],
+      city: ['', [Validators.required]],
+      address: ['', [Validators.required]],
+      postCode: ['', [Validators.required]]
     });
 
     this.orgForm.valueChanges
@@ -110,8 +123,11 @@ export class RegisterOrganizationComponent implements OnInit {
     setTimeout(() => {
       this.orgForm.reset({
         name: '',
+        type: this.types[0],
         country: this.countries[0],
-        type: this.types[0]
+        city: '',
+        address: '',
+        postCode: ''
       });
 
       this.showOrganizationInfo = false;

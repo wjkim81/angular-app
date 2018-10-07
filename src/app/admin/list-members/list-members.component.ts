@@ -15,7 +15,7 @@ export class ListMembersComponent implements OnInit {
   countryOptions: string[];
   typeOptions: string[];
   orgOptions: string[];
-  subjectOptions: string[];
+  departmentOptions: string[];
   
   memberFilterForm: FormGroup;
 
@@ -41,7 +41,7 @@ export class ListMembersComponent implements OnInit {
       'type': '',
       //'organization': {value: '', disabled: true},
       'organization': '',
-      'subject': ''
+      'department': ''
       /*
       'type': {value: '', disabled: true}, 
       'organization': {value: '', disabled: true}, 
@@ -60,18 +60,18 @@ export class ListMembersComponent implements OnInit {
       var countries: string[] = [];
       var organizations: string[] = [];
       var types: string[] = [];
-      var subjects: string[] = [];
+      var departments: string[] = [];
       for (var i = 0; i < members.length; i++) {
         countries.push(members[i].organization.country);
         types.push(members[i].organization.type);
         organizations.push(members[i].organization.name);
-        subjects.push(members[i].subject);
+        departments.push(members[i].department);
       }
 
       this.countryOptions = Array.from(new Set(countries));
       this.typeOptions = Array.from(new Set(types));
       this.orgOptions = Array.from(new Set(organizations));
-      this.subjectOptions = Array.from(new Set(subjects));
+      this.departmentOptions = Array.from(new Set(departments));
 
       this.removeBtnDisabled = true;
     }, (membersErrMsg) => {
@@ -94,8 +94,8 @@ export class ListMembersComponent implements OnInit {
       if (this.memberFilterForm.value.organization !== '') {
         if (member.organization.name != this.memberFilterForm.value.organization) included = false;
       }
-      if (this.memberFilterForm.value.subject !== '') {
-        if (member.subject != this.memberFilterForm.value.subject) included = false;
+      if (this.memberFilterForm.value.department !== '') {
+        if (member.department != this.memberFilterForm.value.department) included = false;
       }
       //console.log(member);
       return included;

@@ -11,10 +11,8 @@ import { OrganizationService } from '../../shared/services/organization.service'
 import { Patient } from '../../shared/models/patient';
 import { PatientService } from '../../shared/services/patient.service';
 
-import { AuthService } from '../../shared/services/auth.service';
 import { JWTResponse } from '../../shared/models/response';
 
-import { SUBJECTS, TYPES, COUNTRIES } from '../../shared/models/member-options';
 import { SEXES, PATIENT_TYPES, RISSERS } from '../../shared/models/patient-options';
 
 @Component({
@@ -23,10 +21,6 @@ import { SEXES, PATIENT_TYPES, RISSERS } from '../../shared/models/patient-optio
   styleUrls: ['./admin-home.component.scss']
 })
 export class AdminHomeComponent implements OnInit {
-
-  subjects: string[];
-  types: string[];
-  countries: string[];
 
   sexOptions: string[];
   patientTypeOptions: string[];
@@ -70,9 +64,6 @@ export class AdminHomeComponent implements OnInit {
 
   ngOnInit() {
     console.log('admin-home');
-    this.subjects = SUBJECTS;
-    this.types = TYPES;
-    this.countries = COUNTRIES;
 
     this.sexOptions = SEXES;
     this.patientTypeOptions = PATIENT_TYPES;

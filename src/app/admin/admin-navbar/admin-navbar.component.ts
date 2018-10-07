@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Params, Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 import { AuthService } from '../../shared/services/auth.service';
 
@@ -12,23 +11,22 @@ import { AuthService } from '../../shared/services/auth.service';
 })
 export class AdminNavbarComponent implements OnInit {
 
-  admin: string;
+  user: string;
   navbarCollapsed: boolean;
 
   constructor(
     private router: Router,
-    private location:Location,
-    private authservice: AuthService
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
-    this.admin = 'test admin';
+    this.user = this.authService.getNameFromStorage();
     this.navbarCollapsed = true;
   }
 
   logOut() {
-    console.log('Lot out');
-    this.authservice.logOut();
-    this.router.navigate(['user-login']);
+    console.log('Log out');
+    this.authService.logOut();
+    this.router.navigate(['login']);
   }
 }

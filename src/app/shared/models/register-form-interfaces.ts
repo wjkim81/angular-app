@@ -57,3 +57,24 @@ export interface BodyMeasurementForm {
   hip: string; // Need to be converted to number before post
   valid: boolean; // Need to be converted to number before post
 }
+
+export interface MemberForm {
+  username: string;
+  password: string;
+  firstname: string;
+  lastname: string;
+  organization: string;
+  department: string;
+  email: string;
+  mobileNum: string;
+}
+
+export interface OrganinzationForm {
+  name: string;
+  country: string;
+  type: string;
+  city: string;
+  address: string;
+  postCode: string;
+  managerName: string;
+}
